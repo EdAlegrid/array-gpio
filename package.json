@@ -1,0 +1,50 @@
+{
+  "name": "array-gpio",
+  "version": "1.5.1",
+  "description": "array-gpio is low-level javascript library for Raspberry Pi using direct register control.",
+  "main": "index.js",
+  "cpu" : ["arm"],
+  "os": ["linux"],
+  "scripts": {
+    "test": "nyc mocha test/*.test.js",
+    "install": "node-gyp rebuild"
+  },
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "nan": "^2.14.1"
+  },
+  "devDependencies": {
+    "mocha": "^8.0.1",
+    "nyc": "^15.1.0",
+    "sinon": "^9.0.2",
+    "colors": "^1.1.2"
+  },
+  "license": "MIT",
+  "directories": {},
+  "engines": {
+    "node": ">= 5.0.0"
+  },
+  "gypfile": true,
+  "keywords": [
+    "bcm2835",
+    "gpio",
+    "pi",
+    "raspberry",
+    "raspberrypi",
+    "raspberry pi",
+    "raspberry pi 3",
+    "rpi",
+    "rpio",
+    "onoff",
+    "pwm",
+    "i2c",
+    "spi",
+    "m2m",
+    "iot",
+    "IoT"
+  ],
+  "author": {
+    "name": "Ed Alegrid",
+    "email": "ealegrid@gmail.com"
+  }
+}
