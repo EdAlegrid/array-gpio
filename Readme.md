@@ -110,9 +110,7 @@ let sw2 = r.in(13);
 
 let led = r.out(33);
 
-/* The .watchInput() method will monitor all inputs.
-	 The callback argument will be invoked if one of the input's state changes.
-   Press the sw1 button to turn on the led, press the sw2 button to turn off the led */
+/* The .watchInput() method will monitor all inputs.The callback argument will be invoked if one of the input's state changes.Press the sw1 button to turn on the led, press the sw2 button to turn off the led */
 r.watchInput(() => {
   if(sw1.isOn){
     led.on();
