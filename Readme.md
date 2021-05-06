@@ -21,7 +21,7 @@ For IoT or machine-to-machine applications, please check [m2m](https://www.npmjs
 ### Supported Raspberry Pi Devices
 * Model: B+, 2, 3, Zero & Zero W, Compute Module 3, 3B+, 3A+, 4 (generally all 40-pin models)
 
-* For model 3B+ and 4, this module also works on 64 bit Ubuntu 20+
+* This module works on 64-bit Ubuntu Server 20+ for Raspberry 4 & 3b+
 
 ### GPIO pin numbering
 This module uses pin numbers based on the *physical pin numbers 1~40* from the board header.
@@ -181,25 +181,28 @@ r.watchInput(() => {
 
 ```
 ### Example 6
-#### Create an output .pulse(pw)
+#### Create a simple output .pulse(pw)
 ```js
-const r = require('array-gpio');
+const {setInput, setOutput, watchInput} = require('array-gpio');
 
-let sw1 = r.in(11);
-let sw2 = r.in(13);
+let sw1 = setInput(11);
+let sw2 = setInput(13);
+let sw3 = setInput(15);
 
-let led = r.out(33);
+let led = setOutput(33);
 
-r.watchInput(() => {
+watchInput(() => {
+  /* press sw1 to pulse the led with a duration of 50 ms */  
   if(sw1.isOn){
-    /* led will turn on instantly and turns off after 100 ms
-    with a pulse duration of 100 ms */
-    led.pulse(100);
+    led.pulse(50);
   }
+  /* press sw2 to pulse the led with a duration of 200 ms */
   else if(sw2.isOn){
-    /* led turn ons instantly and turns off after 300 ms
-      with a pulse duration of 300 ms */
-    led.pulse(300);
+    led.pulse(200);
+  }
+  /* press sw3 to pulse the led with a duration of 1000 ms or 1 sec */
+  else if(sw2.isOn){
+    led.pulse(1000);
   }
 });
 ```
