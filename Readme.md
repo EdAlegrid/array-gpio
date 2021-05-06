@@ -21,11 +21,13 @@ For IoT or machine-to-machine applications, please check [m2m](https://www.npmjs
 ### Supported Raspberry Pi Devices
 * Model: B+, 2, 3, Zero & Zero W, Compute Module 3, 3B+, 3A+, 4 (generally all 40-pin models)
 
+* For model 3B+ and 4, this module also works on 64 bit Ubuntu 20+
+
 ### GPIO pin numbering
 This module uses pin numbers based on the *physical pin numbers 1~40* from the board header.
 
 ### Node.js Requirements
-* Node.js version: 8.x, 9.x, 10.x, 11.x, 12.x
+* Node.js version: 8.x, 9.x, 10.x, 11.x, 12.x, 14.x
 
 ## Installation
 ```console
@@ -43,20 +45,12 @@ Create an input and output object
 // create a raspberry pi object
 const r = require('array-gpio');
 
-/* Connect a momentary switch button on pin 11 and an led on pin 33 */ 
+/* Connect a momentary switch button on pin 11 and an led on pin 33 */
 
-// set pin 11 as input
-let sw = r.setInput(11);
-
-// set pin 33 as output
-let led = r.setOutput(33);
-
-// using .in() and .out() method
-
-// set pin 11 as input
+// set pin 11 as input switch
 let sw = r.in(11);
 
-// set pin 33 as output
+// set pin 33 as output led
 let led = r.out(33);
 ```
 
@@ -68,8 +62,9 @@ const r = require('array-gpio');
 let sw = r.in(11);
 let led = r.out(33);
 
-/* Pressing the sw button will turn on the led,
-   releasing the sw button will turn off the led. */
+/* Pressing the switch sw button will turn on the led,
+   releasing the switch sw button will turn off the led. */
+
 sw.watch((state) => {
   if(state){
     led.on();
@@ -88,8 +83,8 @@ const r = require('array-gpio');
 let sw = r.in(11);
 let led = r.out(33);
 
-// .isOn and .isOff are own properties of input/output objects when they are created
-// Check the current state of an input/output object
+/* .isOn and .isOff are own properties of input/output objects when they are created
+   Check the current state of an input/output object */
 
 console.log(sw1.isOn); // false
 console.log(led.isOn); // false
@@ -99,18 +94,21 @@ console.log(led.isOff); // true
 
 ```
 ### Example 3
-#### Monitor multiple input pins 
+#### Monitor multiple input pins
 ```js
 const r = require('array-gpio');
 
-/* Connect momentary switch buttons on pin 11 and 13 and an led on pin 33 */ 
+/* Connect momentary switch buttons on pin 11 and 13 and an led on pin 33 */
 
 let sw1 = r.in(11);
 let sw2 = r.in(13);
 
 let led = r.out(33);
 
-/* The .watchInput() method will monitor all inputs.The callback argument will be invoked if one of the input's state changes.Press the sw1 button to turn on the led, press the sw2 button to turn off the led */
+/* The .watchInput() method will monitor all inputs.
+   The callback argument will be invoked if one of the input's state changes.
+   Press the sw1 button to turn on the led, press the sw2 button to turn off the led */
+
 r.watchInput(() => {
   if(sw1.isOn){
     led.on();
@@ -126,20 +124,20 @@ r.watchInput(() => {
 ```js
 const r = require('array-gpio');
 
-/* Connect a momentary switch button for each input pin and an led for each output pin */ 
+/* Connect a momentary switch button for each input pin and an led for each output pin */
 
 let inputOption = {pin:[11, 13], index:'pin'};
 let outputOption = {pin:[33, 35, 37, 36, 38, 40], index:'pin'};
 
-const sw = r.setInput(inputOption);
-const led = r.setOutput(outputOption);
+const sw = r.in(inputOption);
+const led = r.out(outputOption);
 
 // turn on the led's sequentially
 let LedOn = () => {
   let t = 0;   // initial on time delay in ms
   for(let x in led){
     t += 50;
-    led[x].on(t); 
+    led[x].on(t);
   }
 }
 
@@ -148,7 +146,7 @@ let LedOff = () => {
   let t = 0; // initial off time delay in ms
   for(let x in led){
     t += 50;
-    led[x].off(t); 
+    led[x].off(t);
   }
 }
 
@@ -166,7 +164,7 @@ r.watchInput(() => {
 ## API
 Note:
 
-This module uses pin numbering based on the physical pin numbers 1~40 from the board header. 
+This module uses pin numbering based on the physical pin numbers 1~40 from the board header.
 
 ### setInput(arg)
 
@@ -176,7 +174,8 @@ or
 
 Sets a GPIO pin or group of GPIO pins as input object.
 
-**arg** A valid GPIO pin number or an object argument.
+**arg**
+Any valid GPIO pin number or an object argument.
 
 #### Single Object
 ```js
@@ -205,7 +204,7 @@ const input = r.in(inputOption);
 // (indexed from 0 to n-1, where n is the array.length).
 
 /* Get the current logical state of each input element */
-console.log(input[0].state); 
+console.log(input[0].state);
 console.log(input[1].state);
 console.log(input[2].state);
 ```
@@ -219,7 +218,7 @@ let  inputOption = {pin:[11, 13, 15], index: 'pin'};
 const input = r.setInput(inputOption);
 
 /* Get the current logical state of each input element using pin as index */
-console.log(input[11].state); 
+console.log(input[11].state);
 console.log(input[13].state);
 console.log(input[15].state);
 
@@ -322,7 +321,7 @@ Watches the logical state of an input object for changes or state transitions.
 
 `'both'` - watches both state transitions
 
-If edge argument is not provided, it will watch both transitions same as `'both'`. 
+If edge argument is not provided, it will watch both transitions same as `'both'`.
 
 **callback**
 
@@ -367,7 +366,7 @@ const r = require('array-gpio');
 let sw1 = r.in(11);
 let led = r.out(33);
 
-// pressing the sw1 button will turn on the led then turns off after 1000 ms delay 
+// pressing the sw1 button will turn on the led then turns off after 1000 ms delay
 // releasing the sw1 button will do nothing
 sw1.watch(1, (state) => {
 
@@ -395,7 +394,7 @@ Returns logical **1** value if the object state is in *high* or *ON* state condi
 
 The optional **callback** parameter will be invoked asynchronously after returning the object state condition.
 
-This method is similar to **state** property but as a method property, you can use a 
+This method is similar to **state** property but as a method property, you can use a
 callback argument to execute any additional application logic based on the object state condition.
 
 ##### Example
@@ -434,7 +433,7 @@ console.log(led.pin); // 33
 
 `input/output method`
 
-Closes an input/output object. Removes any events (pin watching) from the object and resets the pin to GPIO input. 
+Closes an input/output object. Removes any events (pin watching) from the object and resets the pin to GPIO input.
 
 ##### Example 1
 ```js
@@ -503,7 +502,7 @@ sw[2].setR();
 
 Monitor multiple input objects all at once from the main module using **.watchInput()** method.
 
-It will watch both state transistions from *low* to *high* and vice versa for all inputs. 
+It will watch both state transistions from *low* to *high* and vice versa for all inputs.
 
 The **callback** argument is shared by all input objects. It will be invoked asynchronously if any of the input objects changes state.
 
@@ -599,7 +598,8 @@ or
 
 Sets a GPIO pin or group of GPIO pins as output object.
 
-**arg** A valid GPIO pin number or an object argument.
+**arg**
+Any valid GPIO pin number or an object argument.
 
 
 #### Single Object
@@ -635,7 +635,7 @@ const output = r.out(outputOption);
 // (indexed from 0 to n-1, where n is the array.length).
 
 /* Get the current logical state of each output element */
-console.log(output[0].state); 
+console.log(output[0].state);
 console.log(output[1].state);
 console.log(output[2].state);
 ```
@@ -647,7 +647,7 @@ let outputOption = {pin:[33, 35, 36], index:'pin'};
 const output = r.setOutput(outputOption);
 
 /* Get the current logical state of each output element using pin as index */
-console.log(output[33].state); 
+console.log(output[33].state);
 console.log(output[35].state);
 console.log(output[36].state);
 
@@ -667,9 +667,9 @@ output.forEach(function(val, index){
 
 `output method`
 
-Sets the state of an output object to logical *high* state condition (*true*) or *low* state condition (*false*). 
+Sets the state of an output object to logical *high* state condition (*true*) or *low* state condition (*false*).
 
-**t** is an optional time delay in milliseconds. 
+**t** is an optional time delay in milliseconds.
 
 The state will change after the duration of time delay *t*.
 
@@ -691,7 +691,7 @@ let actuator2 = r.out(35);
 r.watchInput(() => {
   if(sw1.isOn && actuator1.isOff){
     actuator1.on(200); // turns on after 200 ms delay
-    actuator2.on((state) => { 
+    actuator2.on((state) => {
       if(state){
         console.log('actuator2 is on');
       }
@@ -720,7 +720,7 @@ This is the conventional way of setting the ouput state to *high* or *low* state
 
 `0` or `false` - low or OFF state
 
-**callback** 
+**callback**
 
 The optional callback argument will be invoked asynchronously after the output state has changed.
 
@@ -793,7 +793,7 @@ r.watchInput(() => {
 
 ***
 
-**Note:** Currently PWM will work on all Raspberry Pi models except on Raspberry Pi 4B model due to firmware issues. Hopefully, it will be fixed in the next latest release of Raspbian OS. 
+**Note:** Currently PWM will work on all Raspberry Pi models except on Raspberry Pi 4B model due to firmware issues. Hopefully, it will be fixed in the next latest release of Raspbian OS.
 
 ### setPWM(pin)
 
@@ -814,7 +814,7 @@ the control values (setRange and setData) from one of the peripherals.
 
 ### setClockFreq(div)
 
-**div** 
+**div**
 
 The divisor value to calculate the desired clock frequency from a fixed oscillator freq of 19.2 MHz.
 
@@ -882,7 +882,7 @@ setTimeout(function(){
 
 ### setPWM(pin, freq, T, pw)
 
-Creates a pwm object from a predefined clock frequencies of `10`, `100`, or `1000` kHz that will provide different time resolutions 
+Creates a pwm object from a predefined clock frequencies of `10`, `100`, or `1000` kHz that will provide different time resolutions
 for the **T** (period) and **pw** (pulse width) of your desired pwm pulse.
 
 **pin**
@@ -891,7 +891,7 @@ Choose from channel 1 (12, 32) or channel 2 (33, 35).
 
 **freq** (kHz)
 
-Choose a predefined clock oscillator frequency of `10`, `100`, or `1000` kHz 
+Choose a predefined clock oscillator frequency of `10`, `100`, or `1000` kHz
 
 `10`   kHz provides *0.1* ms resolution
 
@@ -899,7 +899,7 @@ Choose a predefined clock oscillator frequency of `10`, `100`, or `1000` kHz
 
 `1000` kHz provides *0.001* ms or *1* uS (microsecond) resolution
 
-**T** (ms) 
+**T** (ms)
 
 The initial cycle period of the pulse.
 
@@ -990,7 +990,7 @@ process.on('SIGINT', () => {
 
 Sets i2c pins 03 (SDA) and 05 (SCL) to its alternate function (ALT0) for i2c operation.
 
-Returns an i2c object with properties to configure the I2C interface to start the i2c data transfer operation. 
+Returns an i2c object with properties to configure the I2C interface to start the i2c data transfer operation.
 
 This operation requires root access.
 
@@ -1044,7 +1044,10 @@ Read a number of bytes from the currently selected i2c slave device.
 ![](https://raw.githubusercontent.com/EdoLabs/src3/master/i2c-example.svg?sanitize=true)
 
 ```js
-/* Using MCP9808 Temperature Sensor */
+/* Using MCP9808 Temperature Sensor
+ *   
+ * Please read the MCP9808 datasheet on how to configure the chip for more details.
+ */
 
 const r = require('array-gpio');
 
@@ -1064,7 +1067,7 @@ const wbuf = Buffer.alloc(16); // write buffer
 const rbuf = Buffer.alloc(16); // read buffer
 
 /* accessing the internal 16-bit manufacturer ID register within MCP9808 */
-wbuf[0] = 0x06; // From the MCP9808 datasheet, set the address of the manufacturer ID register to the write buffer
+wbuf[0] = 0x06; // from the MCP9808 datasheet, set the address of the manufacturer ID register to the write buffer
 i2c.write(wbuf, 1); // writes 1 data byte to the slave device selecting the MCP9808 manufacturer ID register for data access
 
 /* master (rpi) device will now read the content of the 16-bit manufacturer ID register (should be 0x54 as per datasheet) */
@@ -1084,12 +1087,12 @@ function getTemp(){
 
   UpperByte = UpperByte & 0x1F; // Clear flag bits
 
-  // Temp < 0�C
+  /* Temp < 0 C */
   if ((UpperByte & 0x10) == 0x10){
 	UpperByte = UpperByte & 0x0F; // Clear SIGN
 	Temp = 256 - ((UpperByte * 16) + (LowerByte / 16));
 
-  // Temp > 0�C
+  /* Temp > 0 C */
   }else {
 	Temp = ((UpperByte * 16) + (LowerByte / 16));
   }
@@ -1101,11 +1104,8 @@ function getTemp(){
 
 /* get temperature readings every 2 seconds */
 setInterval( function(){
-
-  /*
-   * accessing the internal 16-bit configuration register within MCP9808
-   * You can skip accessing this register using default settings
-   */
+  /* accessing the internal 16-bit configuration register within MCP9808
+     You can skip accessing this register using default settings */
   wbuf[0] = 0x01; // address of the configuration register
   /* change content of configuration register */
   wbuf[1] = 0x02; // register upper byte, THYST set with +1.5 C
@@ -1114,7 +1114,7 @@ setInterval( function(){
 
   /* accessing the internal 16-bit ambient temp register within MCP9808 */
   wbuf[0] = 0x05; // address of ambient temperature register
-  i2c.write(wbuf, 1); 
+  i2c.write(wbuf, 1);
 
   /* read the content of ambient temp register */
   i2c.read(rbuf, 2); // read the UpperByte and LowerByte data
@@ -1137,7 +1137,7 @@ process.on('SIGINT', function (){
 
 Sets SPI0 bus pins 19 (MOSI), 21 (MISO), 23 (CLK), 24 (CE0) and 26 (CE1) to its alternate function (ALT0) for spi operation.
 
-Returns an spi object with properties to configure the SPI interface. 
+Returns an spi object with properties to configure the SPI interface.
 
 This operation requires root access.
 
@@ -1176,7 +1176,7 @@ Sets the chip select pin(s).
 
 When data transfer starts, the selected pin(s) will be asserted or held in active state (usually active **low**) during data transfer.
 
-**cs** 
+**cs**
 
 Choose from one of cs values below.
 ```code
@@ -1188,7 +1188,7 @@ cs = 3,  No Chip Select
 
 ### setCSPolarity(cs, active)
 
-Change the active state of the chip select pin. 
+Change the active state of the chip select pin.
 
 **cs**
 
@@ -1253,15 +1253,12 @@ Stops the SPI data transfer operations. SPI0 pins 19 (MOSI), 21 (MISO), 23 (CLK)
 ![](https://raw.githubusercontent.com/EdoLabs/src3/master/spi-example.svg?sanitize=true)
 
 ```js
-/* Using MCP3008 10-bit A/D Converter Chip */
-
-/*
- * VDD and Vref are connected to Raspberry Pi 3.3 V
- * Channel 0 (pin 1) will be used for analog input voltage using single-ended mode
- * Since Vref is set to 3.3 V, max. analog input voltage
- * should not be greater than 3.3 V
+/* Using MCP3008 10-bit A/D Converter Chip
  *
- * Read the MCP3008 datasheet on how to configure the chip for more details
+ * In this example, we will connect the Vdd and Vref pins to the Raspberry Pi's 3.3 V.
+ * Channel 0 (pin 1) will be used for analog input voltage using single-ended mode.
+ *
+ * Please read the MCP3008 datasheet on how to configure the chip for more details.
  */
 
 const r = require('array-gpio');
