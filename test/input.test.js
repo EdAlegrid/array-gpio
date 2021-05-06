@@ -19,20 +19,38 @@ let pin5 = 33;
 let pin6 = 35;
 
 describe('\nCreating an input object ...', function () {
+  describe('Create a single input object using .setInput() method', function () {
+    it('should return an output object', function (done) {
+     
+      let input = r.setInput(pin1);
+
+      assert.strictEqual( typeof input, 'object');
+      assert.strictEqual( input.pin, pin1);
+      assert.strictEqual( input.state, false);
+      assert.strictEqual( input.isOff, true);
+      assert.strictEqual( typeof input.setR, 'function');
+			assert.strictEqual( typeof input.watch, 'function');
+      assert.strictEqual( typeof input.read, 'function');
+      assert.strictEqual( typeof input.unwatch, 'function');
+
+      done();
+
+    });
+  });
   describe('Create an input object w/ invalid pin 45', function () {
     it('should throw an error', function (done) {
        
     try{
-	  	let input = r.setInput(45);
+      let input = r.setInput(45);
     }
     catch(e){
-			console.log(e.message);
-			assert.strictEqual(e.message, 'invalid pin');
+      console.log(e.message);
+      assert.strictEqual(e.ReferenceError, undefined);
+      assert.strictEqual(e.message, 'invalid pin');
       done();
     }
 
-		throw e;
-    done();
+    throw 'unexpected error';
 
     });
   });
@@ -40,16 +58,16 @@ describe('\nCreating an input object ...', function () {
     it('should throw an error', function (done) {
        
     try{
-	  	let input = r.setInput(1);
+      let input = r.setInput(1);
     }
     catch(e){
-			console.log(e.message);
-			assert.strictEqual(e.message, 'invalid pin');
+      console.log(e.message);
+      assert.strictEqual(e.ReferenceError, undefined);
+      assert.strictEqual(e.message, 'invalid pin');
       done();
     }
 
-		throw e;
-    done();
+    throw 'unexpected error';
 
     });
   });
@@ -59,19 +77,17 @@ describe('\nCreating an input object ...', function () {
     let input = null;
 
     try{
-	  	input = r.setInput(13);
+      input = r.setInput(13);
     }
     catch(e){
-			console.log(e.message);
-			assert.strictEqual(e.message, 'invalid pin');
-      done();
+      throw 'unexpected error';
     }
 
     if(input.isOn){
-      throw 'invalid test';
+      throw 'unexpected error';
     }
 
-		input.close();
+    input.close();
     done();
 
     });
@@ -80,51 +96,49 @@ describe('\nCreating an input object ...', function () {
     it('should throw an error', function (done) {
        
     try{
-	  	let input = r.setInput();
+      let input = r.setInput();
     }
     catch(e){
-			console.log(e.message);
-			assert.strictEqual(e.message, 'invalid pin');
+      console.log(e.message);
+      assert.strictEqual(e.message, 'invalid pin');
       done();
     }
 
-		throw e;
-    done();
+    throw 'unexpected error';
 
     });
   });
-	describe('Create an input object w/ a string 1st argument', function () {
+  describe('Create an input object w/ a string 1st argument', function () {
     it('should throw an error', function (done) {
        
     try{
-	  	let input = r.setInput('11');
+      let input = r.setInput('11');
     }
     catch(e){
-			console.log(e.message);
-			assert.strictEqual(e.message, 'invalid pin');
+      console.log(e.message);
+      assert.strictEqual(e.message, 'invalid pin');
       done();
     }
 
-		throw e;
-    done();
+    throw 'unexpected error';
 
     });
   });
-	describe('Create an input object w/ function or callback as 1st argument', function () {
+  describe('Create an input object w/ function or callback as 1st argument', function () {
     it('should throw an error', function (done) {
       
     let callback = function(){} 
 
     try{
-	  	let input = r.setInput(callback);
+      let input = r.setInput(callback);
     }
     catch(e){
-			console.log(e.message);
-			assert.strictEqual(e.message, 'invalid pin');
+      console.log(e.message);
+      assert.strictEqual(e.message, 'invalid pin');
       done();
     }
 
-		throw 'invalid test';
+    throw 'unexpected error';
 
     });
   });
@@ -132,31 +146,31 @@ describe('\nCreating an input object ...', function () {
     it('should throw an error', function (done) {
        
     try{
-	  	let input = r.setInput({});
+      let input = r.setInput({});
     }
     catch(e){
-			console.log(e.message);
-			assert.strictEqual(e.message, 'invalid pin');
+      console.log(e.message);
+      assert.strictEqual(e.message, 'invalid pin');
       done();
     }
 
-		throw 'invalid test';
+    throw 'unexpected error';
 
     });
   });
-	describe('Create an input array object w/ empty pin array', function () {
+  describe('Create an input array object w/ empty pin array', function () {
     it('should throw an error', function (done) {
        
     try{
-	  	let input = r.setInput({pin:[]});
+      let input = r.setInput({pin:[]});
     }
     catch(e){
-			console.log(e.message);
-			assert.strictEqual(e.message, 'invalid pin');
+      console.log(e.message);
+      assert.strictEqual(e.message, 'invalid pin');
       done();
     }
 
-		throw 'invalid test';
+    throw 'unexpected error';
 
     });
   });
@@ -165,13 +179,17 @@ describe('\nCreating an input object ...', function () {
      
     let input = null;  
     try{
-	  	input = r.setInput({pin:[13]});
+      input = r.setInput({pin:[13]});
     }
     catch(e){
-			throw 'invalid test';
+      throw 'unexpected error';
     }
     assert.strictEqual( typeof input, 'object');
-		assert.strictEqual( Array.isArray(input), true);
+    assert.strictEqual( Array.isArray(input), true);
+    assert.strictEqual( typeof input[0], 'object');
+
+    //input[0] = {_index: 0, pin: 13, setR: [Function: intR] }
+    assert.strictEqual( input[0].pin, 13);
 		
     done();
 
@@ -183,25 +201,31 @@ describe('\nCreating an input object ...', function () {
      
     let input = null;  
     try{
-	  	input = r.setInput(13);
+      input = r.setInput(13);
     }
     catch(e){
-			throw 'invalid test';
+      throw 'unexpected error';
     }
 
     assert.strictEqual( typeof input, 'object');
-
-		done();
+    assert.strictEqual( typeof input.pin, 'number');
+    assert.strictEqual( input.pin, 13);
+    done();
 
     });
   });
 
   describe('Create a single input object using .in() method', function () {
     it('should return an input object', function (done) {
-       
-	  	let input = r.in(pin1);
 
-			input.open();
+      let input = null; 
+      try{
+        input = r.in(pin1);
+        input.open();
+      }
+      catch(e){
+        throw 'unexpected error';
+      } 
 
       assert.strictEqual( typeof input, 'object');
       assert.strictEqual( input.pin, 11);
@@ -214,9 +238,14 @@ describe('\nCreating an input object ...', function () {
   describe('Create multiple input objects using .setInput() method', function () {
     it('should return multiple input objects corresponding with the input pins', function (done) {
  
-      let sw1 = r.setInput(pin1);
-
-      let sw2 = r.setInput(pin2);
+      let sw1, sw2;
+      try{
+        sw1 = r.setInput(pin1);
+        sw2 = r.setInput(pin2);
+      }
+      catch(e){
+        throw 'unexpected error';
+      } 
 
       assert.strictEqual( typeof sw1, 'object');
       assert.strictEqual( typeof sw2, 'object');
@@ -232,9 +261,16 @@ describe('\nCreating an input object ...', function () {
   });
   describe('Create multiple input objects using .in() method', function () {
     it('should return multiple input objects corresponding with the input pins', function (done) {
+
+      let sw1, sw2;
  
-      let sw1 = r.in(pin1);
-      let sw2 = r.in(pin2);
+      try{ 
+        sw1 = r.in(pin1);
+        sw2 = r.in(pin2);
+      }	
+      catch(e){
+        throw 'unexpected error';
+      } 
 
       assert.strictEqual( typeof sw1, 'object');
       assert.strictEqual( typeof sw2, 'object');
@@ -252,7 +288,13 @@ describe('\nCreating an input object ...', function () {
   describe('Create an array input object using .setInput(pin1, pin2 ...) method', function () {
     it('should return an an array object', function (done) {
 
-	  	let input = r.setInput(pin1, pin2, {index:'pin'});
+      let input = null;
+      try{
+        input = r.setInput(pin1, pin2, {index:'pin'});
+      }
+      catch(e){
+        throw 'unexpected error';
+      }
 
       assert.strictEqual( Array.isArray(input), true);
       assert.strictEqual( input[pin1].pin, pin1);
@@ -268,8 +310,13 @@ describe('\nCreating an input object ...', function () {
   describe('Create an array input object using .in(pin1, pin2 ...) method', function () {
     it('should return an an array object', function (done) {
        
-      let input = r.in(pin1, pin2);
-
+      let input = null; 
+      try{
+        input = r.in(pin1, pin2);
+      }
+      catch(e){
+        throw 'unexpected error';
+      }	
       assert.strictEqual( Array.isArray(input), true);
       assert.strictEqual( input[0].pin, pin1);
       assert.strictEqual( input[1].pin, pin2);
@@ -284,73 +331,50 @@ describe('\nCreating an input object ...', function () {
   describe('Set internal resistor using .setR(0) & .setR(1)', function () {
     it('should return an input state of true', function (done) {
        
- 		// choose a pin that is unused - not connected to a switch or led  
+    // choose a pin that is unused - not connected to a switch or led  
     let sw1 = r.in(16);
 	
     sw1.setR(1);
     r.mswait(200);
 
     sw1.setR(0); 
-		r.mswait(200);
+    r.mswait(200);
     
     sw1.setR();
-		r.mswait(200);
+    r.mswait(200);
 
     let s = sw1.read();
 
-		if(s === 1){
-			s = true;
-		}
-		else{
-			s = false;
-		}
+    if(s === 1){
+      s = true;
+    }
+    else{
+      s = false;
+    }
 
-		assert.strictEqual(s, sw1.isOn);
+    assert.strictEqual(s, sw1.isOn);
 
     done();
 
     });
   });
-	describe('watch an input using .watch("re", cb) method', function () {
+  describe('watch an input using .watch("re", cb) method', function () {
     it('should return an input state of true', function (done) {
 
+      
       let sw = r.in(pin1); 
 
-			sw.watch('re', function(state){
+      sw.watch('re', function(state){
+        assert.strictEqual(sw.state, true);
         assert.strictEqual(sw.isOn, true);
-        assert.strictEqual(state, true);
- 				done();
-			});
+        sw.unwatch();
+        sw.close(); 
+        done();    
+      });
 
-      if(!sw.isOn){
-				assert.strictEqual(sw.state, false);
-        assert.strictEqual(sw.isOff, true);
-      }   
-      
-      sw.unwatch();
-     	done();
-
-    });
-  });
-  describe('watch an input using .watch("fe", cb) method', function () {
-    it('should return an input state of true', function (done) {
-       
-      let sw = r.in(pin1); 
-
-			sw.watch('fe', function(state){
-        assert.strictEqual(sw.isOn, false);
-        assert.strictEqual(state, false);
-				sw.unwatch();
- 				done();
-			});
-
-      if(!sw.isOn){
-				assert.strictEqual(sw.state, false);
-        assert.strictEqual(sw.isOff, true);
-      }   
-      
-      sw.unwatch();
-     	done();
+      // force pin to turn on creating a rising edge
+      sw.setR(1); 
+      r.mswait(200);
 
     });
   });
@@ -359,99 +383,108 @@ describe('\nCreating an input object ...', function () {
        
       let sw = r.in(pin1); 
 
-			sw.watch(1, function(state){
+      sw.watch(1, function(state){
         assert.strictEqual(sw.isOn, true);
         assert.strictEqual(state, true);
-
-			});
-
-      setTimeout(function(){
         sw.unwatch();
         sw.close();
-     	  done();
-      }, 200); 
+        done();
+      });
 
+      sw.setR(1); 
+      r.mswait(200);
 
     });
   });
-  describe('watch an input using .watch(cb) method', function () {
+  describe('watch an input using .watch(cb) method w/ state parameters on callback', function () {
     it('should return an input state of true', function (done) {
 
-      let sw = r.in(pin1); 
+    let sw = r.in(pin1); 
+		
+    sw.watch(function(state){
+      if(state === true){
+			  assert.strictEqual(sw.isOn, true);
+		    assert.strictEqual(state, true);
+			  sw.unwatch();
+		    sw.close();
+	 	    done();
+      }
+    });
 
-			sw.watch(function(state){
-        assert.strictEqual(sw.isOn, true);
-        assert.strictEqual(state, true);
-				sw.unwatch();
- 				done();
-			});
+    sw.setR(1); 
+    r.mswait(500);
 
-      if(!sw.isOn){
-				assert.strictEqual(sw.state, false);
-        assert.strictEqual(sw.isOff, true);
-      }   
-      
-      sw.unwatch();
-     	done();
+    if(sw.isOff){
+			throw 'unexpected error';
+    }
 
     });
   });
-	describe('watch an input using .watch(cb) method w/o callback parameters', function () {
+  describe('watch an input using .watch(cb) method w/o callback parameters', function () {
     it('should return an input state of true', function (done) {
        
-      let sw = r.in(pin1); 
+      let sw = r.in(31); 
+      sw.setR();
+      r.mswait(200);
 
-			sw.watch(function(){
+      sw.watch(function(){
         assert.strictEqual(sw.isOn, true);
-        assert.strictEqual(state, true);
 				sw.unwatch();
+        sw.close(); 
  				done();
 			});
 
-      if(!sw.isOn){
-				assert.strictEqual(sw.state, false);
-        assert.strictEqual(sw.isOff, true);
+      sw.setR(1); 
+      r.mswait(500);
+
+      if(sw.isOff){
+				throw 'unexpected error';
       }   
-      
-      sw.unwatch();
-     	done();
 
     });
   });
 	describe('watch an input using .watchInput(cb) method w/ argument', function () {
     it('should return an input state of true', function (done) {
 
-      let sw1 = r.in(pin1); 
-      let sw2 = r.in(pin2);
+      let sw1 = r.in(pin3); 
+      let sw2 = r.in(pin4);
+ 
+   		sw1.setR();
+      sw2.setR();
+      r.mswait(200);
+      
+      let count = 0; 
 
-      r.watchInput((state, pin) => {
-				 if(sw1.isOn){
-						assert.strictEqual(state, true);
-				 }
-				 if(sw2.isOn){
-						assert.strictEqual(state, true);
-				 }
+      r.watchInput((state) => {
+         if(count === 0){
+					 if(sw1.isOn){
+							assert.strictEqual(state, true);
+		          sw1.close(); 
+					 }
+					 if(sw2.isOn){
+							assert.strictEqual(state, true);
+              // immediately stop watching all pins  
+              r.unwatchInput();
+		          done();
+					 }
+		       count++;
+         }
 			}, 10);
 
-      if(!sw1.isOn){
-				assert.strictEqual(sw1.state, false);
-        assert.strictEqual(sw1.isOff, true);
+      sw1.setR(1);
+      sw2.setR(1);
+      r.mswait(500);
+
+      if(sw1.isOff){
+				throw 'unexpected error';
       }  
-      if(!sw2.isOn){
-				assert.strictEqual(sw2.state, false);
-        assert.strictEqual(sw2.isOff, true);
+      if(sw2.isOff){
+				throw 'unexpected error';
       }
-
-      r.unwatchInput();
-
-      sw1.close();
-      sw2.close();
-
-     	done();
 
     });
   });
-  describe('using .read() with missing callback', function () {
+  describe('using .read() w/o callback', function () {
     it('should throw an error', function (done) {
 
       let sw1 = r.in(pin1); 
@@ -466,7 +499,7 @@ describe('\nCreating an input object ...', function () {
 
     });
   });
-  describe('using .watch() with missing callback', function () {
+  describe('using .watch() w/o callback', function () {
     it('should throw an error', function (done) {
 
       let sw1 = r.in(pin2); 
@@ -485,15 +518,19 @@ describe('\nCreating an input object ...', function () {
     it('should throw an error', function (done) {
 
       let sw1 = r.in(pin2); 
+      
+      let edge = {};
       let cb = function(state){};
 
       try{ 
-      	sw1.watch({}, cb);
+      	sw1.watch(edge, cb);
       }
       catch(e){
 				assert.strictEqual(e.message, 'invalid edge argument');
 				done();
       }
+
+ 			throw 'unexpected error';
 
     });
   });
@@ -510,7 +547,9 @@ describe('\nCreating an input object ...', function () {
         assert.strictEqual(e.message, 'invalid callback argument');
 				done();
       }
-      throw 'invalid callback';
+
+      throw 'unexpected error';
+
     });
   });
   describe('using .watch(0, cb) w/ callback', function () {
@@ -520,10 +559,14 @@ describe('\nCreating an input object ...', function () {
 
       let cb = function(state){};
 
-     	sw1.watch(0, cb);
+      try{ 
+     	  sw1.watch(0, cb);
+			}
+      catch(e){
+      	throw 'unexpected error';   
+      }   
 
       setTimeout(function(){
-        sw1.watch(0, cb);
         sw1.unwatch();
       	done();
       },200);
@@ -535,10 +578,15 @@ describe('\nCreating an input object ...', function () {
       let sw1 = r.in(pin4); 
 
       let cb = function(state){};
-     	sw1.watch(1, cb);
+
+     	try{ 
+     	  sw1.watch(1, cb);
+			}
+      catch(e){
+      	throw 'unexpected error';   
+      }  
 
       setTimeout(function(){
-        sw1.watch(1, cb);
         sw1.unwatch();
       	done();
       },200);
@@ -557,7 +605,7 @@ describe('\nCreating an input object ...', function () {
       	sw1.watch(cb, 100);
       }
       catch(e){
-				done();
+				throw 'unexpected error';
       }
 
       setTimeout(() => {
@@ -568,25 +616,42 @@ describe('\nCreating an input object ...', function () {
     });
   });
   describe('using .unwatch()', function () {
-    it('should start watching an input', function (done) {
+    it('should immediately unwatch() an input pin', function (done) {
 
       let sw1 = r.in(pin2); 
+
+      let cb = function(state){};
+
+      // start watching pin
+      try{ 
+     	  sw1.watch(1, cb);
+			}
+      catch(e){
+      	throw 'unexpected error';   
+      }   
  
+      // stop watching pin
       try{ 
       	sw1.unwatch();
       }
       catch(e){
-				throw e;
+				throw 'unexpected error';
       }
       
-      done();
+      setTimeout(() => {
+        sw1.close(); 
+      	done();
+      }, 100);
+
+
     });
   });
-  describe('using .read() w/ callback and parameters', function () {
+  describe('using .read() w/ callback and state as parameter', function () {
     it('should start watching an input', function (done) {
 
       let sw1 = r.in(pin3); 
   
+      // state = 1|0, not true|false
     	sw1.read(function(state){
         if(state === 0){
           assert.strictEqual(state, 0);

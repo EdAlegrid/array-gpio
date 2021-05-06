@@ -1,5 +1,5 @@
 const assert = require('assert');
-const sinon = require('sinon');
+//const sinon = require('sinon');
 
 const r = require('array-gpio');
 r.debug(1);
@@ -19,9 +19,57 @@ describe('\nCreating an output object ...', function () {
 
       assert.strictEqual( typeof output, 'object');
       assert.strictEqual( output.pin, pin5);
+      assert.strictEqual( output.state, false);
+      assert.strictEqual( output.isOff, true);
       assert.strictEqual( typeof output.on, 'function');
+			assert.strictEqual( typeof output.off, 'function');
+      assert.strictEqual( typeof output.write, 'function');
+      assert.strictEqual( typeof output.pulse, 'function');
 
       done();
+
+    });
+  });
+  describe('Create an output object w/ invalid pin -1 and 41', function () {
+    it('should throw an error', function (done) {
+
+    try{
+      let output = r.setOutput(-1);
+    }
+    catch(e){
+      console.log(e.message);
+      assert.strictEqual(e.ReferenceError, undefined);
+      assert.strictEqual(e.message, 'invalid pin');
+    }
+
+    try{
+      let output = r.setOutput(41);
+    }
+    catch(e){
+      console.log(e.message);
+      assert.strictEqual(e.ReferenceError, undefined);
+      assert.strictEqual(e.message, 'invalid pin');
+      done();
+    }
+
+    throw 'unexpected error';
+
+    });
+  });
+  describe('Create an output object w/ valid pin 33', function () {
+    it('should not throw an error', function (done) {
+    
+    let output = null;
+
+    try{
+      output = r.setOutput(33);
+    }
+    catch(e){
+      throw 'unexpected error';
+    }
+
+    output.close();
+    done();
 
     });
   });
@@ -33,6 +81,8 @@ describe('\nCreating an output object ...', function () {
       assert.strictEqual( typeof output, 'object');
       assert.strictEqual( output.pin, pin6);
       assert.strictEqual( typeof output.on, 'function');
+      assert.strictEqual( typeof output.write, 'function');
+      assert.strictEqual( typeof output.pulse, 'function');
 
       output.write(1);
       output.write(0);
@@ -66,55 +116,6 @@ describe('\nCreating an output object ...', function () {
 
     });
   });
-  describe('Create an output object w/ invalid pin (45)', function () {
-    it('should throw an error', function (done) {
-       
-		  try{
-				let output = r.setOutput(45);
-        assert.strictEqual( typeof output, 'object');
-		  }
-		  catch(e){
-				console.log(e.message);
-				assert.strictEqual(e.message, 'invalid pin');
-		    done();
-		  }
-
-			throw 'invalid test';
-
-    });
-  });
-  describe('Create an output object w/ invalid pin (1)', function () {
-    it('should throw an error', function (done) {
-       
-		  try{
-				let output = r.setOutput(1);
-		  }
-		  catch(e){
-				console.log(e.message);
-				assert.strictEqual(e.message, 'invalid pin');
-		    done();
-		  }
-
-			throw 'invalid test';
-
-    });
-  });
-  describe('Create an output object w/ invalid pin -1', function () {
-    it('should throw an error', function (done) {
-       
-		  try{
-				let output = r.setOutput(-1);
-		  }
-		  catch(e){
-				console.log(e.message);
-				assert.strictEqual(e.message, 'invalid pin');
-		    done();
-		  }
-
-		throw 'invalid test';
-
-    });
-  });
   describe('Create an output object w/o any arguments', function () {
     it('should throw an error', function (done) {
        
@@ -127,15 +128,15 @@ describe('\nCreating an output object ...', function () {
 		    done();
 		  }
 
-			throw 'invalid test';
+			throw 'unexpected error';
 
     });
   });
-	describe('Create an output object using a string argument - "33" ', function () {
+	describe('Create an output object using a string argument "33" ', function () {
     it('should throw an error', function (done) {
        
 		  try{
-				let output = r.setOutput('11');
+				let output = r.setOutput('33');
 		  }
 		  catch(e){
 				console.log(e.message);
@@ -143,14 +144,15 @@ describe('\nCreating an output object ...', function () {
 		    done();
 		  }
 
-			throw 'invalid test';
+			throw 'unexpected error';
 
     });
   });
-	describe('Create an output object w/ invalid argument - function', function () {
+	describe('Create an output object w/ invalid argument type (function)', function () {
     it('should throw an error', function (done) {
       
 		  let callback = function(){} 
+
 		  try{
 				let output = r.Output(callback);
 		  }
@@ -160,12 +162,11 @@ describe('\nCreating an output object ...', function () {
 		    done();
 		  }
 
-			throw 'invalid test';
+			throw 'unexpected error';
 
     });
   });
-
-  describe('*Creating a single output object using .out() method', function () {
+  describe('Creating a single output object using .out() method', function () {
     it('should return an output object', function (done) {
      
       try{
@@ -174,19 +175,20 @@ describe('\nCreating an output object ...', function () {
 		    assert.strictEqual( typeof output, 'object');
 		    assert.strictEqual( output.pin, pin5);
 		    assert.strictEqual( typeof output.on, 'function');
-        output.write(0, (s) => assert.strictEqual(0, s));
+
+        output.write(0, (state) => assert.strictEqual(0, state));
         assert.strictEqual(output.isOn, false);
         assert.strictEqual(output.isOff, true);
 
         output.delayOn(0, (state) => { assert.strictEqual( state, true) });
-        output.delayOff(3, (state) => { assert.strictEqual( state, false) }); 
-
-        output.close();
-
-		    done();
+        output.delayOff(3, (state) => { 
+          assert.strictEqual( state, false)
+ 					output.close();
+		    	done();
+        }); 
 		  }
 		  catch(e){
-				throw e;
+				throw 'unexpected error';
 		  }
 
     });
@@ -202,7 +204,7 @@ describe('\nCreating an output object ...', function () {
 				output = r.setOutput({pin:[35]});
 		  }
 		  catch(e){
-		    throw 'invalid test'; 
+		    throw 'unexpected error'; 
 		  }
 
 		  assert.strictEqual( typeof output, 'object');
@@ -215,7 +217,7 @@ describe('\nCreating an output object ...', function () {
 
     });
   });
-  describe('Create an output array object w/ an empty object argument - {}', function () {
+  describe('Create an output array object w/ an empty object argument {}', function () {
     it('should throw an error', function (done) {
        
 		  try{
@@ -226,7 +228,7 @@ describe('\nCreating an output object ...', function () {
 		    done();
 		  }
 
-			throw 'invalid test';
+			throw 'unexpected error';
 
     });
   });
@@ -242,7 +244,7 @@ describe('\nCreating an output object ...', function () {
 		    done();
 		  }
 
-			throw 'invalid test';
+			throw 'unexpected error';
 
     });
   });
@@ -266,7 +268,7 @@ describe('\nCreating an output object ...', function () {
       done();
     }
 	  catch(e){
-			throw e;
+			throw 'unexpected error';
 	  }
 
     });
@@ -291,7 +293,7 @@ describe('\nCreating an output object ...', function () {
       done();
     }
 	  catch(e){
-			throw e;
+			throw 'unexpected error';
 	  }
 
     });
@@ -309,11 +311,10 @@ describe('\nCreating an output object ...', function () {
       assert.strictEqual( output[1].state, false);
       assert.strictEqual( typeof output[0].on, 'function');
       assert.strictEqual( typeof output[1].off, 'function');
- 
-      done();
+       done();
     }
 	  catch(e){
-			throw e;
+			throw 'unexpected error';
 	  }
 
     });
@@ -336,7 +337,7 @@ describe('\nCreating an output object ...', function () {
       done();
     }
     catch(e){
-			throw e;
+			throw 'unexpected error';
     }
 
     });
@@ -344,6 +345,7 @@ describe('\nCreating an output object ...', function () {
   describe('Using .read() and write() method properties', function () {
     it('should return an an array object', function (done) {
 
+    try{
 	  	let output = r.setOutput(pin6);
 
       assert.strictEqual( typeof output , 'object');
@@ -361,13 +363,18 @@ describe('\nCreating an output object ...', function () {
 			if(output.read() === 1){
          output.write(false, function(){}); 
       }
-  
       done();
+    }
+    catch(e){
+			throw 'unexpected error';
+    } 
 
     });
   });
   describe('Using .read() and write() method properties from array object', function () {
     it('should return an an array object', function (done) {
+
+    try{
 
 	  	let output = r.setOutput({pin:[pin5, pin6]});
 
@@ -390,12 +397,19 @@ describe('\nCreating an output object ...', function () {
 
       done();
 
+    }
+    catch(e){
+			throw 'unexpected error';
+    }
+
     });
   });
   describe('Using .read() and write() method properties w/ callback from array object', function () {
     it('should return an an array object', function (done) {
 
-	  	let output = r.setOutput({pin:[pin5, pin6]});
+      let output = r.setOutput({pin:[pin5, pin6]});
+
+      let count = 0;
 
       assert.strictEqual( Array.isArray(output), true);
       output[0].on();
@@ -416,15 +430,15 @@ describe('\nCreating an output object ...', function () {
              
       			 output[0].close();
       			 output[1].close();
-
              done();
            }); 
         }
 
-        output[0].close();
-      	output[1].close();
-
-        done(); 
+        if(count = 0){
+          output[0].close();
+      	  output[1].close();
+          done();count++; 
+        }
 
        }); 
     });
@@ -432,30 +446,33 @@ describe('\nCreating an output object ...', function () {
   describe('Using .read() and write() method properties w/ callback from array object', function () {
     it('should return an an array object', function (done) {
 
-	  	let output = r.setOutput({pin:[pin5, pin6]});
+      let output = r.setOutput({pin:[pin5, pin6]});
 
+      let count = 0; 
       assert.strictEqual( Array.isArray(output), true);
       output[0].off();
 
-			output[0].read((state) => {
+      output[0].read((state) => {
         if(!state){
 
            assert.strictEqual( state, 0);
 
-					 output[0].write(1, (state) => {
+	   			 output[0].write(1, (state) => {
              assert.strictEqual( state, 1); 
            }); 
 
            output[1].write(true, (state) => {
              assert.strictEqual( state, 1);
              
-             output[0].off();
-      			 output[1].off();
+             if(count === 0){
+               output[0].off();
+      	       output[1].off();
 
-      			 output[0].close();
-      			 output[1].close();
-
-             done();
+      	       output[0].close();
+      	       output[1].close();
+               
+               done();count++;
+             }
            }); 
         }
 
@@ -539,7 +556,7 @@ describe('\nCreating an output object ...', function () {
       done();
     }
     catch(e){
-			throw e;
+			throw 'unexpected error';
     }
 
     });
@@ -603,7 +620,6 @@ describe('\nCreating an output object ...', function () {
 
     });
   });
-
   describe('Using .on[0].(t, cb) and .off[0].(t, cb) method with array object', function () {
     it('output should return a true or false state', function (done) {
      
@@ -668,11 +684,11 @@ describe('\nCreating an output object ...', function () {
       done(); 
     }
 
-    throw 'invalid test';
+    throw 'unexpected error';
 
     });
   });
-	  describe('using delayOn() w/ invalid argument t and valid cb', function () {
+	describe('using delayOn() w/ invalid argument t and valid cb', function () {
     it('should throw an error', function (done) {
      
       let output = r.out(pin5, pin6);
@@ -692,7 +708,8 @@ describe('\nCreating an output object ...', function () {
 				done();
       }
 
-      throw 'invalid test';
+      throw 'unexpected error';
+
     });
   });
   describe('using delayOff() w/ invalid argument t and valid cb', function () {
@@ -715,7 +732,7 @@ describe('\nCreating an output object ...', function () {
         done();
       }
 
-			throw 'invalid test';
+			throw 'unexpected error';
       
     });
   });
@@ -744,7 +761,9 @@ describe('\nCreating an output object ...', function () {
         assert.strictEqual( e.message, 'invalid pulse width time duration');
 				done();
       }
-      throw 'invalid test';
+
+      throw 'unexpected error';
+
     });
   });
   describe('create a pulse w/ invalid callback argument', function () {
@@ -759,7 +778,9 @@ describe('\nCreating an output object ...', function () {
         assert.strictEqual( e.message, 'invalid callback argument');
 				done();
       }
-      throw 'invalid test';
+
+      throw 'unexpected error';
+
     });
   });
   describe('create a pulse(t) w/o callback', function () {
@@ -771,28 +792,44 @@ describe('\nCreating an output object ...', function () {
         output[1].pulse(25);
       }
       catch(e){
-        throw 'invalid test';
+        throw 'unexpected error';
       }
 
+      // turn on immediately
+      assert.strictEqual( output[1].isOn, true );
+
+      // turn off after 25 ms duration 
       setTimeout(function(){
-				assert.strictEqual( output[1].isOn, false );
+				assert.strictEqual( output[1].isOff, true );
+        done();
       }, 30);
-      done();
+      
     });
   });
-  describe('create a pulse(t) w/ invalid t and w/o callback', function () {
+  describe('create a pulse(t) w/ invalid t of string type', function () {
     it('should throw an error', function (done) {
      
       let output = r.out(pin5, pin6);
 
+      // w/o callback
       try{
-        output[1].pulse('500');
+        output[1].pulse('200');
+      }
+      catch(e){
+				assert.strictEqual( e.message, 'invalid pulse width time duration');
+		  }
+
+			// w/ callback
+      try{
+        output[1].pulse('500', () => {});
       }
       catch(e){
 				assert.strictEqual( e.message, 'invalid pulse width time duration');
 				done();
       }
-      throw 'invalid test';
+
+      throw 'unexpected error';
+
     });
   });
   describe('create a pulse(t) w/ missing t', function () {
@@ -807,13 +844,17 @@ describe('\nCreating an output object ...', function () {
 				assert.strictEqual( e.message, 'invalid pulse width time duration');
 				done();
       }
-      throw 'invalid test';
+
+      throw 'unexpected error';
+
     });
   });
   describe('create a pulse(t, cb) w/ invalid arguments t and cb', function () {
     it('should throw an error', function (done) {
      
       let output = r.out(pin6);
+      
+      r.mswait(200);
 
       try{
         output.pulse('25', {});
@@ -822,8 +863,9 @@ describe('\nCreating an output object ...', function () {
 				assert.strictEqual( e.message, 'invalid arguments');
 				done();
       }
-      throw 'invalid test';
+
+      throw 'unexpected test';
+
     });
   });
-
 });
