@@ -118,8 +118,28 @@ r.watchInput(() => {
   }
 });
 ```
-
 ### Example 4
+#### Gpio output .on(t) and .off(t) delay
+```js
+const r = require('array-gpio');
+
+let sw1 = r.in(11);
+let sw2 = r.in(13);
+
+let led = r.out(33);
+
+r.watchInput(() => {
+  if(sw1.isOn){
+    /* led will turn on after 1000 ms or 1 sec delay */
+    led.on(1000);
+  }
+  else if(sw2.isOn){
+    /* led will turn off after 500 ms or 0.5 sec delay */
+    led.off(500);
+  }
+});
+```
+### Example 5
 #### Create an input/output array object![](https://raw.githubusercontent.com/EdoLabs/src3/master/quick-example4.svg?sanitize=true)
 ```js
 const r = require('array-gpio');
@@ -159,6 +179,29 @@ r.watchInput(() => {
   }
 });
 
+```
+### Example 6
+#### Create an output .pulse(pw)
+```js
+const r = require('array-gpio');
+
+let sw1 = r.in(11);
+let sw2 = r.in(13);
+
+let led = r.out(33);
+
+r.watchInput(() => {
+  if(sw1.isOn){
+    /* led will turn on instantly and turns off after 100 ms
+    with a pulse duration of 100 ms */
+    led.pulse(100);
+  }
+  else if(sw2.isOn){
+    /* led turn ons instantly and turns off after 300 ms
+      with a pulse duration of 300 ms */
+    led.pulse(300);
+  }
+});
 ```
 
 ## API
