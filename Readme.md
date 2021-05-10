@@ -21,7 +21,7 @@ For IoT or machine-to-machine applications, please check [m2m](https://www.npmjs
 ### Supported Raspberry Pi Devices
 * Model: B+, 2, 3, Zero & Zero W, Compute Module 3, 3B+, 3A+, 4 (generally all 40-pin models)
 
-* This module works on 64-bit Ubuntu Server 20+ for Raspberry 4 & 3b+
+* The module's GPIO will also work on 64-bit Ubuntu Server 20+ for Raspberry 4 & 3B+
 
 ### GPIO pin numbering
 This module uses pin numbers based on the *physical pin numbers 1~40* from the board header.
@@ -121,6 +121,9 @@ r.watchInput(() => {
 ### Example 4
 #### Gpio output .on(t) and .off(t) delay
 ```js
+
+/* With momentary switch buttons connected on pin 11 and 13 and an led on pin 33 */
+
 const r = require('array-gpio');
 
 let sw1 = r.in(11);
@@ -146,11 +149,8 @@ const r = require('array-gpio');
 
 /* Connect a momentary switch button for each input pin and an led for each output pin */
 
-let inputOption = {pin:[11, 13], index:'pin'};
-let outputOption = {pin:[33, 35, 37, 36, 38, 40], index:'pin'};
-
-const sw = r.in(inputOption);
-const led = r.out(outputOption);
+const sw = r.in({pin:[11, 13], index:'pin'});
+const led = r.out({pin:[33, 35, 37, 36, 38, 40], index:'pin'});
 
 // turn on the led's sequentially
 let LedOn = () => {
@@ -183,6 +183,9 @@ r.watchInput(() => {
 ### Example 6
 #### Create a simple output .pulse(pw)
 ```js
+
+/* With momentary switch buttons connected on pin 11, 13, 15 and an led on pin 33 */
+
 const {setInput, setOutput, watchInput} = require('array-gpio');
 
 let sw1 = setInput(11);
