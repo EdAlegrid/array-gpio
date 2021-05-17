@@ -1,6 +1,6 @@
 {
   "name": "array-gpio",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "array-gpio is low-level javascript library for Raspberry Pi using direct register control.",
   "main": "index.js",
   "cpu" : ["arm","arm64"],
