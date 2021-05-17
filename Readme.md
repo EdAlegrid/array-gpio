@@ -1,3 +1,6 @@
+[![Version npm](https://img.shields.io/npm/v/array-gpio.svg?logo=npm)](https://www.npmjs.com/package/array-gpio)
+![Custom badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fwww.node-m2m.com%2Farray-gpio%2Fbuild-badge)
+
 array-gpio
 ==========
 
