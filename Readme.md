@@ -38,14 +38,14 @@ $ npm install array-gpio
 ```
 ## Quick Start
 
-### Example 1
-#### Create a gpio input and output object
+## Example 1
+#### Create a GPIO input and output object
 ![](https://raw.githubusercontent.com/EdoLabs/src3/master/quick-example1.svg?sanitize=true)
 Using **in** and **out** method to create an input/output object
 ```js
 /* Connect a momentary switch button on pin 11 and an led on pin 33 */
 
-// create a raspberry pi object
+// create a raspberry pi (r) object
 const r = require('array-gpio');
 
 // set pin 11 as input switch
@@ -72,9 +72,8 @@ const r = require('array-gpio');
 let sw = r.in(11);
 let led = r.out(33);
 
-/* Pressing the switch sw button will turn on the led,
-   releasing the switch sw button will turn off the led. */
-
+// Pressing the switch sw button, the led will turn on
+// Releasing the switch sw button, the led will turn off
 sw.watch((state) => {
   if(state){
     led.on();
@@ -84,18 +83,54 @@ sw.watch((state) => {
   }
 });
 ```
+#### Monitor the state of multiple input objects
+To monitor multiple input objects we will use the **watchInput()** method.
+```js
+/* Connect momentary switch buttons on pin 11, 13, 15 and 19 and an led on pin 33 and 35 */
 
-### Example 2
-#### Using `isOn` and `isOff` property![](https://raw.githubusercontent.com/EdoLabs/src3/master/quick-example2.svg?sanitize=true)
+const r = require('array-gpio');
+
+// create multiple input objects
+let sw1 = r.in(11);
+let sw2 = r.in(13);
+let sw3 = r.in(15);
+let sw4 = r.in(19);
+
+let led1 = r.out(33);
+let led2 = r.out(35);
+
+/* The callback argument of .watchInput() method will be invoked if one of the input's state changes. */
+
+// Press sw1 to turn on the led1, press sw2 to turn off the led1
+// Press sw3 to turn on the led2, press sw4 to turn off the led2
+r.watchInput(() => {
+  if(sw1.isOn){
+    led1.on();
+  }
+  else if(sw2.isOn){
+    led1.off();
+  }
+  else if(sw3.isOn){
+    led2.on();
+  }
+  else if(sw4.isOn){
+    led2.off();
+  }
+});
+```
+
+## Example 2
+#### Using *isOn* and *isOff* property to get the current state of any input/output object.
+
+**isOn** and **isOff** are built-in own properties of input/output objects when they are created.
+![](https://raw.githubusercontent.com/EdoLabs/src3/master/quick-example2.svg?sanitize=true)
 ```js
 const r = require('array-gpio');
 
 let sw = r.in(11);
 let led = r.out(33);
 
-/* .isOn and .isOff are own properties of input/output objects when they are created
-   Check the current state of an input/output object */
-
+/* Check the current state of sw and led object */
 console.log(sw1.isOn); // false
 console.log(led.isOn); // false
 
@@ -103,32 +138,8 @@ console.log(sw1.isOff); // true
 console.log(led.isOff); // true
 
 ```
-### Example 3
-#### Monitor multiple input pins
-```js
-/* Connect momentary switch buttons on pin 11 and 13 and an led on pin 33 */
-
-const r = require('array-gpio');
-
-let sw1 = r.in(11);
-let sw2 = r.in(13);
-let led = r.out(33);
-
-/* The watchInput() method will monitor all input objects.
-   The callback argument will be invoked if one of the input's state changes.
-   Press sw1 button to turn on the led, press sw2 button to turn off the led */
-
-r.watchInput(() => {
-  if(sw1.isOn){
-    led.on();
-  }
-  else if(sw2.isOn){
-    led.off();
-  }
-});
-```
-### Example 4
-#### Gpio output .on(t) and .off(t) delay
+## Example 3
+#### Turning on and off a GPIO output with a delay
 ```js
 /* With momentary switch buttons connected on pin 11 and 13 and an led on pin 33 */
 
@@ -140,16 +151,16 @@ let led = setOutput(33);
 
 watchInput(() => {
   if(sw1.isOn){
-    /* led will turn on after 1000 ms or 1 sec delay */
+    // pressing sw1, the led will turn on after 1000 ms or 1 sec delay
     led.on(1000);
   }
   else if(sw2.isOn){
-    /* led will turn off after 500 ms or 0.5 sec delay */
+    // pressing sw2, the led will turn off after 500 ms or 0.5 sec delay   
     led.off(500);
   }
 });
 ```
-### Example 5
+## Example 4
 #### Create an input/output array object![](https://raw.githubusercontent.com/EdoLabs/src3/master/quick-example4.svg?sanitize=true)
 
 ```js
@@ -187,7 +198,7 @@ r.watchInput(() => {
   }
 });
 ```
-Using forEach to iterate over array objects
+#### Using forEach to iterate over array objects
 ```js
 const {setInput, setOutput, watchInput} = require('array-gpio');
 
@@ -221,9 +232,8 @@ watchInput(() => {
   })
 });
 ```
-
-### Example 6
-#### Create a simple output .pulse(pw)
+## Example 5
+#### Create a simple GPIO output pulse
 ```js
 /* With momentary switch buttons connected on pin 11, 13, 15 and an led on pin 33 */
 
@@ -235,15 +245,15 @@ let sw3 = setInput(15);
 let led = setOutput(33);
 
 watchInput(() => {
-  /* press sw1 to pulse the led with a duration of 50 ms */  
+  // press sw1 to pulse the led with a duration of 50 ms  
   if(sw1.isOn){
     led.pulse(50);
   }
-  /* press sw2 to pulse the led with a duration of 200 ms */
+  // press sw2 to pulse the led with a duration of 200 ms
   else if(sw2.isOn){
     led.pulse(200);
   }
-  /* press sw3 to pulse the led with a duration of 1000 ms or 1 sec */
+  // press sw3 to pulse the led with a duration of 1000 ms or 1 sec
   else if(sw3.isOn){
     led.pulse(1000);
   }
@@ -642,12 +652,11 @@ r.watchInput((state, pin) => {
   }
 });
 ```
-
 ### unwatchInput()
 
 `main module method`
 
-Stops monitoring all the input objects from **.watchInput()** method.
+Stop monitoring all the input objects from **.watchInput()** method.
 It will stop invoking the shared callback argument for any input state changes.
 
 ##### Example
