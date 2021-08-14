@@ -11,7 +11,9 @@ and */dev/gpiomem* for GPIO control.
 
 One of its features is the use of *array objects* for GPIO input/output control.
 
-It has support for i2c, spi and pwm operations using direct register control.
+It has support for *i2c, spi and pwm* peripheral interface using direct register control.
+
+The module's GPIO will also work on 64-bit Ubuntu Server 20+ for Raspberry 3B+ and 4 models.
 
 For IoT or machine-to-machine applications, please check [m2m](https://www.npmjs.com/package/m2m) using array-gpio.
 
@@ -24,7 +26,7 @@ For IoT or machine-to-machine applications, please check [m2m](https://www.npmjs
 ### Supported Raspberry Pi Devices
 * Model: B+, 2, 3, Zero & Zero W, Compute Module 3, 3B+, 3A+, 4 (generally all 40-pin models)
 
-* The module's GPIO will also work on 64-bit Ubuntu Server 20+ for Raspberry 4 & 3B+
+* The module's GPIO will also work on 64-bit Ubuntu Server 20+ for Raspberry 3B+ and 4
 
 ### GPIO pin numbering
 This module uses pin numbers based on the *physical pin numbers 1~40* from the board header.
@@ -84,7 +86,7 @@ sw.watch((state) => {
 });
 ```
 #### Monitor the state of multiple input objects
-To monitor multiple input objects we will use the **watchInput()** method.
+To monitor multiple input objects we, will use the **watchInput()** method.
 ```js
 /* Connect momentary switch buttons on pin 11, 13, 15 and 19 and an led on pin 33 and 35 */
 
