@@ -85,8 +85,8 @@ sw.watch((state) => {
   }
 });
 ```
-#### Monitor the state of multiple input objects
-To monitor multiple input objects we, will use the **watchInput()** method.
+#### Monitor multiple input objects
+To monitor multiple input objects, you can use the **watchInput()** method.
 ```js
 /* Connect momentary switch buttons on pin 11, 13, 15 and 19 and an led on pin 33 and 35 */
 
