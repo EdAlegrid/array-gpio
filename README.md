@@ -16,7 +16,7 @@ One of its features is the use of *array objects* for GPIO input/output control.
 - I2C
 - SPI
 
-The module's GPIO will also work on 64-bit Ubuntu Server 20+ for Raspberry 3B+ and 4 models.
+The module's GPIO will also work on 64-bit Ubuntu 20+ (Raspberry 3B+ and 4 models).
 
 ### GPIO pin numbers
 All pin numbering used on this module are based on the *physical pin numbers 1~40* from the board header.
@@ -31,12 +31,10 @@ For IoT or machine-to-machine applications, please check [m2m](https://www.npmjs
     - [Creating a GPIO input and output object](#example-1)
     - [Monitoring the state of an input object](#example-2)
     - [Monitoring multiple input objects](#example-3)
-    - [Creating a GPIO input and output object](#example-4)
-    - [Monitoring the state of an input object](#example-5)
-    - [Monitoring multiple input objects](#example-6)
-    - [Using *isOn* and *isOff* to get the current state of an input/output object](#example-7)
-    - [Turning *on* and *off* a GPIO output with a delay](#example-5)
+    - [Using *isOn* and *isOff* to get the current state of an input/output object](#example-4)
+    - [Turning ON and OFF a GPIO output with a *delay*](#example-5)
     - [Create an input/output array object](#example-6)
+    - [Create a simple GPIO output pulse](#example-7)
 7. [API](#api)
     - [GPIO](#gpio)
       - [Input](#input)
@@ -277,7 +275,7 @@ watchInput(() => {
   })
 });
 ```
-## Example 5
+## Example 7
 ### Create a simple GPIO output pulse
 ```js
 /* With momentary switch buttons connected on pin 11, 13, 15 and an led on pin 33 */
