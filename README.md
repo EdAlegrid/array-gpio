@@ -67,7 +67,7 @@ $ npm install array-gpio
 
 <br>
 
-## Quick Tour
+# Quick Tour
 
 ## Example 1
 ### Create a GPIO input and output object
@@ -182,9 +182,10 @@ console.log(led.isOff); // true
 ```
 ## Example 5
 ### Turning on and off a GPIO output with a delay
-```js
-/* With momentary switch buttons connected on pin 11 and 13 and an led on pin 33 */
 
+With momentary switch buttons connected on pin 11 and 13 and an led on pin 33
+
+```js
 const {setInput, setOutput, watchInput} = require('array-gpio');
 
 let sw1 = setInput(11);
@@ -204,11 +205,12 @@ watchInput(() => {
 ```
 ## Example 6
 ### Create an input/output array object
+
+Connect a momentary switch button for each input pin and an led for each output pin
+
 ![](https://raw.githubusercontent.com/EdoLabs/src3/master/quick-example4.svg?sanitize=true)
 
 ```js
-/* Connect a momentary switch button for each input pin and an led for each output pin */
-
 const r = require('array-gpio');
 
 const sw = r.in({pin:[11, 13], index:'pin'});
@@ -277,9 +279,10 @@ watchInput(() => {
 ```
 ## Example 7
 ### Create a simple GPIO output pulse
-```js
-/* With momentary switch buttons connected on pin 11, 13, 15 and an led on pin 33 */
 
+With momentary switch buttons connected on pin 11, 13, 15 and an led on pin 33
+
+```js
 const {setInput, setOutput, watchInput} = require('array-gpio');
 
 let sw1 = setInput(11);
