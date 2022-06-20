@@ -172,7 +172,7 @@ const r = require('array-gpio');
 let sw = r.in(11);
 let led = r.out(33);
 
-/* Check the current state of sw and led object */
+// Check the current state of sw and led object
 console.log(sw1.isOn); // false
 console.log(led.isOn); // false
 
