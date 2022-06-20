@@ -65,8 +65,6 @@ This module uses only pin numbers based on the *physical pin numbers 1~40* from 
 $ npm install array-gpio
 ```
 
-<br>
-
 # Quick Tour
 
 ## Example 1
@@ -98,8 +96,6 @@ let sw = setInput(11);
 let led = setOutput(33);
 ```
 
-<br>
-
 ## Example 2
 ### Monitor the state of an input object
 
@@ -120,14 +116,12 @@ sw.watch((state) => {
   }
 });
 ```
-<br>
 
 ## Example 3
 ### Monitor multiple input objects
 To monitor multiple input objects, you can use the **watchInput()** method.
 
 Connect momentary *switch buttons* on pin **11, 13, 15** and **19** and an *led* on pin **33** and **35**
-
 ```js
 const r = require('array-gpio');
 
@@ -180,6 +174,7 @@ console.log(sw1.isOff); // true
 console.log(led.isOff); // true
 
 ```
+
 ## Example 5
 ### Turning on and off a GPIO output with a delay
 
@@ -203,13 +198,13 @@ watchInput(() => {
   }
 });
 ```
+
 ## Example 6
 ### Create an input/output array object
 
 Connect a momentary switch button for each input pin and an led for each output pin
 
 ![](https://raw.githubusercontent.com/EdoLabs/src3/master/quick-example4.svg?sanitize=true)
-
 ```js
 const r = require('array-gpio');
 
@@ -277,6 +272,7 @@ watchInput(() => {
   })
 });
 ```
+
 ## Example 7
 ### Create a simple GPIO output pulse
 
