@@ -103,7 +103,7 @@
 #define INFO_SIZE 100 
 
 /* The smallest unit of data for memory management, obtaining it at run time */
-size_t page_size = 0; // 4*1024;
+int page_size = 0; // 4*1024;
 
 /* Peripheral base address variable. The value of which will be determined
  depending on the board type (Pi zero, 3 or 4) at compile time */
@@ -128,15 +128,15 @@ uint32_t system_clock = 250000000;  // 250 MHz
 void set_base_address(){
 
 	FILE *fp;
-   	char info[INFO_SIZE];
-                 
-   	fp = fopen("/proc/cpuinfo", "r");
-
-    if (fp == NULL) {
+	char info[INFO_SIZE];
+	
+	fp = fopen("/proc/cpuinfo", "r");
+	
+	if (fp == NULL) {
 		fputs ("reading file /proc/cpuinfo error", stderr);
 		exit (1);
 	}
-       
+	
 	/* Get 'Model' info */
 	while (fgets (info, INFO_SIZE, fp) != NULL){
 		if (strncmp (info, "Model", 5) == 0)
@@ -173,7 +173,7 @@ void set_base_address(){
 		peri_base = 0xFE000000;
         system_clock = 400000000; 
     }
-
+	
 	/*
 	// Other information
 	// Get 'Hardware' info 
@@ -206,7 +206,7 @@ void rpi_init(int access) {
     set_base_address();
 
 	page_size = (size_t)sysconf(_SC_PAGESIZE);
-	//printf("init page_size: %zu\n", page_size);
+	//printf("init page_size: %i\n", page_size);
 
     if(page_size < 0){
 		perror("page_size");
@@ -270,9 +270,9 @@ void rpi_init(int access) {
  */
 uint8_t rpi_close()
 {
-    int i;
+  int i;
 	page_size = (size_t)sysconf(_SC_PAGESIZE);
-	//printf("close page_size: %zu\n", page_size);
+	//printf("close page_size: %i\n", page_size);
 
 	for(i = 0; i < BASE_INDEX; i++){
 	   	if (munmap( (uint32_t *) base_pointer[i] , page_size) < 0){
