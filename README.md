@@ -16,49 +16,67 @@ One of its features is the use of *array objects* for GPIO input/output control.
 - I2C
 - SPI
 
-The module's GPIO will also work on 64-bit Ubuntu 20+ (Raspberry 3B+ and 4 models).
+<br>
 
 ### GPIO pin numbers
-All pin numbering used on this module are based on the *physical pin numbers 1~40* from the board header.
+All pin numbering used on this module are based on the RPI board's pinout diagram *numbers 1~40*.
+
+To check your RPI board pinout, enter *pinout* from a terminal.
+```console
+$ pinout  
+```
+
+All numbers in parenthesis are the pin numbers used on this module.
+
+<br>
 
 For IoT or machine-to-machine applications, please check [m2m](https://www.npmjs.com/package/m2m) using array-gpio.
 
 # Table of contents
 1. [Supported Raspberry Pi Devices](#supported-raspberry-pi-devices)
 2. [Node.js version requirement](#nodejs-requirements)
-3. [Installation](#installation)
-4. [Quick Tour](#quick-tour)
+3. [Supported OS](#supported-os)
+4. [Installation](#installation)
+5. [Quick Tour](#quick-tour)
     - [Creating a GPIO input and output object](#example-1)
     - [Monitoring the state of an input object](#example-2)
     - [Monitoring multiple input objects](#example-3)
     - [Using *isOn* and *isOff* to get the current state of an input/output object](#example-4)
-    - [Turning ON and OFF a GPIO output with a *delay*](#example-5)
+    - [Turning *on* and *off* an output with a *delay*](#example-5)
     - [Create an input/output array object](#example-6)
-    - [Create a simple GPIO output pulse](#example-7)
-7. [API](#api)
+    - [Create a simple output pulse](#example-7)
+6. [API](#api)
     - [GPIO](#gpio)
-      - [Input](#input)
-      - [Output](#gpio)
+      - [Input](#input-properties)
+      - [Output](#output-properties)
     - [PWM](#pwm)
     - [I2C](#i2c)
     - [SPI](#spi)
 
 
 ### Supported Raspberry Pi Devices
-* Model: B+, 2, 3, Zero & Zero W, Compute Module 3, 3B+, 3A+, 4 (generally all 40-pin models)
+* Model: Pi Zero & Zero W, Pi Zero 2 W, Pi 3 Model B+, Pi 4 Model B, Compute Module 3 & 4 (Generally most of the 40-pin models)
+
+<br>
 
 ### Supported OS
-
+Mostly tried and tested on the following Linux OS
+- Raspbian
 - Raspberry Pi OS (32 and 64-bit)
 - 64-bit Ubuntu 20+
 
-Currently, only the module's GPIO is supported on 64-bit Ubuntu 20+ for Raspberry 3B+ and 4 version
+
+<br>
 
 ### GPIO pin numbering
-This module uses only pin numbers based on the *physical pin numbers 1~40* from the board header.
+All pin numbering used on this module are based on the rpi board's pinout diagram *numbers 1~40*. <show a link to a pinout diagram>
+
+<br>
 
 ### Nodejs Requirements
-* Node.js version: 10.x, 12.x, 14.x, 16.x (Ideally, the latest LTS version) 
+* Node.js version: 10.x, 12.x, 14.x, 16.x (Ideally, the latest LTS version)
+
+<br>
 
 ## Installation
 ```console
@@ -70,7 +88,7 @@ $ npm install array-gpio
 ## Example 1
 ### Create a GPIO input and output object
 
-Connect a momentary *switch button* on pin **11** and an *led* on pin **33**
+Connect a momentary *switch button* on pin **11** and an *led* on pin **33**.
 ![](https://raw.githubusercontent.com/EdoLabs/src3/master/quick-example1.svg?sanitize=true)
 
 Using **in** and **out** method from *array-gpio* object module
@@ -79,13 +97,13 @@ Using **in** and **out** method from *array-gpio* object module
 const r = require('array-gpio');
 
 // set pin 11 as input
-let sw = r.in(11);
+let input = r.in(11);
 
 // set pin 33 as output
-let led = r.out(33);
+let output = r.out(33);
 ```
 
-Alternatively following the object destructuring assignment pattern, you can use the **setInput** and **setOutput** methods to create your input/output objects 
+Alternatively using the object destructuring assignment pattern, you can use the **setInput** and **setOutput** methods to create your input/output objects
 ```js
 const {setInput, setOutput} = require('array-gpio');
 
@@ -121,14 +139,12 @@ sw.watch((state) => {
 ### Monitor multiple input objects
 To monitor multiple input objects, you can use the **watchInput()** method.
 
-Connect momentary *switch buttons* on pin **11, 13, 15** and **19** and an *led* on pin **33** and **35**
+Connect momentary a *switch button* on pin **11, 13, 15** and **19** and an *led* on pin **33** and **35**.
 ```js
 const r = require('array-gpio');
 
-// create your input objects
 let sw1 = r.in(11), sw2 = r.in(13), sw3 = r.in(15), sw4 = r.in(19);
 
-// create your output objects
 let led1 = r.out(33), led2 = r.out(35);
 
 // Press sw1 to turn on the led1
@@ -178,7 +194,7 @@ console.log(led.isOff); // true
 ## Example 5
 ### Turning on and off a GPIO output with a delay
 
-With momentary switch buttons connected on pin 11 and 13 and an led on pin 33
+Connect a momentary *switch button* on pin **11** and **13** and an *led* on pin **33**.
 
 ```js
 const {setInput, setOutput, watchInput} = require('array-gpio');
@@ -202,8 +218,7 @@ watchInput(() => {
 ## Example 6
 ### Create an input/output array object
 
-Connect a momentary switch button for each input pin and an led for each output pin
-
+Connect a momentary switch button for each input pin and an led for each output pin.
 ![](https://raw.githubusercontent.com/EdoLabs/src3/master/quick-example4.svg?sanitize=true)
 ```js
 const r = require('array-gpio');
@@ -238,7 +253,7 @@ r.watchInput(() => {
   }
 });
 ```
-### Using forEach to iterate over array objects
+### Using forEach to iterate over the array objects
 ```js
 const {setInput, setOutput, watchInput} = require('array-gpio');
 
@@ -276,7 +291,7 @@ watchInput(() => {
 ## Example 7
 ### Create a simple GPIO output pulse
 
-With momentary switch buttons connected on pin 11, 13, 15 and an led on pin 33
+Connect a momentary *switch button* on pin **11, 13, 15** and an *led* on pin **33**.
 
 ```js
 const {setInput, setOutput, watchInput} = require('array-gpio');
@@ -304,19 +319,183 @@ watchInput(() => {
 
 # API
 
-Note:
+All pin numbering used on this module are based on the RPI board's pinout diagram *numbers 1~40*.
 
-This module uses only pin numbering based on the physical pin numbers 1~40 from the board header.
+To check your RPI board pinout, enter *pinout* from a terminal.
+```console
+$ pinout  
+```
+
+All numbers in parenthesis are the pin numbers used on this module.
+
+<br>
 
 ## GPIO
 
-### Input
+### state
 
-### setInput(arg)
+`input/output property`
+
+Gets the current digital logical state of an input/output object during runtime. It is a getter only property.
+
+Returns *true* if the object logical state is *high* or *ON*.
+
+Returns *false* if the object logical state is *low* or *OFF*.
+
+##### Example 1
+```js
+const r = require('array-gpio');
+
+let sensor  = r.in(11);
+
+// returns the current state of the sensor
+console.log(sensor.state); // false
+```
+
+##### Example 2
+```js
+const r = require('array-gpio');
+
+let sw = r.in(11);
+let led = r.out(33);
+
+sw.watch(function(){
+  if(sw.state && !led.state){
+
+  console.log(sw.state); // true
+  console.log(led.state); // false
+
+  led.on();
+
+  console.log(sw.state); // true
+  console.log(led.state); // true
+  }
+});
+```
+
+### isOn and isOff
+
+`input/output property`
+
+Similar with the *state* property, it will return the current digital logical state of an input/output object with explicit context.
+
+**isOn** - returns *true* if the object logical state is *high* or *ON*, otherwise it returns *false*.  
+
+**isOff** - returns *true* if the object logical state is *low* or *OFF*, otherwise it returns *false*.
+
+##### Example
+```js
+const r = require('array-gpio');
+
+let sw1 = r.in(11);
+let sw2 = r.in(13);
+let led = r.out(33);
+
+r.watchInput(() => {
+  // turns on led if sw1 is on and if led is off
+  if(sw1.isOn && led.isOff){
+    led.on();
+  }
+  // turns off led if sw2 is on and if led is on
+  else if(sw2.isOn && led.isOn){
+    led.off();
+  }
+});
+```
+
+### pin
+
+`input/output property`
+
+Returns the GPIO pin used from any input/output objects.
+
+##### Example
+```js
+const r = require('array-gpio');
+
+let sw = r.setInput(11);
+let led = r.setOutput(33);
+
+console.log(sw.pin);  // 11
+console.log(led.pin); // 33
+```
+
+### close()
+
+`input/output method`
+
+Closes an input/output object. Removes any events (pin watching) from the object and resets the pin to GPIO input.
+
+##### Example 1
+```js
+const r = require('array-gpio');
+
+let sw = r.setInput(11);
+let led = r.setOutput(33);
+
+sw.close();
+led.close();
+```
+##### Example 2
+```js
+const r = require('array-gpio');
+
+let input = r.setInput({pin:[11, 13]});
+let output = r.setOutput({pin:[33, 35]});
+
+function appExitProcess(){
+  console.log('closing all I/O objects');
+  for(let x in input){
+    input[x].close();
+  }
+  for(let x in output){
+    output[x].close();
+  }
+}
+
+// using Ctrl-C for app exit
+process.on('SIGINT', function (){
+  appExitProcess();
+  process.exit(0);
+});
+```
+
+### read([callback])
+
+`input/output method`
+
+The conventional way of getting the current logical state condition of an input/output object.
+
+Returns logical **1** value if the object state is in *high* or *ON* state condition and **0** for *low* or *OFF* state condition.
+
+The optional **callback** parameter will be invoked asynchronously after returning the object state condition.
+
+This method is similar to **state** property but as a method property, you can use a
+callback argument to execute any additional application logic based on the object state condition.
+
+##### Example
+```js
+const r = require('array-gpio');
+
+let sw = r.setInput(11);
+let solenoid = r.setOutput(35);
+
+sw.read((state) => {
+  if(state === 1)
+    solenoid.on();
+  else
+    solenoid.off();  
+});
+```
+
+## Input Properties
+
+### in(arg)
 
 or
 
-### in(arg)
+### setInput(arg)
+
 
 Sets a GPIO pin or group of GPIO pins as input object.
 
@@ -383,77 +562,6 @@ input.forEach(function(inputObject){
 
 ```
 
-### state
-
-`input/output property`
-
-Gets the current digital logical state of an input/output object during runtime. It is a getter only property.
-
-Returns *true* if the object logical state is *high* or *ON*.
-
-Returns *false* if the object logical state is *low* or *OFF*.
-
-##### Example 1
-```js
-const r = require('array-gpio');
-
-let sensor  = r.in(11);
-
-// returns the current state of the sensor
-console.log(sensor.state); // false
-```
-
-##### Example 2
-```js
-const r = require('array-gpio');
-
-let sw = r.in(11);
-let led = r.out(33);
-
-sw.watch(function(){
-  if(sw.state && !led.state){
-
-  console.log(sw.state); // true
-  console.log(led.state); // false
-
-  led.on();
-
-  console.log(sw.state); // true
-  console.log(led.state); // true
-  }
-});
-```
-
-### isOn and isOff
-
-`input/output property`
-
-Similar with the *state* property, it will return the current digital logical state of an input/output object with explicit context.
-
-**isOn** - returns *true* if the object logical state is *high* or *ON*, otherwise it returns *false*.  
-
-**isOff** - returns *true* if the object logical state is *low* or *OFF*, otherwise it returns *false*.
-
-
-##### Example
-```js
-const r = require('array-gpio');
-
-let sw1 = r.in(11);
-let sw2 = r.in(13);
-let led = r.out(33);
-
-r.watchInput(() => {
-  // turns on led if sw1 is on and if led is off
-  if(sw1.isOn && led.isOff){
-    led.on();
-  }
-  // turns off led if sw2 is on and if led is on
-  else if(sw2.isOn && led.isOn){
-    led.off();
-  }
-});
-```
 ### watch (edge, callback, [s])
 
 `input method`
@@ -531,90 +639,6 @@ sw1.watch(1, (state) => {
 
 Stops monitoring an input object from the .watch() method.
 
-### read([callback])
-
-`input/output method`
-
-The conventional way of getting the current logical state condition of an input/output object.
-
-Returns logical **1** value if the object state is in *high* or *ON* state condition and **0** for *low* or *OFF* state condition.
-
-The optional **callback** parameter will be invoked asynchronously after returning the object state condition.
-
-This method is similar to **state** property but as a method property, you can use a
-callback argument to execute any additional application logic based on the object state condition.
-
-##### Example
-```js
-const r = require('array-gpio');
-
-let sw = r.setInput(11);
-let solenoid = r.setOutput(35);
-
-sw.read((state) => {
-  if(state === 1)
-    solenoid.on();
-  else
-    solenoid.off();  
-});
-```
-
-### pin
-
-`input/output property`
-
-Returns the GPIO pin used from any input/output objects.
-
-##### Example
-```js
-const r = require('array-gpio');
-
-let sw = r.setInput(11);
-let led = r.setOutput(33);
-
-console.log(sw.pin);  // 11
-console.log(led.pin); // 33
-```
-
-### close()
-
-`input/output method`
-
-Closes an input/output object. Removes any events (pin watching) from the object and resets the pin to GPIO input.
-
-##### Example 1
-```js
-const r = require('array-gpio');
-
-let sw = r.setInput(11);
-let led = r.setOutput(33);
-
-sw.close();
-led.close();
-```
-##### Example 2
-```js
-const r = require('array-gpio');
-
-let input = r.setInput({pin:[11, 13]});
-let output = r.setOutput({pin:[33, 35]});
-
-function appExitProcess(){
-  console.log('closing all I/O objects');
-  for(let x in input){
-    input[x].close();
-  }
-  for(let x in output){
-    output[x].close();
-  }
-}
-
-// using Ctrl-C for app exit
-process.on('SIGINT', function (){
-  appExitProcess();
-  process.exit(0);
-});
-```
 ### setR(value)
 
 `input method`
@@ -734,7 +758,7 @@ r.watchInput(() => {
 setTimeout(() => r.unwatchInput(), 15000);
 ```
 
-### Output
+### Output Properties
 
 ### setOutput(arg)
 
@@ -943,8 +967,6 @@ r.watchInput(() => {
 ***
 
 ## PWM
-
-**Note:** Currently PWM will work on all Raspberry Pi models except on Raspberry Pi 4B model due to firmware issues. Hopefully, it will be fixed in the next latest release of Raspbian OS.
 
 ### setPWM(pin)
 
