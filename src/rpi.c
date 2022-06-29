@@ -158,8 +158,8 @@ void set_base_address(){
     	peri_base = 0x3F000000;
 		system_clock = 400000000;
     }
-	else if(strstr(info, "Pi 4")||strstr(info, "Pi Compute Module 4")){	// Pi 4 Model B, tested
-		//puts("Pi 4 Model B/Pi Compute Module 4");
+    else if(strstr(info, "Pi 4")||strstr(info, "Pi Compute Module 4")){	// Pi 4 Model B, tested
+	//puts("Pi 4 Model B/Pi Compute Module 4");
     	peri_base = 0xFE000000;
         system_clock = 400000000; 
     }
@@ -168,10 +168,10 @@ void set_base_address(){
     	peri_base = 0xFE000000;
         system_clock = 400000000; 
     }
-	else{
+    else{
 		//puts("Other Rpi Model");			
-		peri_base = 0xFE000000;
-        system_clock = 400000000; 
+		peri_base = 0x20000000;
+        //system_clock = 400000000; 
     }
 	
 	/*
