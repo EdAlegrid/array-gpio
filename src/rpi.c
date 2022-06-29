@@ -21,32 +21,32 @@
 #include "rpi.h"
 
 /* The base addresses of each peripherals found on BCM2835 Arm Peripheral Manual */ 
-#define ST_BASE			(peri_base + 0x3000)
-#define CLK_BASE      	(peri_base + 0x101000)
-#define GPIO_BASE      	(peri_base + 0x200000)
-#define PWM_BASE      	(peri_base + 0x20C000)
-#define SPI0_BASE		(peri_base + 0x204000)
-#define BSC0_BASE 		(peri_base + 0x205000)
-#define BSC1_BASE      	(peri_base + 0x804000)
+#define ST_BASE		(peri_base + 0x3000)
+#define CLK_BASE	(peri_base + 0x101000)
+#define GPIO_BASE	(peri_base + 0x200000)
+#define PWM_BASE	(peri_base + 0x20C000)
+#define SPI0_BASE	(peri_base + 0x204000)
+#define BSC0_BASE	(peri_base + 0x205000)
+#define BSC1_BASE	(peri_base + 0x804000)
 
 /* Unused base addresses */
-#define GPIO_PADS      	(peri_base + 0x100000)
-#define AUX_BASE		(peri_base + 0x215000)
-#define SPI1_BASE		(peri_base + 0x215080)
-#define SPI2_BASE		(peri_base + 0x2150C0)
+#define GPIO_PADS	(peri_base + 0x100000)
+#define AUX_BASE	(peri_base + 0x215000)
+#define SPI1_BASE	(peri_base + 0x215080)
+#define SPI2_BASE	(peri_base + 0x2150C0)
 
 /* The smallest unit of data for memory management */
 /* We will use the variable page_size at run time instead */
-#define PAGE_SIZE		(4*1024)	/* See page_size variable declaration below */
+#define PAGE_SIZE	(4*1024)	/* See page_size variable declaration below */
 
 /* No. of memory address pointers for mmap() */ 
-#define BASE_INDEX 		7  // set to 11 for all base addresses
+#define BASE_INDEX	7  // set to 11 for all base addresses
 
 /* System timer register addresses */
-#define CS		(base_pointer[0] + 0x0) 
+#define CS	(base_pointer[0] + 0x0) 
 #define CLO 	(CS + 0x1) 
-#define CHI		(CS + 0x2) 
-#define CO		(CS + 0x3)
+#define CHI	(CS + 0x2) 
+#define CO	(CS + 0x3)
 
 /* Clk register addresses */
 #define GPCTL	(base_pointer[1] + 0x28) 
@@ -90,14 +90,14 @@
 #define SPI_DC		(SPI_CS + 0x14/4)
 
 /* I2C register addresses */
-//#define C		(base_pointer[5] + 0x0)  
-#define C		(base_pointer[6] + 0x0) 
-#define S 		(C + 0x4/4)  
+//#define C	(base_pointer[5] + 0x0)  
+#define C	(base_pointer[6] + 0x0) 
+#define S 	(C + 0x4/4)  
 #define DLEN	(C + 0x8/4)  
-#define A		(C + 0xC/4) 
+#define A	(C + 0xC/4) 
 #define FIFO	(C + 0x10/4) 
-#define DIV		(C + 0x14/4) 
-#define DEL		(C + 0x18/4) 
+#define DIV	(C + 0x14/4) 
+#define DEL	(C + 0x18/4) 
 #define CLKT	(C + 0x1C/4) 
 
 #define INFO_SIZE 100 
@@ -141,56 +141,56 @@ void set_base_address(){
 	while (fgets (info, INFO_SIZE, fp) != NULL){
 		if (strncmp (info, "Model", 5) == 0)
         	break ;
-    }
+    	}
 	//printf("%s", info);
 
   	if(strstr(info, "Pi Zero")||strstr(info, "Pi 1")){	// Pi Zero, tested on WiFi version
 		//puts("Pi zero/Pi 1");
-	    peri_base = 0x20000000;
-    }
+		peri_base = 0x20000000;
+    	}
 	else if(strstr(info, "Pi Zero 2")||strstr(info, "Pi 3")){
 		//puts("Pi Zero 2/Pi 3");
-    	peri_base = 0x3F000000;
-        system_clock = 400000000; 
-    }
+    		peri_base = 0x3F000000;
+        	system_clock = 400000000; 
+    	}
 	else if(strstr(info, "Pi Compute Module 3")){
 		//puts("Pi Compute Module 3 Model");
-    	peri_base = 0x3F000000;
+    		peri_base = 0x3F000000;
 		system_clock = 400000000;
-    }
-    else if(strstr(info, "Pi 4")||strstr(info, "Pi Compute Module 4")){	// Pi 4 Model B, tested
-	//puts("Pi 4 Model B/Pi Compute Module 4");
-    	peri_base = 0xFE000000;
-        system_clock = 400000000; 
-    }
+    	}
+    	else if(strstr(info, "Pi 4")||strstr(info, "Pi Compute Module 4")){	// Pi 4 Model B, tested
+		//puts("Pi 4 Model B/Pi Compute Module 4");
+    		peri_base = 0xFE000000;
+        	system_clock = 400000000; 
+    	}
 	else if(strstr(info, "Pi 400")){
 		//puts("Pi 400 Model");
-    	peri_base = 0xFE000000;
-        system_clock = 400000000; 
-    }
-    else{
+    		peri_base = 0xFE000000;
+        	system_clock = 400000000; 
+    	}
+    	else{
 		//puts("Other Rpi Model");			
 		peri_base = 0x20000000;
-        //system_clock = 400000000; 
-    }
+        	//system_clock = 400000000; 
+    	}
 	
 	/*
 	// Other information
 	// Get 'Hardware' info 
-    rewind (fp);
-    while (fgets (info, INFO_SIZE, fp) != NULL){
-    	if (strncmp (info, "Hardware", 8) == 0)
-       		break ;
-    }
-    printf("%s", info); // show Hardware line info
+    	rewind (fp);
+    	while (fgets (info, INFO_SIZE, fp) != NULL){
+    		if (strncmp (info, "Hardware", 8) == 0)
+       			break ;
+    	}
+    	printf("%s", info); // show Hardware line info
 
-    // Get 'Revision' info 
+    	// Get 'Revision' info 
 	rewind (fp);
-    while (fgets (info, INFO_SIZE, fp) != NULL){
-    	if (strncmp (info, "Revision", 8) == 0)
-       		break ;
-    }
-    printf("%s", info); // show Revision line info
+    	while (fgets (info, INFO_SIZE, fp) != NULL){
+    		if (strncmp (info, "Revision", 8) == 0)
+       			break ;
+    	}
+    	printf("%s", info); // show Revision line info
 	*/
 	  
   	fclose(fp);
