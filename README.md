@@ -21,13 +21,6 @@ One of its features is the use of *array objects* for GPIO input/output control.
 ### GPIO pin numbers
 All pin numbering used on this module are based on the RPI board's pinout diagram *numbers 1~40*.
 
-To check your RPI board pinout, enter *pinout* from a terminal.
-```console
-$ pinout  
-```
-
-All numbers in parenthesis are the pin numbers used on this module.
-
 <br>
 
 For IoT or machine-to-machine applications, please check [m2m](https://www.npmjs.com/package/m2m) using array-gpio.
@@ -64,12 +57,6 @@ Mostly tried and tested on the following Linux OS
 - Raspbian
 - Raspberry Pi OS (32 and 64-bit)
 - 64-bit Ubuntu 20+ (Only GPIO peripheral is supported)
-
-
-<br>
-
-### GPIO pin numbering
-All pin numbering used on this module are based on the rpi board's pinout diagram *numbers 1~40*. <show a link to a pinout diagram>
 
 <br>
 
@@ -321,7 +308,7 @@ watchInput(() => {
 
 All pin numbering used on this module are based on the RPI board's pinout diagram *numbers 1~40*.
 
-To check your RPI board pinout, enter *pinout* from a terminal.
+For Raspberry Pi OS, you can check your RPI board pinout by entering *pinout* from a terminal.
 ```console
 $ pinout  
 ```
