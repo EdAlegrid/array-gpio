@@ -53,9 +53,8 @@ For IoT or machine-to-machine applications, please check [m2m](https://www.npmjs
 <br>
 
 ### Supported OS
-Mostly tried and tested on the following Linux OS
-- Raspbian
 - Raspberry Pi OS (32 and 64-bit)
+- Raspbian
 - 64-bit Ubuntu 20+ (Only GPIO peripheral is supported)
 
 <br>
