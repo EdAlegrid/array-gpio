@@ -133,14 +133,11 @@ let sw1 = r.in(11), sw2 = r.in(13), sw3 = r.in(15), sw4 = r.in(19);
 
 let led1 = r.out(33), led2 = r.out(35);
 
-// Press sw1 to turn on the led1
-// Press sw2 to turn off the led1
+// Press sw1 to turn on led1, press sw2 to turn off led1
+// Press sw3 to turn on led2, press sw4 to turn off led2
 
-// Press sw3 to turn on the led2
-// Press sw4 to turn off the led2
-
-// The callback argument of .watchInput() method will be invoked 
-// if one of the input's pin state changes when pressing any of the input switches
+// The callback argument will be invoked 
+// if you pressed any of the input switches
 r.watchInput(() => {
   if(sw1.isOn){
     led1.on();
