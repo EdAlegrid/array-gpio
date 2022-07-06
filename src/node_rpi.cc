@@ -18,7 +18,7 @@ using namespace Nan;
  */
 NAN_METHOD(rpi_init)
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -42,7 +42,7 @@ NAN_METHOD(rpi_close)
  */
 NAN_METHOD(nswait)
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -52,7 +52,7 @@ NAN_METHOD(nswait)
 
 NAN_METHOD(uswait)
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -62,7 +62,7 @@ NAN_METHOD(uswait)
 
 NAN_METHOD(mswait)
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -75,7 +75,7 @@ NAN_METHOD(mswait)
  */
 NAN_METHOD(gpio_config) 
 {
-	if ((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
+	if((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -87,7 +87,7 @@ NAN_METHOD(gpio_config)
 
 NAN_METHOD(gpio_input) 
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -97,7 +97,7 @@ NAN_METHOD(gpio_input)
 
 NAN_METHOD(gpio_output) 
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -109,7 +109,7 @@ NAN_METHOD(gpio_read)
 {
 	uint8_t rval;
 
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -123,7 +123,7 @@ NAN_METHOD(gpio_write)
 {
 	uint8_t rval;
 
-	if ((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
+	if((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -137,7 +137,7 @@ NAN_METHOD(gpio_write)
 
 NAN_METHOD(gpio_enable_pud)
 {
-	if ((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
+	if((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -152,7 +152,7 @@ NAN_METHOD(gpio_enable_pud)
  */
 NAN_METHOD(pwm_set_pin)
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -163,7 +163,7 @@ NAN_METHOD(pwm_set_pin)
 
 NAN_METHOD(pwm_reset_pin)
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -181,7 +181,7 @@ NAN_METHOD(pwm_set_clock_freq)
 {
 	uint8_t rval;
 
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -200,7 +200,7 @@ NAN_METHOD(pwm_clk_status)
 
 NAN_METHOD(pwm_enable)
 {
-	if ((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
+	if((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -212,7 +212,7 @@ NAN_METHOD(pwm_enable)
 
 NAN_METHOD(pwm_set_mode)
 {
-	if ((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
+	if((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -224,7 +224,7 @@ NAN_METHOD(pwm_set_mode)
 
 NAN_METHOD(pwm_set_pola)
 {
-	if ((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
+	if((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -236,7 +236,7 @@ NAN_METHOD(pwm_set_pola)
 
 NAN_METHOD(pwm_set_data)
 {
-	if ((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
+	if((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -248,7 +248,7 @@ NAN_METHOD(pwm_set_data)
 
 NAN_METHOD(pwm_set_range)
 {
-	if ((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
+	if((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -269,6 +269,22 @@ NAN_METHOD(i2c_start)
 	info.GetReturnValue().Set(rval);
 }
 
+NAN_METHOD(i2c_init)
+{
+
+	uint8_t rval;
+	
+	if((info.Length() != 1) || (!info[0]->IsNumber() )){
+	  return ThrowTypeError("Incorrect argument");
+    }
+
+	uint8_t arg = info[0]->IntegerValue(Nan::GetCurrentContext()).ToChecked();
+        
+    rval = i2c_init(arg);
+
+	info.GetReturnValue().Set(rval);
+}
+
 NAN_METHOD(i2c_stop)
 {
 	i2c_stop();
@@ -276,7 +292,7 @@ NAN_METHOD(i2c_stop)
 
 NAN_METHOD(i2c_select_slave)
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -287,7 +303,7 @@ NAN_METHOD(i2c_select_slave)
 
 NAN_METHOD(i2c_set_clock_freq)
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 	uint16_t arg = info[0]->IntegerValue(Nan::GetCurrentContext()).ToChecked();
@@ -297,7 +313,7 @@ NAN_METHOD(i2c_set_clock_freq)
 
 NAN_METHOD(i2c_data_transfer_speed)
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -310,7 +326,7 @@ NAN_METHOD(i2c_write)
 {
   uint8_t rval;
 
-	if ((info.Length() != 2) || (!info[0]->IsObject()) || (!info[1]->IsNumber())){
+	if((info.Length() != 2) || (!info[0]->IsObject()) || (!info[1]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -325,7 +341,7 @@ NAN_METHOD(i2c_read)
 {
   uint8_t rval;
 
-	if ((info.Length() != 2) || (!info[0]->IsObject()) || (!info[1]->IsNumber())){
+	if((info.Length() != 2) || (!info[0]->IsObject()) || (!info[1]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 	
@@ -362,7 +378,7 @@ NAN_METHOD(spi_stop)
 
 NAN_METHOD(spi_set_clock_freq)
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -373,7 +389,7 @@ NAN_METHOD(spi_set_clock_freq)
 
 NAN_METHOD(spi_set_data_mode)
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -384,7 +400,7 @@ NAN_METHOD(spi_set_data_mode)
 
 NAN_METHOD(spi_set_chip_select_polarity)
 {
-	if ((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
+	if((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -396,7 +412,7 @@ NAN_METHOD(spi_set_chip_select_polarity)
 
 NAN_METHOD(spi_chip_select)
 {
-	if ((info.Length() != 1) || (!info[0]->IsNumber())){
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -407,7 +423,7 @@ NAN_METHOD(spi_chip_select)
 
 NAN_METHOD(spi_data_transfer)
 {
-	if ((info.Length() != 3) || (!info[0]->IsObject()) || (!info[1]->IsObject()) || (!info[2]->IsNumber())){
+	if((info.Length() != 3) || (!info[0]->IsObject()) || (!info[1]->IsObject()) || (!info[2]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -420,7 +436,7 @@ NAN_METHOD(spi_data_transfer)
 
 NAN_METHOD(spi_write)
 {
- 	if ((info.Length() != 2) || (!info[0]->IsObject()) || (!info[1]->IsNumber())){
+ 	if((info.Length() != 2) || (!info[0]->IsObject()) || (!info[1]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -432,7 +448,7 @@ NAN_METHOD(spi_write)
 
 NAN_METHOD(spi_read)
 {
-	if ((info.Length() != 2) || (!info[0]->IsObject()) || (!info[1]->IsNumber())){
+	if((info.Length() != 2) || (!info[0]->IsObject()) || (!info[1]->IsNumber())){
 	  return ThrowTypeError("Incorrect arguments");
   }
 
@@ -472,6 +488,7 @@ NAN_MODULE_INIT(setup)
 
   /* i2c */
   NAN_EXPORT(target, i2c_start);
+	NAN_EXPORT(target, i2c_init);
 	NAN_EXPORT(target, i2c_stop);
 	NAN_EXPORT(target, i2c_select_slave);
 	NAN_EXPORT(target, i2c_set_clock_freq);
