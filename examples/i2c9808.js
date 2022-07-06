@@ -29,8 +29,8 @@ function computeTemp(){
   	if ((UpperByte & 0x10) == 0x10){
 		UpperByte = UpperByte & 0x0F; // Clear SIGN
 		Temp = 256 - ((UpperByte * 16) + (LowerByte / 16));
-  	// Temp > 0°C
   	}
+	// Temp > 0°C
   	else { 
 		Temp = ((UpperByte * 16) + (LowerByte / 16));
   	}
