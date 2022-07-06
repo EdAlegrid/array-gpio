@@ -1209,7 +1209,8 @@ Read a number of bytes from the currently selected i2c slave device.
 
 const r = require('array-gpio');
 
-var i2c = r.setI2C();
+let i2c = r.startI2C(1); // using SDA1 and SCL1 (pin 3 & 5) pins
+//let i2c = r.startI2C(0); // using SDA0 and SCL0 (pin 27 & 28) pins
 
 /* set data transfer speed to 400 kHz */
 i2c.setTransferSpeed(400000);
