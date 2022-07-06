@@ -1,10 +1,7 @@
-
 /**
  * i2c.test.js
  *
- * Copyright (c) 2017 Ed Alegrid <ealegrid@gmail.com>
- * GNU General Public License v3.0
- *
+ * 2017 Ed Alegrid <ealegrid@gmail.com>
  */
 const assert = require('assert');
 const sinon = require('sinon');
