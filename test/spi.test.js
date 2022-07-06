@@ -1,3 +1,9 @@
+/**
+ * spi.test.js
+ *
+ * 2017 Ed Alegrid <ealegrid@gmail.com>
+ */
+
 const assert = require('assert');
 const sinon = require('sinon');
 
