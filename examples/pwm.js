@@ -20,8 +20,6 @@ pwm.setData(100); // 100 x 0.1 ms = 10 ms (actual pw)
  
 /* stop PWM and return pin 12 to GPIO input mode */
 setTimeout(function(){
- 
-  pwm.stop();
-  pwm.close();
- 
-}, 2000);
+        pwm.stop();
+        pwm.close();
+ }, 2000);
