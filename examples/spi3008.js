@@ -12,7 +12,8 @@
 
 const r = require('array-gpio');
 
-var spi = r.setSPI();
+var spi = r.startSPI();
+
 spi.setDataMode(0); 
 spi.setClockFreq(128); 
 spi.setCSPolarity(0, 0); 
