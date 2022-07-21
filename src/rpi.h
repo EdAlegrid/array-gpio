@@ -1,5 +1,6 @@
-/*
+/**
  * rpi.h
+ *
  * Copyright (c) 2017 Ed Alegrid <ealegrid@gmail.com>
  * GNU General Public License v3.0
  *
@@ -92,9 +93,11 @@ void pwm_set_range(uint8_t pin, uint32_t range);
  */
 int i2c_start();
 
+int i2c_init(uint8_t value);
+
 void i2c_stop();
 
-void i2c_select_slave(uint8_t addr);
+void i2c_select_slave(uint8_t addr); 
 
 void i2c_set_clock_freq(uint16_t divider);
 
@@ -133,20 +136,6 @@ void spi_read(char* rbuf, uint8_t len);
 #endif
 
 #endif /* RPI_H */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
