@@ -1144,7 +1144,7 @@ process.on('SIGINT', () => {
 ***
 ## I2C
 
-### setI2C()
+### startI2C()
 
 Sets i2c pins 03 (SDA) and 05 (SCL) to its alternate function (ALT0) for i2c operation.
 
@@ -1209,8 +1209,7 @@ Read a number of bytes from the currently selected i2c slave device.
 
 const r = require('array-gpio');
 
-let i2c = r.startI2C(1); // using SDA1 and SCL1 (pin 3 & 5) pins
-//let i2c = r.startI2C(0); // using SDA0 and SCL0 (pin 27 & 28) pins
+let i2c = r.startI2C(); // using SDA1 and SCL1 (pin 3 & 5) pins
 
 /* set data transfer speed to 400 kHz */
 i2c.setTransferSpeed(400000);
@@ -1294,7 +1293,7 @@ process.on('SIGINT', function (){
 ***
 ## SPI
 
-### setSPI()
+### startSPI()
 
 Sets SPI0 bus pins 19 (MOSI), 21 (MISO), 23 (CLK), 24 (CE0) and 26 (CE1) to its alternate function (ALT0) for spi operation.
 
