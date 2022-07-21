@@ -1424,7 +1424,7 @@ Stops the SPI data transfer operations. SPI0 pins 19 (MOSI), 21 (MISO), 23 (CLK)
 
 const r = require('array-gpio');
 
-var spi = r.setSPI();
+var spi = r.startSPI();
 
 spi.setDataMode(0);
 spi.setClockFreq(128);
