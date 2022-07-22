@@ -127,6 +127,55 @@ NAN_METHOD(gpio_read)
 	info.GetReturnValue().Set(rval);
 }
 
+NAN_METHOD(gpio_enable_async_rising_event) 
+{
+	if((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
+	  	return ThrowTypeError("Incorrect arguments");
+  	}
+
+  	uint8_t arg1 = info[0]->IntegerValue(Nan::GetCurrentContext()).ToChecked();
+  	uint8_t arg2 = info[1]->IntegerValue(Nan::GetCurrentContext()).ToChecked();
+
+  	gpio_enable_async_rising_event(arg1, arg2);
+}
+
+NAN_METHOD(gpio_detect_input_event) 
+{
+	uint8_t rval;
+
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
+	  	return ThrowTypeError("Incorrect arguments");
+  	}
+
+	uint8_t arg = info[0]->IntegerValue(Nan::GetCurrentContext()).ToChecked();
+
+  	rval = gpio_detect_input_event(arg);
+	
+	info.GetReturnValue().Set(rval);
+}
+
+NAN_METHOD(gpio_reset_all_events) 
+{
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
+	  	return ThrowTypeError("Incorrect arguments");
+  	}
+
+  	uint8_t arg = info[0]->IntegerValue(Nan::GetCurrentContext()).ToChecked();
+	
+  	gpio_reset_all_events(arg);
+}
+
+NAN_METHOD(gpio_reset_event) 
+{
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
+	  	return ThrowTypeError("Incorrect arguments");
+  	}
+
+  	uint8_t arg = info[0]->IntegerValue(Nan::GetCurrentContext()).ToChecked();
+	
+  	gpio_reset_event(arg);
+}
+
 NAN_METHOD(gpio_write) 
 {
 	uint8_t rval;
@@ -487,6 +536,10 @@ NAN_MODULE_INIT(setup)
 	NAN_EXPORT(target, gpio_input);
 	NAN_EXPORT(target, gpio_output);
   	NAN_EXPORT(target, gpio_read);
+	NAN_EXPORT(target, gpio_enable_async_rising_event);
+	NAN_EXPORT(target, gpio_detect_input_event); 
+	NAN_EXPORT(target, gpio_reset_all_events);
+	NAN_EXPORT(target, gpio_reset_event);
 	NAN_EXPORT(target, gpio_write);
 	NAN_EXPORT(target, gpio_enable_pud);
 
@@ -526,3 +579,4 @@ NAN_MODULE_INIT(setup)
 }
 
 NODE_MODULE(LIBNAME, setup)
+
