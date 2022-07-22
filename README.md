@@ -953,9 +953,9 @@ r.watchInput(() => {
 
 ### startPWM(pin)
 
-Sets GPIO pins *12* and *33* to alternate function 0 (ALT0) and sets pins *12* and *35* to alternate function 5 (ALT5) for PWM operations.
+Creates a pwm object from the provided GPIO pin and starts the PWM operations.
 
-Creates a pwm object to start PWM to the provided GPIO pin.
+Sets GPIO pins *12* and *33* to alternate function 0 (ALT0) and sets pins *12* and *35* to alternate function 5 (ALT5).
 
 This operation requires root access.
 
