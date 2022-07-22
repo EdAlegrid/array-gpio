@@ -951,7 +951,7 @@ r.watchInput(() => {
 
 ## PWM
 
-### setPWM(pin)
+### startPWM(pin)
 
 Sets GPIO pins *12* and *33* to alternate function 0 (ALT0) and sets pins *12* and *35* to alternate function 5 (ALT5) for PWM operations.
 
@@ -1010,7 +1010,7 @@ Stops PWM operations on the GPIO pin. Resets the pin to GPIO input.
 const r = require('array-gpio');
 
 /* create a pwm object using pin 12 */
-var pwm = r.setPWM(12);
+var pwm = r.startPWM(12);
 
 /* set the pwm clock frequency using a div value of 1920 */
 pwm.setClockFreq(1920); // sets clock freq to 10kHz or 0.1 ms time resolution for T and pw
@@ -1036,7 +1036,7 @@ setTimeout(function(){
 
 ```
 
-### setPWM(pin, freq, T, pw)
+### startPWM(pin, freq, T, pw)
 
 Creates a pwm object from a predefined clock frequencies of `10`, `100`, or `1000` kHz that will provide different time resolutions
 for the **T** (period) and **pw** (pulse width) of your desired pwm pulse.
@@ -1101,7 +1101,7 @@ var T    = 200;   /* Use 200 to get the 20 ms period (200 x 0.1 ms = 20 ms) */
 var pw   = 10;    /* Use 10 to get an initial pulse width of 1.0 ms (10 x 0.1 ms = 1.0 ms), home position */
 
 /* initialize PWM using with above pin, freq, T and pw details */
-var pwm = r.setPWM(pin, freq, T, pw);
+var pwm = r.startPWM(pin, freq, T, pw);
 
 /* create four push buttons sw[0], sw[1], sw[2] and sw[4] */
 const sw = r.setInput({pin:[11, 13, 15, 19]});
