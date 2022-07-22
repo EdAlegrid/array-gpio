@@ -1,1 +1,0 @@
-cmd_Release/obj.target/node_rpi.node := g++ -o Release/obj.target/node_rpi.node -shared -pthread -rdynamic  -Wl,-soname=node_rpi.node -Wl,--start-group Release/obj.target/node_rpi/src/rpi.o Release/obj.target/node_rpi/src/node_rpi.o -Wl,--end-group 
