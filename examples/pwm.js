@@ -3,7 +3,7 @@
 const r = require('array-gpio');
 
 /* start PWM using pin 12 */
-var pwm = r.setPWM(12);
+var pwm = r.startPWM(12);
  
 /* set clock frequency using a div value of 1920 */
 pwm.setClockFreq(1920); // sets clock freq to 10kHz or 0.1 ms time resolution for T and pw 
