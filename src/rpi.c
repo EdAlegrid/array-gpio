@@ -194,27 +194,27 @@ void set_peri_base_address(uint8_t pwm_option, uint8_t spi_option, uint8_t i2c_o
 	else if(strstr(info, "Pi Zero 2")||strstr(info, "Pi 3")){
 		//puts("Pi Zero 2/Pi 3");
     		peri_base = PERI_BASE_RPI23;
-        	//core_clock_freq = CORE_CLOCK_FREQ_RPI23; 
+        	core_clock_freq = CORE_CLOCK_FREQ_RPI23; 
     	}
 	else if(strstr(info, "Pi Compute Module 3")){
 		//puts("Pi Compute Module 3 Model");
     		peri_base = PERI_BASE_RPI23;
-		//core_clock_freq = CORE_CLOCK_FREQ_RPI23;
+		core_clock_freq = CORE_CLOCK_FREQ_RPI23;
     	}
 	else if(strstr(info, "Pi 4")||strstr(info, "Pi Compute Module 4")){
 		//puts("Pi 4 Model B/Pi Compute Module 4");
     		peri_base = PERI_BASE_RPI4;
-        	//core_clock_freq = CORE_CLOCK_FREQ_RPI4; 
+        	core_clock_freq = CORE_CLOCK_FREQ_RPI4; 
     	}
 	else if(strstr(info, "Pi 400")){
 		//puts("Pi 400 Model");
     		peri_base = PERI_BASE_RPI4;
-        	//core_clock_freq = CORE_CLOCK_FREQ_RPI4; 
+        	core_clock_freq = CORE_CLOCK_FREQ_RPI4; 
     	}
 	else{
 		//puts("Other Rpi Model");			
 		peri_base = PERI_BASE_RPI4;
-        	//core_clock_freq = CORE_CLOCK_FREQ_RPI4; 
+        	core_clock_freq = CORE_CLOCK_FREQ_RPI4; 
     	}
 	
 	/* Verify ST_BASE, its new value should be other than 0x3000
