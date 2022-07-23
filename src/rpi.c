@@ -319,11 +319,11 @@ void start_mmap(int access){
 	
 		/* Reset peripheral base register pointers back to 0 */
 		// Note: Disable this for SocketCan operation
-        	//*base_pointer[i] = 0; 
+        	*base_pointer[i] = 0; 
 
     		/* Reset peripheral base addresses back to 0 */
 		// Note: Disable this for SocketCan operation
-        	//base_add[i] = 0; 
+        	base_add[i] = 0; 
 	}
 
     	/* Close fd after memory-mapped operation */
@@ -375,7 +375,8 @@ uint8_t rpi_close()
 			puts("munmap() operation fail"); 
 			return -1;
        		}
-        	//base_pointer[i] = 0; // no need for socket can operation  
+		// Note: Disable this for SocketCan operation
+        	base_pointer[i] = 0; 
 	}
 	
 	/* munmap() success */
