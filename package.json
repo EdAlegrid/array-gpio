@@ -43,6 +43,9 @@
     "iot",
     "IoT"
   ],
+  "homepage": "https://github.com/EdAlegrid/array-gpio",
+  "bugs": "https://github.com/EdAlegrid/array-gpio/issues",
+  "repository": "EdAlegrid/array-gpio",
   "author": {
     "name": "Ed Alegrid",
     "email": "ealegrid@gmail.com"
