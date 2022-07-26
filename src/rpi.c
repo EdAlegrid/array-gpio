@@ -1060,9 +1060,6 @@ void pwm_set_data(uint8_t pin, uint32_t data){
 	Helper functions for I2C and SPI
 
  **************************************************/
- /* I2C The time needed to transmit one byte in microseconds */
-static int i2c_byte_wait_us = 0;
-
 /* Clear FIFO buffer function for I2C and SPI operation */
 void clear_fifo(volatile uint32_t* reg){
 	setBit(reg, 4); // Set bit 4 of CLEAR field
@@ -1241,12 +1238,8 @@ void i2c_set_clock_freq(uint16_t divider)
 	*div = divider;
 
 	//printf("new value I2C_DIV:%x\n", *I2C_DIV);
-	
-	i2c_byte_wait_us = ((float)divider/CORE_CLK_FREQ) * 1000000 * 9;
 
 	set_clock_delay(1, 1);
-
-	//printf("i2c_byte_wait_us: %i\n", i2c_byte_wait_us);
 	//printf("set_clock_delay: %i\n", set_clock_delay(11, 11));
 }
 
@@ -1457,126 +1450,6 @@ uint8_t i2c_read(char* rbuf, uint8_t rbuf_len)
     			i++;
 		}
 	}
-
-	return i2c_rw_error(i, rbuf_len);
-}
-
-/* Read a number of bytes from a slave device w/ repeated start 
- * Sending an arbitrary number of bytes before issuing a repeated start 
- * (with no prior stop) and reading a response. Some devices require this behavior.
- */
-uint8_t i2c_write_read_rs(char* cmds, uint32_t cmds_len, char* rbuf, uint32_t rbuf_len)
-{
-	volatile uint32_t *dlen = I2C_DLEN; 
-	volatile uint32_t *fifo = I2C_FIFO;
-	
-	uint8_t i = 0;
-
-	clear_fifo(I2C_C);
-	i2c_reset_error_status();
-
-	*dlen = cmds_len;  
-	
-	/* pre populate FIFO with the max buffer value of 16 bytes */
-	while((cmds_len >= i) && ( i < 16 ))
-	{
-		*fifo = cmds[i];
-		i++;
-	}
-
-	/* Start a write transfer */
-	clearBit(I2C_C, 0); // clear READ field to initiate a write packet transfer
-	setBit(I2C_C, 7);   // set ST field to start the write transfer
-		
-	/* poll if write transfer has started (way to do repeated start, from BCM2835 datasheet) */
-	while(!isBitSet(I2C_S, 0)) // check TA field 0 - transfer is not active , 1 - transfer is active
-	{
-		if(isBitSet(I2C_S, 1))	// check DONE field
-	    		break;
-	}
-		
-	i = 0;
-	*dlen = rbuf_len;  
-	
-	/* Start a read transfer */
-	setBit(I2C_C, 0); // set READ field to initiate a read packet transfer
-	setBit(I2C_C, 7); // set ST field to start the read transfer
-		
-	uswait(i2c_byte_wait_us * (cmds_len + 1));
-	
-	/* wait for transfer to complete */
-	while(!isBitSet(I2C_S, 1))  // if DONE field = 1, data transfer is complete
-	{
-		// check RXD field RXD = 0 FIFO is empty, RXD = 1 FIFO contains at least 1 byte of data
-		while((rbuf_len >= i) && isBitSet(I2C_S, 5)) 
-		{
-    			rbuf[i] = *fifo;
-    			i++;
-		}
-	}
-			
-	/* transfer has finished - get any remaining data from FIFO */
-	while ((rbuf_len >= i) && isBitSet(I2C_S, 5))
-	{
-		rbuf[i] = *fifo;
-		i++;
-	}	
-
-	return i2c_rw_error(i, rbuf_len);
-}
-
-/* Read a number of bytes from I2C sending a repeated start after writing
- * to the required register. This will only work if your device supports this mode.
- */
-uint8_t i2c_read_register_rs(char* regaddr, char* rbuf, uint32_t rbuf_len)
-{
-	volatile uint32_t *dlen = I2C_DLEN; 
-	volatile uint32_t *fifo = I2C_FIFO;
-
-	uint8_t i = 0;
-
-	clear_fifo(I2C_C);
-	i2c_reset_error_status();
-	
-	*dlen = 1;  
-    	*fifo = regaddr[0];
-
-    	/* Start a write transfer */
-	clearBit(I2C_C, 0); // clear READ field to initiate a write packet transfer
-	setBit(I2C_C, 7);   // set ST field to start the write transfer
-		
-	/* poll if write transfer has started */
-	while(!isBitSet(I2C_S, 0)) // check TA field (0 - transfer is not active , 1 - transfer is active)
-	{
-		if(isBitSet(I2C_S, 1))	// check DONE field
-	    		break;
-	}
-	
-	*dlen = rbuf_len;  
-	
-	/* Start a read transfer */
-	setBit(I2C_C, 0); // set READ field to initiate a read packet transfer
-	setBit(I2C_C, 7); // set ST field to start the read transfer
-
-	uswait(i2c_byte_wait_us * 3);
-
-	/* wait for transfer to complete */
-	while(!isBitSet(I2C_S, 1))  // if DONE field = 1, data transfer is complete
-	{
-		// check RXD field (RXD = 0 FIFO is empty, RXD = 1 FIFO contains at least 1 byte of data)
-    		while((rbuf_len >= i) && isBitSet(I2C_S, 5))
-		{
-    			rbuf[i] = *fifo;
-    			i++;
-		}
-	}
-			
-	/* transfer has finished - get any remaining data from FIFO */
-	while ((rbuf_len >= i) && isBitSet(I2C_S, 5))
-	{
-		rbuf[i] = *fifo;
-		i++;
-	}	
 
 	return i2c_rw_error(i, rbuf_len);
 }
@@ -1876,7 +1749,4 @@ void spi_read(char* rbuf, uint8_t rbuf_len)
 	/* Set TA = 0, transfer is done */
 	clearBit(SPI_CS, 7);
 }
-
-
-
 
