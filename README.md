@@ -166,10 +166,10 @@ let sw = r.in(11);
 let led = r.out(33);
 
 // Check the current state of sw and led object
-console.log(sw1.isOn); // false
+console.log(sw.isOn); // false
 console.log(led.isOn); // false
 
-console.log(sw1.isOff); // true
+console.log(sw.isOff); // true
 console.log(led.isOff); // true
 
 ```
