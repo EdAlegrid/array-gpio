@@ -3,7 +3,7 @@
 
 # array-gpio
 
-**array-gpio** is a low-level javascript library for Raspberry Pi using direct register control.
+**array-gpio** is a low-level javascript library for Raspberry Pi using a direct register control.
 
 It maps the ARM peripheral registers in memory using */dev/mem* for PWM, I2C, SPI
 and */dev/gpiomem* for GPIO control.
