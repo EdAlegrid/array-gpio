@@ -122,6 +122,26 @@ sw.watch((state) => {
 ```
 
 ## Example 3
+### Using *isOn* and *isOff* properties to get the current state of an input/output object
+
+The **isOn** and **isOff** properties are built-in own properties of input/output objects when they are created.
+![](https://raw.githubusercontent.com/EdoLabs/src3/master/quick-example2.svg?sanitize=true)
+```js
+const r = require('array-gpio');
+
+let sw = r.in(11);
+let led = r.out(33);
+
+// Check the current state of sw and led object
+console.log(sw1.isOn); // false
+console.log(led.isOn); // false
+
+console.log(sw1.isOff); // true
+console.log(led.isOff); // true
+
+```
+
+## Example 4
 ### Monitor multiple input objects
 To monitor multiple input objects, you can use the **watchInput()** method.
 
@@ -152,26 +172,6 @@ r.watchInput(() => {
     led2.off();
   }
 });
-```
-
-## Example 4
-### Using *isOn* and *isOff* properties to get the current state of an input/output object
-
-The **isOn** and **isOff** properties are built-in own properties of input/output objects when they are created.
-![](https://raw.githubusercontent.com/EdoLabs/src3/master/quick-example2.svg?sanitize=true)
-```js
-const r = require('array-gpio');
-
-let sw = r.in(11);
-let led = r.out(33);
-
-// Check the current state of sw and led object
-console.log(sw.isOn); // false
-console.log(led.isOn); // false
-
-console.log(sw.isOff); // true
-console.log(led.isOff); // true
-
 ```
 
 ## Example 5
@@ -272,7 +272,7 @@ watchInput(() => {
 ```
 
 ## Example 7
-### Create a simple GPIO output pulse
+### Create a simple GPIO single one-shot pulse
 
 Connect a momentary *switch button* on pin **11, 13, 15** and an *led* on pin **33**.
 
