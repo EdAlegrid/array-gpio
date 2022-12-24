@@ -157,7 +157,7 @@ let led1 = r.out(33), led2 = r.out(35);
 // Press sw3 to turn on led2, press sw4 to turn off led2
 
 // The callback argument will be invoked 
-// if you pressed any of the input switches
+// if you press any of the input switches
 r.watchInput(() => {
   if(sw1.isOn){
     led1.on();
