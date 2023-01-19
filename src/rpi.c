@@ -1521,7 +1521,7 @@ void i2c_stop() {
 /* Start SPI operation */
 int spi_start()
 {
-    //rpi_init(1);
+    	//rpi_init(1); 
 	//mswait(25);
 
 	__sync_synchronize(); 
