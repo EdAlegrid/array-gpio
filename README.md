@@ -1440,20 +1440,18 @@ wbuf[1] = 0x80; // using channel 0, single ended
 wbuf[2] = 0x00; // don't care data byte as per datasheet
 spi.write(wbuf, 3); // write 3 bytes to slave
 
-/* alternative way to write and read to a slave at the same time */
-//spi.transfer(wbuf, rbuf, 3); // 3 bytes will be sent to slave and 3 bytes to read
-
-spi.read(rbuf, 3); // read 3 bytes from slave
+/* read the conversion result */ 
+spi.read(rbuf, 2); // read 2 bytes from slave
 /* read A/D conversion result */
 /* the 1st byte received through rbuf[0] will be discarded as per datasheet */
-var data1 = rbuf[1] << 8;  // 2nd byte, using only 2 bits data
-var data2 = rbuf[2];	   // 3rd byte, 8 bits data
-var value = data1 + data2; // combine both data to create a 10-bit digital output code
+var data1 = rbuf[1] << 8;  	// MSB, using only 2 bits data
+var data2 = rbuf[2];	   	// LSB, 8 bits data
+var adc = data1 | data2; 	// combine both data to create a 10-bit digital output code
 
-console.log("* A/D digital output code: ", value);
+console.log("* A/D digital output code: ", adc);
 
 /* compute the output voltage */
-var vout = (value * 3.3)/1024;
+var vout = (adc/1023) * 3.3;
 
 console.log("* A/D voltage output: ", vout);
 
