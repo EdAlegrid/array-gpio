@@ -1185,21 +1185,21 @@ Sets the i2c address of the slave device.
 
 The i2c address of the slave device.
 
-### write(wbuf, len)
+### write(wbuf, n)
 
 Write a number of bytes to the currently selected i2c slave device.
 
-**wbuf** The actual data bytes to send/write to the selected i2c slave device.
+**wbuf** The buffer containing the actual data bytes to send/write to the selected i2c slave device.
 
-**len**	The length of bytes or total number of bytes to send/write to the selected i2c slave device.
+**n**	The number of bytes to send/write to the selected i2c slave device.
 
-### read(rbuf, len)
+### read(rbuf, n)
 
 Read a number of bytes from the currently selected i2c slave device.
 
-**rbuf** The actual data bytes to read/receive from the selected i2c slave device.
+**rbuf** The buffer containing the actual data bytes to read/receive from the selected i2c slave device.
 
-**len**	The length of bytes or total number of bytes to read/receive from the selected i2c slave device.
+**n**	The number of bytes to read/receive from the selected i2c slave device.
 
 ##### Example
 ![](https://raw.githubusercontent.com/EdoLabs/src3/master/i2c-example.svg?sanitize=true)
@@ -1261,6 +1261,7 @@ function getTemp(){
   console.log('Temp: ', Temp);
 
   return Temp; 
+
 }
 
 /* Get temperature readings every 2 seconds */
@@ -1375,38 +1376,38 @@ mode = 2,  CPOL = 1, CPHA = 0
 mode = 3,  CPOL = 1, CPHA = 1
 ```
 
-### transfer(wbuf, rbuf, len)
+### transfer(wbuf, rbuf, n)
 
 Transfers any number of bytes to and from the currently selected spi slave device.
 This method makes it possible to perform simultaneous write and read operations for date transfer.
 
 Selected CS pins (as previously set by chipSelect) will be held in active state during the data transfer.
 
-**wbuf** The actual data bytes to send/write to the selected spi slave device.
+**wbuf** The buffer containing the actual data bytes to send/write to the selected spi slave device.
 
-**rbuf** The actual data bytes to read/receive from the selected spi slave device.
+**rbuf** The buffer containing the actual data bytes to read/receive from the selected spi slave device.
 
-**len**	The length of bytes or total number of bytes to send/receive from/to the selected spi device.
+**n**	The number of bytes to send/receive from/to the selected spi device.
 
 
-### write(wbuf, len)
+### write(wbuf, n)
 
 Write a number of bytes to the currently selected spi slave chip.
 
 Asserts the currently selected CS pins (as previously set by chipSelect) during the data transfer operations.
 
-**wbuf** The actual bytes to write/send to the selected spi slave device.
+**wbuf** The buffer containing the actual data bytes to write/send to the selected spi slave device.
 
-**len**	 The length of bytes or total number of bytes to write/send to the selected spi slave device.
+**n**	 The number of bytes to write/send to the selected spi slave device.
 
 
-### read(rbuf, len)
+### read(rbuf, n)
 
 Read a number of bytes from the currently selected spi slave device.
 
-**rbuf** The actual data bytes to read/receive from the selected spi slave device.
+**rbuf** The buffer containing the actual data bytes to read/receive from the selected spi slave device.
 
-**len**	 The length of bytes or total number of bytes to read/receive from the spi slave device.
+**n**	 The number of bytes to read/receive from the spi slave device.
 
 ### end()
 
