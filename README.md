@@ -1161,10 +1161,6 @@ This operation is integrated in setI2C() method, so there is no need to call it 
 
 Stops i2c operation and resets i2c pins 03 (SDA) and 05 (SCL) to GPIO input pins.
 
-### setTransferSpeed(baud)
-
-Sets the i2c clock frequency by converting the **baud** argument to the equivalent i2c clock divider value.
-
 ### setClockFreq(div)
 
 Sets the i2c clock speed based on the **div** divisor value. Check the various *div* values below and the possible clock speeds that will be generated.
@@ -1174,6 +1170,13 @@ div 626  => 2.504us => 399.3610 kHz
 div 150  => 60ns => 1.666 MHz (default at reset)
 div 148  => 59ns => 1.689 MHz
 ```
+
+### setTransferSpeed(baud)
+
+Directly set the the i2c clock speed using a baud argument instead of using a div value. Either use the setClockFreq above or this method. 
+
+Sets the i2c clock frequency by converting the **baud** argument to the equivalent i2c clock divider value.
+
 ### selectSlave(addr)
 
 Sets the i2c address of the slave device.
