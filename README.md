@@ -1211,25 +1211,25 @@ const r = require('array-gpio');
 
 let i2c = r.startI2C(); // using SDA1 and SCL1 (pin 3 & 5) pins
 
-/* set data transfer speed to 400 kHz */
-i2c.setTransferSpeed(400000);
+/* Set data transfer speed to 200 kHz */
+i2c.setTransferSpeed(200000);
 
 /* MCP9808 hardware device address */
 let addr = 0x18;
 
-/* select the MCP9808 device for data trasfer */
+/* Select the MCP9808 device for data trasfer */
 i2c.selectSlave(addr);
 
-/* setup the application read and write data buffer */
+/* Setup the application read and write data buffer */
 const wbuf = Buffer.alloc(16); // write buffer
 const rbuf = Buffer.alloc(16); // read buffer
 
-/* accessing the internal 16-bit manufacturer ID register within MCP9808 */
+/* Accessing the internal 16-bit manufacturer ID register within MCP9808 */
 wbuf[0] = 0x06; // from the MCP9808 datasheet, set the address of the manufacturer ID register to the write buffer
 i2c.write(wbuf, 1); // writes 1 data byte to the slave device selecting the MCP9808 manufacturer ID register for data access
 
-/* master (rpi) device will now read the content of the 16-bit manufacturer ID register (should be 0x54 as per datasheet) */
-/* reading 2 data bytes - the upper byte (rbuf[0]) and lower byte (rbuf[1]) from the manufacturer ID register, ID value is on the lower byte from the datasheet */
+/* Master (rpi) device will now read the content of the 16-bit manufacturer ID register (should be 0x54 as per datasheet) */
+/* Reading 2 data bytes - the upper byte (rbuf[0]) and lower byte (rbuf[1]) from the manufacturer ID register, ID value is on the lower byte from the datasheet */
 i2c.read(rbuf, 2);
 
 console.log('MCP9808 ID: ', rbuf[1].toString(16));  // convert the ID value to hex value
@@ -1237,11 +1237,9 @@ console.log('MCP9808 ID: ', rbuf[1].toString(16));  // convert the ID value to h
 /* Based on MCP9808 datasheet, compute the temperature data as follows */
 function getTemp(){
 
-  /* variable for temperature data */
-  let Temp;
-
-  let UpperByte = rbuf[0];
-  let LowerByte = rbuf[1];
+  let Temp = null;
+  let UpperByte = rbuf[0]; // MSB
+  let LowerByte = rbuf[1]; // LSB
 
   UpperByte = UpperByte & 0x1F; // Clear flag bits
 
@@ -1251,33 +1249,36 @@ function getTemp(){
 	Temp = 256 - ((UpperByte * 16) + (LowerByte / 16));
 
   /* Temp > 0 C */
-  }else {
+  }
+  else {
 	Temp = ((UpperByte * 16) + (LowerByte / 16));
   }
 
   /* Print out temperature data */
   console.log('Temp: ', Temp);
 
+  return Temp; 
+
 }
 
-/* get temperature readings every 2 seconds */
+/* Get temperature readings every 2 seconds */
 setInterval( function(){
-  /* accessing the internal 16-bit configuration register within MCP9808
+  /* Accessing the internal 16-bit configuration register within MCP9808.
      You can skip accessing this register using default settings */
   wbuf[0] = 0x01; // address of the configuration register
-  /* change content of configuration register */
+  /* Change content of configuration register */
   wbuf[1] = 0x02; // register upper byte, THYST set with +1.5 C
   wbuf[2] = 0x00; // register lower byte (power up defaults)
   i2c.write(wbuf, 3);
 
-  /* accessing the internal 16-bit ambient temp register within MCP9808 */
+  /* Accessing the internal 16-bit ambient temp register within MCP9808 */
   wbuf[0] = 0x05; // address of ambient temperature register
   i2c.write(wbuf, 1);
 
-  /* read the content of ambient temp register */
+  /* Read the content of ambient temp register */
   i2c.read(rbuf, 2); // read the UpperByte and LowerByte data
 
-  /* get temperature data and print out the results */
+  /* Get temperature data and print out the results */
   getTemp();
 
 }, 2000);
