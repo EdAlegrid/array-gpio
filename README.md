@@ -1258,7 +1258,6 @@ function getTemp(){
   console.log('Temp: ', Temp);
 
   return Temp; 
-
 }
 
 /* Get temperature readings every 2 seconds */
@@ -1435,7 +1434,7 @@ spi.chipSelect(0);
 const wbuf = Buffer.alloc(16); // write buffer
 const rbuf = Buffer.alloc(16); // read buffer
 
-/* Configure the chip to use CH0 in single-ended mode. */
+/* Configure the chip to use CH0 in single-ended mode. 
  * The device will begin to sample the analog input on the fourth rising edge of the clock after
  * the start bit has been received */
 wbuf[0] = 0x01; // start bit  
