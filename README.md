@@ -1430,27 +1430,33 @@ spi.setClockFreq(128);
 spi.setCSPolarity(0, 0);
 spi.chipSelect(0);
 
-/* setup write and read data buffer */
+/* Setup write and read data buffer */
 const wbuf = Buffer.alloc(16); // write buffer
 const rbuf = Buffer.alloc(16); // read buffer
 
-/* configure the chip to use CH0 in single-ended mode */
-wbuf[0] = 0x01; // start bit
+/* Configure the chip to use CH0 in single-ended mode. */
+ * The device will begin to sample the analog input on the fourth rising edge of the clock after
+ * the start bit has been received */
+wbuf[0] = 0x01; // start bit  
 wbuf[1] = 0x80; // using channel 0, single ended
 wbuf[2] = 0x00; // don't care data byte as per datasheet
-spi.write(wbuf, 3); // write 3 bytes to slave
+spi.write(wbuf, 3); 
 
-/* read the conversion result */ 
-spi.read(rbuf, 2); // read 2 bytes from slave
-/* read A/D conversion result */
-/* the 1st byte received through rbuf[0] will be discarded as per datasheet */
+/* Alternative way to write and read to a slave at the same time */
+//spi.transfer(wbuf, rbuf, 3); // write 3 bytes and receive 3 bytes afterwards
+
+/* Read the conversion result */ 
+spi.read(rbuf, 3); 
+
+/* Read A/D conversion result 
+ * The 1st byte received through rbuf[0] will be discarded as per datasheet */
 var data1 = rbuf[1] << 8;  	// MSB, using only 2 bits data
 var data2 = rbuf[2];	   	// LSB, 8 bits data
-var adc = data1 | data2; 	// combine both data to create a 10-bit digital output code
+var adc = data1 + data2; 	// combine both data to create a 10-bit digital output code
 
 console.log("* A/D digital output code: ", adc);
 
-/* compute the output voltage */
+/* Compute the output voltage */
 var vout = (adc/1023) * 3.3;
 
 console.log("* A/D voltage output: ", vout);
