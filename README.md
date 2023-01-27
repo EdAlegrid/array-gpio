@@ -60,7 +60,7 @@ For IoT or machine-to-machine applications, please check [m2m](https://www.npmjs
 <br>
 
 ### Nodejs Requirements
-* Node.js version: 10.x, 12.x, 14.x, 16.x (Ideally, the latest LTS version)
+* Node.js version: 10.x, 12.x, 14.x, 16.x, 18.x (Ideally, the latest LTS version)
 
 <br>
 
