@@ -48,7 +48,7 @@ For IoT or machine-to-machine applications, please check [m2m](https://www.npmjs
 
 
 ### Supported Raspberry Pi Devices
-* Model: Pi Zero & Zero W, Pi Zero 2 W, Pi 3 Model B+, Pi 4 Model B, Compute Module 3 & 4 (Generally most of the 40-pin models)
+* Model: Pi Zero & Zero W, Pi 3 Model B+, Pi 4 Model B, Compute Module 3 & 4 (Generally most of the 40-pin models)
 
 <br>
 
