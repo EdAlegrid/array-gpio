@@ -1201,7 +1201,9 @@ Read a number of bytes from the currently selected i2c slave device.
 
 **n**	The number of bytes to read/receive from the selected i2c slave device.
 
-#### Example 1 - Using MCP9808 Temperature Sensor
+<br>
+
+### Example 1 - Using MCP9808 Temperature Sensor
 ![](https://raw.githubusercontent.com/EdoLabs/src3/master/i2c-example.svg?sanitize=true)
 
 ```js
@@ -1294,7 +1296,7 @@ process.on('SIGINT', function (){
 
 ```
 
-#### Example 2 - Using ADS1115/1015 ADC
+### Example 2 - Using ADS1115/1015 ADC
 Click the link below
 [ADS1115/1015 ADC](https://github.com/EdAlegrid2/ads1115)
 
@@ -1419,7 +1421,9 @@ Read a number of bytes from the currently selected spi slave device.
 
 Stops the SPI data transfer operations. SPI0 pins 19 (MOSI), 21 (MISO), 23 (CLK), 24 (CE0) and 26 (CE1) are reset to GPIO input pins.
 
-##### Example
+<br>
+
+### Example
 ![](https://raw.githubusercontent.com/EdoLabs/src3/master/spi-example.svg?sanitize=true)
 
 ```js
