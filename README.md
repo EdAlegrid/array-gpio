@@ -1297,7 +1297,7 @@ process.on('SIGINT', function (){
 ```
 
 ### Example 2 - Using ADS1115/1015 ADC
-Click the link below.
+Check the link below for connecting ADS1115 16-bit ADC or ADS1015 12-bit ADC using i2c with your Raspberry Pi. 
 
 [ADS1115/1015 ADC](https://github.com/EdAlegrid2/ads1115)
 
