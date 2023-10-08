@@ -1297,7 +1297,8 @@ process.on('SIGINT', function (){
 ```
 
 ### Example 2 - Using ADS1115/1015 ADC
-Click the link below
+Click the link below.
+
 [ADS1115/1015 ADC](https://github.com/EdAlegrid2/ads1115)
 
 <br>
