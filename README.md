@@ -262,10 +262,10 @@ let LedOff = () => {
 watchInput(() => {
   sw.forEach((input) => {
     if(input.pin === 11 && input.isOn){
-      ledOn();
+      LedOn();
     }
     else if(input.pin === 13 && input.isOn){
-      ledOff();
+      LedOff();
     }    
   })
 });
