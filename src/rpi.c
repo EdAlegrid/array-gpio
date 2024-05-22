@@ -45,16 +45,16 @@
  * with a dynamic peri_base offset value
  */ 
 #define ST_BASE		(peri_base + 0x003000)		// 0x7E003000
-#define GPIO_PADS       (peri_base + 0x100000)		// 0x7E100000 unused
-#define CLK_BASE      	(peri_base + 0x101000)		// 0x7E101000 
-#define GPIO_BASE      	(peri_base + 0x200000)		// 0x7E200000
+#define GPIO_PADS (peri_base + 0x100000)		// 0x7E100000 unused
+#define CLK_BASE 	(peri_base + 0x101000)		// 0x7E101000 
+#define GPIO_BASE	(peri_base + 0x200000)		// 0x7E200000
 #define SPI0_BASE	(peri_base + 0x204000)		// 0x7E204000 SPI0 
 #define BSC0_BASE	(peri_base + 0x205000)		// 0x7E205000 BSC0 // GPIO 00 & 01/pin 27 & 28
-#define PWM_BASE      	(peri_base + 0x20C000)		// 0x7E20C000 PWM0 
+#define PWM_BASE 	(peri_base + 0x20C000)		// 0x7E20C000 PWM0 
 #define AUX_BASE	(peri_base + 0x215000)		// 0x7E215000 unused
 #define SPI1_BASE	(peri_base + 0x215080)		// 0x7E215080 unused
 #define SPI2_BASE	(peri_base + 0x2150C0)		// 0x7E2150C0 unused
-#define BSC1_BASE      	(peri_base + 0x804000)		// 0x7E804000 BSC1 // GPIO 02 & 03/pin 03 & 05
+#define BSC1_BASE	(peri_base + 0x804000)		// 0x7E804000 BSC1 // GPIO 02 & 03/pin 03 & 05
 
 /* Size of memory block or length of bytes to be used during mmap() */
 #define	BLOCK_SIZE	(4*1024)
@@ -63,14 +63,14 @@
 #define BASE_INDEX	6 // from the current total of 11 base addresses
 
 /* System timer registers */
-#define ST_PERI_BASE	base_pointer[0]	 // ST_BASE 
-#define ST_CS		(ST_PERI_BASE + 0x00/4) 
-#define ST_CLO		(ST_PERI_BASE + 0x04/4)
+#define ST_PERI_    BASE	base_pointer[0]	 // ST_BASE 
+#define ST_CS		    (ST_PERI_BASE + 0x00/4) 
+#define ST_CLO	    (ST_PERI_BASE + 0x04/4)
 #define ST_CHI_CLO	(ST_PERI_BASE + 0x08/4)
-#define ST_C0		(ST_PERI_BASE + 0x0C/4)
-#define ST_C1		(ST_PERI_BASE + 0x10/4)
-#define ST_C2		(ST_PERI_BASE + 0x14/4)
-#define ST_C3		(ST_PERI_BASE + 0x18/4)
+#define ST_C0		    (ST_PERI_BASE + 0x0C/4)
+#define ST_C1		    (ST_PERI_BASE + 0x10/4)
+#define ST_C2		    (ST_PERI_BASE + 0x14/4)
+#define ST_C3	    	(ST_PERI_BASE + 0x18/4)
  
 /* PWM control manager clocks control registers
  * https://www.scribd.com/doc/127599939/BCM2835-Audio-clocks
@@ -84,32 +84,32 @@
  * Each register has a 32-bit word size
  */
 #define GPIO_PERI_BASE	base_pointer[2]	// GPIO_BASE
-#define GPIO_GPFSEL0	(GPIO_PERI_BASE + 0x00/4)
-#define GPIO_GPFSEL1	(GPIO_PERI_BASE + 0x04/4)
-#define GPIO_GPFSEL2	(GPIO_PERI_BASE + 0x08/4)
-#define GPIO_GPFSEL3	(GPIO_PERI_BASE + 0x0C/4)
-#define GPIO_GPFSEL4	(GPIO_PERI_BASE + 0x10/4)
-#define GPIO_GPFSEL5	(GPIO_PERI_BASE + 0x14/4)
-#define GPIO_GPSET0	(GPIO_PERI_BASE + 0x1C/4)
-#define GPIO_GPSET1	(GPIO_PERI_BASE + 0x20/4)
-#define	GPIO_GPCLR0	(GPIO_PERI_BASE + 0x28/4)
-#define	GPIO_GPCLR1	(GPIO_PERI_BASE + 0x2C/4)
-#define GPIO_GPLEV0	(GPIO_PERI_BASE + 0x34/4)
-#define GPIO_GPLEV1	(GPIO_PERI_BASE + 0x38/4)
-#define	GPIO_GPEDS0	(GPIO_PERI_BASE + 0x40/4)
-#define	GPIO_GPEDS1	(GPIO_PERI_BASE + 0x44/4) 		
-#define GPIO_GPREN0	(GPIO_PERI_BASE + 0x4C/4)
-#define GPIO_GPREN1	(GPIO_PERI_BASE + 0x50/4) 		
-#define	GPIO_GPFEN0	(GPIO_PERI_BASE + 0x58/4)
-#define	GPIO_GPFEN1	(GPIO_PERI_BASE + 0x5C/4)		
-#define GPIO_GPHEN0	(GPIO_PERI_BASE + 0x64/4) 
-#define GPIO_GPHEN1	(GPIO_PERI_BASE + 0x68/4) 		
-#define	GPIO_GPLEN0	(GPIO_PERI_BASE + 0x70/4) 		
-#define	GPIO_GPAREN0	(GPIO_PERI_BASE + 0x7C/4)
-#define	GPIO_GPAREN1	(GPIO_PERI_BASE + 0x80/4) 		
-#define	GPIO_GPAFEN0	(GPIO_PERI_BASE + 0x88/4)
-#define	GPIO_GPAFEN1	(GPIO_PERI_BASE + 0x8C/4)  		
-#define GPIO_GPPUD	(GPIO_PERI_BASE + 0x94/4) 		
+#define GPIO_GPFSEL0	  (GPIO_PERI_BASE + 0x00/4)
+#define GPIO_GPFSEL1	  (GPIO_PERI_BASE + 0x04/4)
+#define GPIO_GPFSEL2	  (GPIO_PERI_BASE + 0x08/4)
+#define GPIO_GPFSEL3	  (GPIO_PERI_BASE + 0x0C/4)
+#define GPIO_GPFSEL4	  (GPIO_PERI_BASE + 0x10/4)
+#define GPIO_GPFSEL5	  (GPIO_PERI_BASE + 0x14/4)
+#define GPIO_GPSET0	    (GPIO_PERI_BASE + 0x1C/4)
+#define GPIO_GPSET1	    (GPIO_PERI_BASE + 0x20/4)
+#define	GPIO_GPCLR0	    (GPIO_PERI_BASE + 0x28/4)
+#define	GPIO_GPCLR1	    (GPIO_PERI_BASE + 0x2C/4)
+#define GPIO_GPLEV0	    (GPIO_PERI_BASE + 0x34/4)
+#define GPIO_GPLEV1	    (GPIO_PERI_BASE + 0x38/4)
+#define	GPIO_GPEDS0	    (GPIO_PERI_BASE + 0x40/4)
+#define	GPIO_GPEDS1	    (GPIO_PERI_BASE + 0x44/4) 		
+#define GPIO_GPREN0	    (GPIO_PERI_BASE + 0x4C/4)
+#define GPIO_GPREN1	    (GPIO_PERI_BASE + 0x50/4) 		
+#define	GPIO_GPFEN0	    (GPIO_PERI_BASE + 0x58/4)
+#define	GPIO_GPFEN1	    (GPIO_PERI_BASE + 0x5C/4)		
+#define GPIO_GPHEN0	    (GPIO_PERI_BASE + 0x64/4) 
+#define GPIO_GPHEN1	    (GPIO_PERI_BASE + 0x68/4) 		
+#define	GPIO_GPLEN0	    (GPIO_PERI_BASE + 0x70/4) 		
+#define	GPIO_GPAREN0	  (GPIO_PERI_BASE + 0x7C/4)
+#define	GPIO_GPAREN1	  (GPIO_PERI_BASE + 0x80/4) 		
+#define	GPIO_GPAFEN0	  (GPIO_PERI_BASE + 0x88/4)
+#define	GPIO_GPAFEN1	  (GPIO_PERI_BASE + 0x8C/4)  		
+#define GPIO_GPPUD	    (GPIO_PERI_BASE + 0x94/4) 		
 #define GPIO_GPPUDCLK0	(GPIO_PERI_BASE + 0x98/4)	
 #define GPIO_GPPUDCLK1	(GPIO_PERI_BASE + 0x9C/4)		
 
@@ -129,15 +129,15 @@
 #define PWM_RNG1	(PWM_PERI_BASE + 0x10/4)
 #define PWM_DAT1	(PWM_PERI_BASE + 0x14/4)
 #define PWM_FIF1	(PWM_PERI_BASE + 0x18/4)
-#define PWM_RNG2    	(PWM_PERI_BASE + 0x20/4)
+#define PWM_RNG2 	(PWM_PERI_BASE + 0x20/4)
 #define PWM_DAT2	(PWM_PERI_BASE + 0x24/4)
 
 /* I2C registers */
 #define I2C_PERI_BASE	base_pointer[5]	// BSC1_BASE
-#define I2C_C		(I2C_PERI_BASE + 0x00/4)
-#define I2C_S		(I2C_PERI_BASE + 0x04/4)  
+#define I2C_C		  (I2C_PERI_BASE + 0x00/4)
+#define I2C_S		  (I2C_PERI_BASE + 0x04/4)  
 #define I2C_DLEN	(I2C_PERI_BASE + 0x08/4)  
-#define I2C_A		(I2C_PERI_BASE + 0x0C/4) 
+#define I2C_A		  (I2C_PERI_BASE + 0x0C/4) 
 #define I2C_FIFO	(I2C_PERI_BASE + 0x10/4) 
 #define I2C_DIV		(I2C_PERI_BASE + 0x14/4) 
 #define I2C_DEL		(I2C_PERI_BASE + 0x18/4) 
@@ -161,7 +161,7 @@ volatile uint32_t base_add[BASE_INDEX] = {0};
 volatile uint32_t *base_pointer[BASE_INDEX] = {0};
 
 /* Temporary dynamic core_clock frequency container (RPi 1 & 2 = 250 MHz, RPi 3 & 4 = 400 MHz) */
-uint32_t core_clock_freq = 250000000;  // initial value is 250 MHz
+uint32_t core_clock_freq = 250000000;  // Initial value is 250 MHz
 
 /**********************************
 
@@ -183,39 +183,39 @@ void set_peri_base_address(uint8_t pwm_option, uint8_t spi_option, uint8_t i2c_o
 	/* Get 'Model' info */
 	while (fgets (info, INFO_SIZE, fp) != NULL){
 		if (strncmp (info, "Model", 5) == 0)
-        	break;
+      break;
 	}
 	//printf("%s", info);
 
-  	if(strstr(info, "Pi Zero")||strstr(info, "Pi 1")){
+  if(strstr(info, "Pi Zero")||strstr(info, "Pi 1")){
 		//puts("Pi zero/Pi 1");
-	    	peri_base = PERI_BASE_RPI1;
-    	}
+	 	peri_base = PERI_BASE_RPI1;
+  }
 	else if(strstr(info, "Pi Zero 2")||strstr(info, "Pi 3")){
 		//puts("Pi Zero 2/Pi 3");
-    		peri_base = PERI_BASE_RPI23;
-        	core_clock_freq = CORE_CLOCK_FREQ_RPI23; 
-    	}
+  	peri_base = PERI_BASE_RPI23;
+   	core_clock_freq = CORE_CLOCK_FREQ_RPI23; 
+  }
 	else if(strstr(info, "Pi Compute Module 3")){
 		//puts("Pi Compute Module 3 Model");
-    		peri_base = PERI_BASE_RPI23;
+  	peri_base = PERI_BASE_RPI23;
 		core_clock_freq = CORE_CLOCK_FREQ_RPI23;
-    	}
+  }
 	else if(strstr(info, "Pi 4")||strstr(info, "Pi Compute Module 4")){
 		//puts("Pi 4 Model B/Pi Compute Module 4");
-    		peri_base = PERI_BASE_RPI4;
-        	core_clock_freq = CORE_CLOCK_FREQ_RPI4; 
-    	}
+  	peri_base = PERI_BASE_RPI4;
+   	core_clock_freq = CORE_CLOCK_FREQ_RPI4; 
+  }
 	else if(strstr(info, "Pi 400")){
 		//puts("Pi 400 Model");
-    		peri_base = PERI_BASE_RPI4;
-        	core_clock_freq = CORE_CLOCK_FREQ_RPI4; 
-    	}
+  	peri_base = PERI_BASE_RPI4;
+   	core_clock_freq = CORE_CLOCK_FREQ_RPI4; 
+  }
 	else{
 		//puts("Other Rpi Model");			
 		peri_base = PERI_BASE_RPI4;
-        	core_clock_freq = CORE_CLOCK_FREQ_RPI4; 
-    	}
+   	core_clock_freq = CORE_CLOCK_FREQ_RPI4; 
+  }
 	
 	/* Verify ST_BASE, its new value should be other than 0x3000
 	 * otherwise its peripheral base address was not correctly initialized
@@ -226,29 +226,29 @@ void set_peri_base_address(uint8_t pwm_option, uint8_t spi_option, uint8_t i2c_o
 		printf("Target ST_BASE: %X\n", peri_base);
 		printf("Actual ST_BASE: %X\n", ST_BASE);
 		exit(1);	
-    	}
+  }
 
 	/*
 	// Check other information
 	// Get 'Hardware' info 
-    	rewind (fp);
-    	while (fgets (info, INFO_SIZE, fp) != NULL){
-    		if (strncmp (info, "Hardware", 8) == 0)
-       			break ;
-    	}
-    	printf("%s", info); // show Hardware line info
+  rewind (fp);
+  while (fgets (info, INFO_SIZE, fp) != NULL){
+  	if (strncmp (info, "Hardware", 8) == 0)
+   			break ;
+  }
+  printf("%s", info); // show Hardware line info
 
-    	// Get 'Revision' info 
+  // Get 'Revision' info 
 	rewind (fp);
-    	while (fgets (info, INFO_SIZE, fp) != NULL){
-    		if (strncmp (info, "Revision", 8) == 0)
-       			break ;
-    	}
-    	printf("%s", info); // show Revision line info
+  while (fgets (info, INFO_SIZE, fp) != NULL){
+  if (strncmp (info, "Revision", 8) == 0)
+  	break ;
+  }
+  printf("%s", info); // show Revision line info
 	*/
 
 	/* Set each peripheral base address 
-     	 * consecutively for each base array element
+   * consecutively for each base array element
 	 */
 	base_add[0] = ST_BASE;
 	base_add[1] = CLK_BASE;
@@ -260,7 +260,7 @@ void set_peri_base_address(uint8_t pwm_option, uint8_t spi_option, uint8_t i2c_o
 
 	if(pwm_option == 0){
 		base_add[4] = PWM_BASE;
-    	}
+  }
     
 	if(i2c_option == 0){
 		base_add[5] = BSC0_BASE;
@@ -269,19 +269,21 @@ void set_peri_base_address(uint8_t pwm_option, uint8_t spi_option, uint8_t i2c_o
 		base_add[5] = BSC1_BASE;
 	}
 	  
-  	fclose(fp);
+  fclose(fp);
 }
 
 void start_mmap(int access){
 	int fd, i;
 
-	/*page_size = (size_t)sysconf(_SC_PAGESIZE);
+	/*
+  page_size = (size_t)sysconf(_SC_PAGESIZE);
 	//printf("init page_size: %i\n", page_size);
 
 	if(page_size < 0){
 		perror("page_size");
 		exit(1);
-	}*/
+	}
+  */
 
 	// access = 0, non-root
 	if (!access) { 		
@@ -289,8 +291,8 @@ void start_mmap(int access){
 			perror("Opening rpi in /dev/gpiomem");
 			printf("%s() error: ", __func__);
 			exit(1);
-        	}
-    	}
+   	}
+  }
  	// access = 1, root
 	else if(access) {
 		if ((fd = open("/dev/mem", O_RDWR|O_SYNC)) < 0) {
@@ -298,34 +300,33 @@ void start_mmap(int access){
 			//printf("%s() error: ", __func__);
 			puts("Try running your application with sudo or in root!\n");
 			exit(1);
-        	}
-    	}
+   	}
+  }
 	
-    	/* Start mmap() process for each peripheral base address 
+  /* Start mmap() process for each peripheral base address 
 	 * and capture the corresponding peripheral memory base pointers
 	 */   
-    	for(i = 0; i < BASE_INDEX; i++){
+  for(i = 0; i < BASE_INDEX; i++){
 
-    		base_pointer[i] = mmap(NULL, BLOCK_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, base_add[i]);
+  	base_pointer[i] = mmap(NULL, BLOCK_SIZE, PROT_READ|PROT_WRITE, MAP_SHARED, fd, base_add[i]);
 
 		if (base_pointer[i] == MAP_FAILED) {
-           		perror("mmap() error");
+   		perror("mmap() error");
 			printf("%s() error: ", __func__);
 			puts("Invalid peripheral register base address.");
-            		if(close(fd) < 0)
+   		if(close(fd) < 0)
 				perror("fd close");
 			exit(1);
-       		}
+  	}
 	
 		/* Reset peripheral base register pointers back to 0 */
 		// Note: Disable this for SocketCan operation
-        	*base_pointer[i] = 0; 
+   	*base_pointer[i] = 0; 
 	}
 
-    	/* Close fd after memory-mapped operation */
+  /* Close fd after memory-mapped operation */
 	if(close(fd) < 0)
 		perror("fd close");
-
 }
 
 /* Initialize Arm Peripheral Base Register Adressses 
@@ -335,7 +336,7 @@ void start_mmap(int access){
  * access = 1	("/dev/mem") 		// PWM, I2C, SPI
  */
 void rpi_init(int access) {
-    	set_peri_base_address(0, 0, 1);
+  set_peri_base_address(0, 0, 1);
 	
 	start_mmap(access);
 }
@@ -360,21 +361,21 @@ void rpi_init_i2c(uint8_t access, uint8_t value) {
  */
 uint8_t rpi_close()
 {
-    	int i;
+  int i;
 	//page_size = (size_t)sysconf(_SC_PAGESIZE);
 	//printf("close page_size: %i\n", page_size);
 
 	for(i = 0; i < BASE_INDEX; i++){
-	   	if (munmap((uint32_t *) base_pointer[i] , BLOCK_SIZE) < 0){
-       			perror("munmap() error");
+	 	if (munmap((uint32_t *) base_pointer[i] , BLOCK_SIZE) < 0){
+  		perror("munmap() error");
 			printf("%s() error: ", __func__);
 			puts("munmap() operation fail"); 
 			return -1;
-       		}
+  	}
 	}
 	
 	/* munmap() success */
-    	return 0;
+  return 0;
 }
 
 /**************************************
@@ -392,11 +393,11 @@ uint8_t rpi_close()
 ***************************************/
 /* Time delay function in nanoseconds */
 void nswait(uint64_t ns) { 
-    	struct timespec req = { ns / 1000000, ns % 1000000 };  
-    	struct timespec rem;
+ 	struct timespec req = { ns / 1000000, ns % 1000000 };  
+ 	struct timespec rem;
 
-   	 while ( nanosleep(&req,&rem) == -1 )
-         	req.tv_nsec = rem.tv_nsec;
+  while ( nanosleep(&req,&rem) == -1 )
+   	req.tv_nsec = rem.tv_nsec;
 }
 
 /* Time delay function in us or microseconds, valid only if us is below 1000 */
@@ -405,7 +406,7 @@ void uswait(uint32_t us) {
 	struct timespec rem;
 
 	while ( nanosleep(&req,&rem) == -1 )
-	    	req.tv_nsec = rem.tv_nsec;
+	 	req.tv_nsec = rem.tv_nsec;
 }
 
 /* Time delay function in milliseconds */
@@ -414,7 +415,7 @@ void mswait(uint32_t ms) {
 	struct timespec rem;
 
 	while ( nanosleep(&req, &rem) == -1 )
-	    	req.tv_nsec = rem.tv_nsec;
+	  req.tv_nsec = rem.tv_nsec;
 }
 
 /*********************************************************
@@ -490,11 +491,11 @@ void set_gpio(uint8_t pin, uint8_t fsel){
 	 */
 
 	 volatile uint32_t *gpsel = (uint32_t *)(GPIO_GPFSEL0 + (pin/10));  	// get the GPFSEL0 pointer (GPFSEL0 ~ GPFSEL5) based on the pin number selected
-	 uint32_t mask = ~ (7 <<  (pin % 10)*3); 				// mask to reset fsel to 0 first
-	 *gpsel &= mask;   					     		// reset gpsel value to 0
-	 mask = (fsel <<  ((pin) % 10)*3);       				// mask for new fsel value   
+	 uint32_t mask = ~ (7 <<  (pin % 10)*3);	// mask to reset fsel to 0 first
+	 *gpsel &= mask;   					     		      // reset gpsel value to 0
+	 mask = (fsel <<  ((pin) % 10)*3);	      // mask for new fsel value   
 	 __sync_synchronize();
-	 *gpsel |= mask; 					     		// write new fsel value to gpselect pointer
+	 *gpsel |= mask; 					     		        // write new fsel value to gpselect pointer
 	 __sync_synchronize();
 }
 
@@ -509,7 +510,7 @@ void gpio_input(uint8_t pin){
  * Set a GPIO pin as output
  */
 void gpio_output(uint8_t pin){
-  	set_gpio(pin, 1);
+  set_gpio(pin, 1);
 }
 
 /* Configure GPIO pin as input or output
@@ -534,23 +535,23 @@ void gpio_config(uint8_t pin, uint8_t mode) {
 		set_gpio(pin, 4); 	// alt-func 0
 	}
 	else if(mode == 5){ 
-    		set_gpio(pin, 5);	// alt-func 1
-    	}
+  	set_gpio(pin, 5);	  // alt-func 1
+  }
 	else if(mode == 6){
  		set_gpio(pin, 6); 	// alt-func 2
-    	}
+  }
 	else if(mode == 7){ 
-    		set_gpio(pin, 7); 	// alt-func 3
-    	}
+  	set_gpio(pin, 7); 	// alt-func 3
+  }
 	else if(mode == 3){
  		set_gpio(pin, 3); 	// alt-func 4
-    	}
-   	else if(mode == 2){ 
-    		set_gpio(pin, 2); 	// alt-func 5
+  }
+  else if(mode == 2){ 
+  	set_gpio(pin, 2); 	// alt-func 5
 	}	
 	else{
 		printf("%s() error: ", __func__);
-  		puts("Invalid mode parameter.");
+  	puts("Invalid mode parameter.");
 	}
 }
 
@@ -579,6 +580,28 @@ uint8_t gpio_write(uint8_t pin, uint8_t bit) {
 	__sync_synchronize();
 
 	return bit; 
+}
+
+/* Turn ON a GPIO pin
+ */
+void gpio_on(uint8_t pin){
+	gpio_write(pin, 1);
+}
+
+/* Turn OFF a GPIO pin
+ */
+void gpio_off(uint8_t pin){
+	gpio_write(pin, 0);
+}
+
+/* Create a simple sing-shot pulse
+ *
+ * td as time duration or period of the pulse 
+ */
+void gpio_pulse(uint8_t pin, int td){
+	gpio_on(pin); 
+	mswait(td);
+	gpio_off(pin);  
 }
 
 /* Read the current state of a GPIO pin (input/output)
@@ -621,14 +644,14 @@ void gpio_reset_all_events (uint8_t pin) {
  */
 void gpio_enable_high_event (uint8_t pin, uint8_t bit) {
 	if(bit == 1){
-  		setBit(GPIO_GPHEN0, pin);
+  	setBit(GPIO_GPHEN0, pin);
 	}
 	else if(bit == 0){
-  		clearBit(GPIO_GPHEN0, pin);
+  	clearBit(GPIO_GPHEN0, pin);
 	}
 	else {
 		printf("%s() error: ", __func__);
-  		puts("Invalid bit parameter.");
+  	puts("Invalid bit parameter.");
 	}
 }
 
@@ -639,14 +662,14 @@ void gpio_enable_high_event (uint8_t pin, uint8_t bit) {
  */
 void gpio_enable_low_event (uint8_t pin, uint8_t bit) {
 	if(bit == 1){
-  		setBit(GPIO_GPLEN0, pin);
+  	setBit(GPIO_GPLEN0, pin);
 	}
 	else if(bit == 0){
-  		clearBit(GPIO_GPLEN0, pin);
+  	clearBit(GPIO_GPLEN0, pin);
 	}
 	else {
 		printf("%s() error: ", __func__);
-  		puts("Invalid bit parameter.");
+  	puts("Invalid bit parameter.");
 	}
 }
 
@@ -680,14 +703,14 @@ void gpio_enable_rising_event (uint8_t pin, uint8_t bit) {
  */
 void gpio_enable_falling_event (uint8_t pin, uint8_t bit) {
 	if(bit == 1){
-  		setBit(GPIO_GPFEN0, pin);
+  	setBit(GPIO_GPFEN0, pin);
 	}
 	else if(bit == 0){
-  		clearBit(GPIO_GPFEN0, pin);
+  	clearBit(GPIO_GPFEN0, pin);
 	}
 	else {
 		printf("%s() error: ", __func__);
-  		puts("Invalid bit parameter.");
+  	puts("Invalid bit parameter.");
 	}
 }
 
@@ -698,14 +721,14 @@ void gpio_enable_falling_event (uint8_t pin, uint8_t bit) {
  */
 void gpio_enable_async_rising_event (uint8_t pin, uint8_t bit) {
 	if(bit == 1){
-  		setBit(GPIO_GPAREN0, pin);
+  	setBit(GPIO_GPAREN0, pin);
 	}
 	else if(bit == 0){
-  		clearBit(GPIO_GPAREN0, pin);
+  	clearBit(GPIO_GPAREN0, pin);
 	}
 	else {
 		printf("%s() error: ", __func__);
-    		puts("Invalid bit parameter.");
+    puts("Invalid bit parameter.");
 	}
 }
 
@@ -716,14 +739,14 @@ void gpio_enable_async_rising_event (uint8_t pin, uint8_t bit) {
  */
 void gpio_enable_async_falling_event (uint8_t pin, uint8_t bit) {
 	if(bit == 1){
-    		setBit(GPIO_GPAFEN0, pin);
+    setBit(GPIO_GPAFEN0, pin);
 	}
 	else if(bit == 0){
-  		clearBit(GPIO_GPAFEN0, pin);
+  	clearBit(GPIO_GPAFEN0, pin);
 	}
 	else {
 		printf("%s() error: ", __func__);
-  		puts("Invalid bit parameter.");
+  	puts("Invalid bit parameter.");
 	}
 }
 
@@ -740,7 +763,7 @@ uint8_t gpio_detect_input_event(uint8_t pin) {
  * from gpio_detect_input_event(pin)
  */  
 void gpio_reset_event(uint8_t pin) {
-   	setBit(GPIO_GPEDS0, pin);
+  setBit(GPIO_GPEDS0, pin);
 }
 
 /* Enable internal PULL-UP/PULL-DOWN resistor for input pin
@@ -751,18 +774,18 @@ void gpio_reset_event(uint8_t pin) {
  */
 void gpio_enable_pud(uint8_t pin, uint8_t value) {
 	if(value == 0){       
-    		*GPIO_GPPUD = 0x0;	// Disable PUD/Pull-UP/Down
-   	}
+  	*GPIO_GPPUD = 0x0;	// Disable PUD/Pull-UP/Down
+  }
 	else if(value == 1){  
-        	*GPIO_GPPUD = 0x1;	// Enable PD/Pull-Down
+   	*GPIO_GPPUD = 0x1;	// Enable PD/Pull-Down
 	}
 	else if(value == 2){ 
-    		*GPIO_GPPUD = 0x2;	// Enable PU/Pull-Up
+  	*GPIO_GPPUD = 0x2;	// Enable PU/Pull-Up
 	}
-    	else{
+  else{
 		printf("%s() error: ", __func__);
 		puts("Invalid pud value.");
-    	}
+  }
 
 	uswait(150);  	/* required wait times based on bcm2835 manual */
 	setBit(GPIO_GPPUDCLK0, pin);
@@ -789,30 +812,30 @@ void pwm_reset_all_pins(){
 
 /* Set a GPIO pin to its ALT-Func for PWM */
 void pwm_set_pin(uint8_t pin){
-  	if(pin == 12||pin ==13) {       // alt 100b, PHY pin 33, GPIO 13, alt 0 
-    		set_gpio(pin, 4);	// alt 100b, PHY pin 32, GPIO 12, alt 0
-  	}
-    	else if(pin == 18||pin == 19) { // alt 10b, PHY pin 35, GPIO 19, alt 5 	
-        	set_gpio(pin, 2);	// alt 10b, PHY pin 12, GPIO 18, alt 5
+  if(pin == 12||pin ==13) {       // alt 100b, PHY pin 33, GPIO 13, alt 0 
+  	set_gpio(pin, 4);	// alt 100b, PHY pin 32, GPIO 12, alt 0
+  }
+  else if(pin == 18||pin == 19) { // alt 10b, PHY pin 35, GPIO 19, alt 5 	
+   	set_gpio(pin, 2);	// alt 10b, PHY pin 12, GPIO 18, alt 5
  	}
-  	else {
-        	printf("%s() error: ", __func__);
+  else {
+   	printf("%s() error: ", __func__);
 		puts("Invalid pin number for PWM.");
 		puts("Choose only from board header layout pins 12, 32, 33 and 35.");
 		exit(1);
-  	}
+  }
 }
 
 /* Reset a PWM pin back to GPIO Input */
 void pwm_reset_pin(uint8_t pin){
 	if(pin == 18||pin ==12||pin==13||pin==19) {     
-    		gpio_input(pin);	// GPIO18/PHY12, GPIO12/PHY32, GPIO13/PHY33, GPIO19/PHY35
-    	}
-  	else {
-        	printf("%s() error: ", __func__);
+  	gpio_input(pin);	// GPIO18/PHY12, GPIO12/PHY32, GPIO13/PHY33, GPIO19/PHY35
+  }
+  else {
+   	printf("%s() error: ", __func__);
 		puts("Invalid pin.");
-  		exit(1);
-  	}
+  	exit(1);
+  }
 }
 
 /*****************************************
@@ -839,11 +862,11 @@ uint8_t get_clk_src(){
  */
 uint8_t clk_status(){
 	if(isBitSet(CM_PWMCTL, 7)){
-    		return 1; // clk is running
-    	}
+  	return 1; // clk is running
+  }
 	else{
-    		return 0; // clk is not running
-    	}
+  	return 0; // clk is not running
+  }
 }
 
 /* Calculate clock freq based on divisor div value */
@@ -872,8 +895,10 @@ void set_clock_div(uint32_t div){
 		uswait(100);
 	}
 
-	/* set DIVF (bit num 11-0) divisor from clock manager 
-	   general purpose register (CM_GP2DIV) while clk is not running */
+	/*
+    set DIVF (bit num 11-0) divisor from clock manager 
+	  general purpose register (CM_GP2DIV) while clk is not running
+  */
 	if(!isBitSet(CM_PWMCTL, 7)){
 		*CM_PWMDIV = 0x5A000000 | ( div << 12 );
 	} 
@@ -900,8 +925,8 @@ uint8_t pwm_set_clock_freq(uint32_t divider) {
 		return OSC;
 	}
 	else{
-	   	return -1;
-    }
+	 	return -1;
+  }
 }
 
 /***************************************
@@ -922,25 +947,25 @@ void reset_status_reg(){
 	bool RERR1 = isBitSet(PWM_STA, 3);
 	uswait(10); 
 	bool WERR1 = isBitSet(PWM_STA, 2);
-    	uswait(10);
+  uswait(10);
  
-	if (!STA1) {
-		if (RERR1)
-	    		setBit(PWM_STA, 3); // reset RERR1
-	  	if (WERR1)
+	if(!STA1) {
+		if(RERR1)
+	 		setBit(PWM_STA, 3); // reset RERR1
+	 	if(WERR1)
 			setBit(PWM_STA, 2); // reset WERR1
-	    	if (BERR)
-	    		setBit(PWM_STA, 8); // reset BERR
+	 	if(BERR)
+	 		setBit(PWM_STA, 8); // reset BERR
 	}
 	if(!STA2){
-		if (RERR1)
-	       		setBit(PWM_STA, 3); // reset RERR1
-	    	if (WERR1)
-	    		setBit(PWM_STA, 2); // reset WERR1
-	    	if (BERR)
-	    		setBit(PWM_STA, 8); // reset BERR
+		if(RERR1)
+	  	setBit(PWM_STA, 3); // reset RERR1
+	  if(WERR1)
+	  	setBit(PWM_STA, 2); // reset WERR1
+	  if(BERR)
+	  	setBit(PWM_STA, 8); // reset BERR
 	}
-   	uswait(10);   
+  uswait(10);   
 }
 
 /* Set and Clear bits based on Field Name (or Bit position)
@@ -948,15 +973,15 @@ void reset_status_reg(){
  */
 void pwm_reg_ctrl(uint8_t n, uint8_t position){
 	if(n == 1){
-  		setBit(PWM_CTL, position);
-    	}
-   	else if(n == 0) {
-    		clearBit(PWM_CTL, position);
-  	}
-   	else{
-    		puts("Invalid n control parameter. Choose 1 or 0 only.");
-   	}
-   	uswait(10); 
+  	setBit(PWM_CTL, position);
+  }
+  else if(n == 0) {
+  	clearBit(PWM_CTL, position);
+  }
+  else{
+  	puts("Invalid n control parameter. Choose 1 or 0 only.");
+  }
+  uswait(10); 
 }
 
 /* Enable/Disable PWM
@@ -966,8 +991,8 @@ void pwm_reg_ctrl(uint8_t n, uint8_t position){
  */
 void pwm_enable(uint8_t pin, uint8_t n){
 	// Channel 1
-	if( pin == 18 || pin == 12) {	  // GPIO 18/12, PHY 12/32     
-	   	 pwm_reg_ctrl(n, 0); 
+	if( pin == 18 || pin == 12) {	    // GPIO 18/12, PHY 12/32     
+	  pwm_reg_ctrl(n, 0); 
 	}
 	// Channel 2
 	else if(pin == 13 || pin == 19) { // GPIO 13/19, PHY 33/35
@@ -986,8 +1011,8 @@ void pwm_enable(uint8_t pin, uint8_t n){
  */
 void pwm_set_mode(uint8_t pin, uint8_t n){
 	// Channel 1
-	if( pin == 18 || pin == 12) {	  // GPIO 18/12, PHY 12/32     
-	    	pwm_reg_ctrl(n, 7); 
+	if( pin == 18 || pin == 12) {	    // GPIO 18/12, PHY 12/32     
+	  pwm_reg_ctrl(n, 7); 
 	}
 	// Channel 2
 	else if(pin == 13 || pin == 19) { // GPIO 13/19, PHY 33/35
@@ -1006,7 +1031,7 @@ void pwm_set_mode(uint8_t pin, uint8_t n){
  */
 void pwm_set_pola(uint8_t pin, uint8_t n){
 	// Channel 1
-	if( pin == 18 || pin == 12) {	  // GPIO 18/12, PHY 12/32     
+	if( pin == 18 || pin == 12) {	    // GPIO 18/12, PHY 12/32     
 		pwm_reg_ctrl(n, 4); 
 	}
 	// Channel 2
@@ -1022,7 +1047,7 @@ void pwm_set_pola(uint8_t pin, uint8_t n){
 /* Sets PWM range data or 'period T' of the pulse */
 void pwm_set_range(uint8_t pin, uint32_t range){
 	// Channel 1
-	if( pin == 18 || pin == 12) {	  // GPIO 18/12, PHY 12/32     
+	if( pin == 18 || pin == 12) {	    // GPIO 18/12, PHY 12/32     
 		*PWM_RNG1 = range;
 		reset_status_reg();
 	}
@@ -1039,20 +1064,20 @@ void pwm_set_range(uint8_t pin, uint32_t range){
 
 /* Sets PWM data or 'pulse width' of the pulse to generate */
 void pwm_set_data(uint8_t pin, uint32_t data){
-    	// Channel 1
-    	if( pin == 18 || pin == 12) {	  // GPIO 18/12, PHY 12/32 
-        	*PWM_DAT1 = data;
+  // Channel 1
+  if( pin == 18 || pin == 12) {	    // GPIO 18/12, PHY 12/32 
+   	*PWM_DAT1 = data;
 		reset_status_reg();
 	}
-    	// Channel 2
-  	else if(pin == 13 || pin == 19) { // GPIO 13/19, PHY 33/35
-    		*PWM_DAT2 = data;
-    		reset_status_reg();
-  	}
-    	else{
+  // Channel 2
+  else if(pin == 13 || pin == 19) { // GPIO 13/19, PHY 33/35
+  	*PWM_DAT2 = data;
+  	reset_status_reg();
+  }
+  else{
 		printf("%s() error: ", __func__);
 		puts("Invalid pin.");
-    	}
+  }
 }
 
 /**************************************************
@@ -1164,7 +1189,7 @@ int i2c_init(uint8_t value)
 	// or
 	//*I2C_C |= 0x00008000;
 
-	return 1;		// i2c initialization success is successful
+	return 1;		// i2c initialization is successful
 }
 
 /* Set falling and rising clock delay
@@ -1188,7 +1213,7 @@ uint32_t set_clock_delay(uint8_t FEDL, uint8_t REDL){
 	// reset data delay register msb and lsb using 0x0030 reset value
 	*I2C_DEL = (volatile uint32_t)(0x0030 << 16 | 0x0030);
 
-        // set a new msb and lsb values to data delay register
+  // set a new msb and lsb values to data delay register
 	volatile uint32_t value = (volatile uint32_t)(msb << 16 | lsb);
 
 	if((FEDL < (cdiv/2)) && (REDL < (cdiv/2))){
@@ -1202,7 +1227,8 @@ uint32_t set_clock_delay(uint8_t FEDL, uint8_t REDL){
 		return 1; 	
 	}
 
-	/*volatile uint32_t delay_reg = *I2C_DEL;
+	/*
+  volatile uint32_t delay_reg = *I2C_DEL;
 
 	// Extract the msb and lsb values from a pointer
 	volatile uint32_t msb1 = delay_reg & 0xFFFF0000;
@@ -1210,7 +1236,8 @@ uint32_t set_clock_delay(uint8_t FEDL, uint8_t REDL){
         
 	printf("msb1:%x\n", msb1); 
 	printf("lsb1:%x\n", lsb1);
-	printf("delay_reg:%x\n", delay_reg);*/
+	printf("delay_reg:%x\n", delay_reg);
+  */
 
 	return *I2C_DEL;
 }
@@ -1222,12 +1249,14 @@ void i2c_set_clock_freq(uint16_t divider)
 	volatile uint32_t msb = div_reg & 0xFFFF0000;
 	volatile uint32_t lsb = div_reg & 0x0000FFFF;
 
-	/*printf("cdiv msb:%x\n", msb); 
+	/*
+  printf("cdiv msb:%x\n", msb); 
 	printf("cdiv lsb:%x\n", lsb);
-	printf("cdiv_reg:%x\n", div_reg);*/
+	printf("cdiv_reg:%x\n", div_reg);
+  */
 
 	volatile uint32_t *div = I2C_DIV;
-    	lsb = 0x05DC;
+  lsb = 0x05DC;
 	// reset
 	*div = (volatile uint32_t)(msb << 16 | lsb);
 	//or
@@ -1247,7 +1276,7 @@ void i2c_set_clock_freq(uint16_t divider)
 void i2c_data_transfer_speed(uint32_t baud)
 {
 	/* get the divisor value from the 250 MHz system clock source */
-    	//uint32_t divider = (core_clock_freq / baud); 	// using a dynamic core clock freq
+  //uint32_t divider = (core_clock_freq / baud); 	// using a dynamic core clock freq
 
 	uint32_t divider = (CORE_CLK_FREQ/baud); 	// using a fixed core clock freq 
 
@@ -1258,24 +1287,26 @@ uint8_t i2c_rw_error(uint8_t i, uint8_t buf_len){
 
 	uint8_t result = 0;
 
-	/*volatile uint32_t *clkt  = I2C_CLKT;
-        printf("clkt:%i\n", *clkt); 
+	/*
+  volatile uint32_t *clkt  = I2C_CLKT;
+  printf("clkt:%i\n", *clkt); 
 
 	if(i == buf_len){
 		puts("Data tansfer is complete.");
-	}*/
+	}
+  */
 
 	if(i < buf_len)
 	{
 		result = 4;
 		printf("%s(): ", __func__);
-    		puts("Data tansfer is incomplete.");
+    puts("Data tansfer is incomplete.");
 	}
 	else if(i > buf_len)
 	{
 		result = 4;
 		printf("%s(): ", __func__);
-    		puts("Data tansfer error.");
+    puts("Data tansfer error.");
 	}
 
 	/* ERROR_NACK, slave addrress not acknowledge */
@@ -1283,7 +1314,7 @@ uint8_t i2c_rw_error(uint8_t i, uint8_t buf_len){
 	{
 		result = 1;
 		printf("%s(): ", __func__);
-    		puts("Slave address is not acknowledged.");
+    puts("Slave address is not acknowledged.");
 	}
 
 	/* ERROR_CLKT, clock stretch timeout */
@@ -1291,7 +1322,7 @@ uint8_t i2c_rw_error(uint8_t i, uint8_t buf_len){
 	{
 		result = 2;
 		printf("%s(): ", __func__); 
-    		puts("Clock stretch timeout.");
+    puts("Clock stretch timeout.");
 	}
 	/* write error
 	 * Check if FIFO is empty and all data is sent to FIFO
@@ -1303,7 +1334,6 @@ uint8_t i2c_rw_error(uint8_t i, uint8_t buf_len){
 		result = 4;
 		printf("%s(): ", __func__);
 		puts("Not all data were sent to the slave device.");
-		
 	}
 	/* read error
 	 * Check if FIFO is empty after reading sufficient data from FIFO
@@ -1314,7 +1344,7 @@ uint8_t i2c_rw_error(uint8_t i, uint8_t buf_len){
 		//puts("The i2c controller did not receive all data from slave device.");
 		result = 4;
 		printf("%s(): ", __func__); 
-    		puts("Not all data were received from the slave device.");
+ 		puts("Not all data were received from the slave device.");
 	}
 
 	/* check DONE and TA fields
@@ -1328,8 +1358,8 @@ uint8_t i2c_rw_error(uint8_t i, uint8_t buf_len){
 	else
 	{
 		result = 4;
-        	printf("%s(): ", __func__);
-    		puts("Data transfer is incomplete.");
+    printf("%s(): ", __func__);
+    puts("Data transfer is incomplete.");
 	}
 
 	return result;
@@ -1444,10 +1474,10 @@ uint8_t i2c_read(char* rbuf, uint8_t rbuf_len)
 	while(!isBitSet(I2C_S, 1))  // if DONE field = 1, data transfer is complete
 	{
 		//while(isBitSet(I2C_S, 5) && (i <= rbuf_len))
-    		while(isBitSet(I2C_S, 5) && (rbuf_len >= i )) // check RXD field (RXD = 0 FIFO is empty, RXD = 1 FIFO contains at least 1 byte of data)
+    while(isBitSet(I2C_S, 5) && (rbuf_len >= i )) // check RXD field (RXD = 0 FIFO is empty, RXD = 1 FIFO contains at least 1 byte of data)
 		{
-    			rbuf[i] = *fifo;
-    			i++;
+    	rbuf[i] = *fifo;
+    	i++;
 		}
 	}
 
@@ -1502,7 +1532,7 @@ void i2c_stop() {
 	clearBit(I2C_C, 15);	/* clear I2CEN field to disable I2C operation (BSC controller is disabled) */
 
 	if(i2c_pin_set == 0){
-        //puts("reset SDA0/SCL0 pins to GPIO input");
+    //puts("reset SDA0/SCL0 pins to GPIO input");
 		set_gpio(0, 0);	/* alt 00b, PHY 27, GPIO 00, alt 0 	SDA */
 		set_gpio(1, 0); /* alt 00b, PHY 28, GPIO 01, alt 0 	SCL */
 	}
@@ -1510,7 +1540,7 @@ void i2c_stop() {
 		//puts("reset SDA1/SCL1 pins to GPIO input");
 		set_gpio(2, 0);	/* alt 00b, PHY 3, GPIO 02, alt 0 	SDA */
 		set_gpio(3, 0); /* alt 00b, PHY 5, GPIO 03, alt 0 	SCL */
-    	}
+  }
 }
 
 /****************************
@@ -1521,14 +1551,14 @@ void i2c_stop() {
 /* Start SPI operation */
 int spi_start()
 {
-    	//rpi_init(1); 
+  //rpi_init(1);
 	//mswait(25);
 
 	__sync_synchronize(); 
 	if (SPI_CS == 0){
 		printf("%s() error: ", __func__);
-  		puts("Invalid SPI registers addresses.");
-  		return 0; 
+  	puts("Invalid SPI registers addresses.");
+  	return 0; 
 	}
 
 	set_gpio(8,  4);  // PHY 24, GPIO 8,  using value 100 , set to alt 0    CE0
@@ -1540,7 +1570,7 @@ int spi_start()
 	mswait(10);
 
 	clearBit(SPI_CS, 13); 	// set SPI to SPI Master (Standard SPI)
-	clear_fifo(SPI_CS); 	// Clear SPI TX and RX FIFO 
+	clear_fifo(SPI_CS); 	  // Clear SPI TX and RX FIFO 
 
 	return 1;
 }
@@ -1561,8 +1591,7 @@ void spi_stop() {
 void spi_set_clock_freq(uint16_t divider){
 
 	volatile uint32_t *div = SPI_CLK;
-
-    	*div = divider;
+ 	*div = divider;
 }
 
 /* Set SPI data mode
@@ -1576,33 +1605,33 @@ void spi_set_data_mode(uint8_t mode){
     
 	if(mode == 0){
 		clearBit(SPI_CS, 2); 		//CPHA 0
-    		clearBit(SPI_CS, 3); 		//CPOL 0
+    clearBit(SPI_CS, 3); 		//CPOL 0
 	}
 	else if(mode == 1){
-		setBit(SPI_CS, 2);		//CPHA 1
-    		clearBit(SPI_CS, 3);    	//CPOL 0
+		setBit(SPI_CS, 2);		  //CPHA 1
+    clearBit(SPI_CS, 3);    //CPOL 0
 	}
 	else if(mode == 2){		
 		clearBit(SPI_CS, 2);		//CPHA 0
-		setBit(SPI_CS, 3);		//CPOL 1
+		setBit(SPI_CS, 3);		  //CPOL 1
 	}
 	else if(mode == 3){
 		clearBit(SPI_CS, 2);		//CPHA 1
 		clearBit(SPI_CS, 3);		//CPOL 1
 	}
-    else{
-        printf("%s() error: ", __func__);
-        puts("invalid mode");
-    }
+  else{
+    printf("%s() error: ", __func__);
+    puts("invalid mode");
+  }
 
-    // alternate code
-    /*
-    volatile uint32_t *cs = SPI_CS;
-    uint32_t mask = ~ (3 <<  2);		// clear bit position 2 and 3 first
-    *cs &= mask;	  			// set mask to 0
-    mask = (mode <<  2); 			// write mode value to set SPI data mode   
-    *cs |= mask; 	  			// set data mode
-    */
+  // alternate code
+  /*
+  volatile uint32_t *cs = SPI_CS;
+  uint32_t mask = ~ (3 <<  2);		// clear bit position 2 and 3 first
+  *cs &= mask;	  			// set mask to 0
+  mask = (mode <<  2); 			// write mode value to set SPI data mode   
+  *cs |= mask; 	  			// set data mode
+  */
 }
 
 /* SPI Chip Select
@@ -1634,7 +1663,7 @@ void spi_set_chip_select_polarity(uint8_t cs, uint8_t active)
 		clearBit(SPI_CS, 21);
 	}
 	else if(cs == 0 && active == 1){
-    		setBit(SPI_CS, 21);
+    setBit(SPI_CS, 21);
 	}
 	else if(cs == 1 && active == 0){
 		clearBit(SPI_CS, 22);
@@ -1667,23 +1696,23 @@ void spi_data_transfer(char* wbuf, char* rbuf, uint8_t len)
 	/* Write data to FIFO */
 	while (w < len) 
 	{
-    		// TX fifo is not full, add/write more bytes
-    		while(isBitSet(SPI_CS, 18) && (w < len))
-    		{
-       			*fifo = wbuf[w];
-       			w++;
-     		}
+    // TX fifo is not full, add/write more bytes
+    while(isBitSet(SPI_CS, 18) && (w < len))
+    {
+    	*fifo = wbuf[w];
+    	w++;
+    }
 	}
 
 	/* read data from FIFO */
 	while (r < len)
 	{ 
-    		// RX fifo is not empty, read more received bytes 
+    // RX fifo is not empty, read more received bytes 
 		while(isBitSet(SPI_CS, 17) && (r < len ))
-    		{
-       			rbuf[r] = *fifo;
-       			r++;
-    		}
+    {
+    	rbuf[r] = *fifo;
+    	r++;
+    }
 	}
 
 	/* Set TA = 0, transfer is done */
@@ -1691,8 +1720,8 @@ void spi_data_transfer(char* wbuf, char* rbuf, uint8_t len)
 
 	/* DONE should be zero for complete data transfer */
 	if(isBitSet(SPI_CS, 16)){
-        	printf("%s() error: ", __func__);
-    		puts("data transfer error");
+    printf("%s() error: ", __func__);
+    puts("data transfer error");
 	}
 }
 
@@ -1714,8 +1743,8 @@ void spi_write(char* wbuf, uint8_t wbuf_len)
 		// TX fifo is not full, add/write more bytes
 		while(isBitSet(SPI_CS, 18) && (i < wbuf_len))
 		{
-	   		*fifo = wbuf[i];
-	   		i++;
+	   	*fifo = wbuf[i];
+	   	i++;
 	 	}
 	}
 }
@@ -1741,12 +1770,13 @@ void spi_read(char* rbuf, uint8_t rbuf_len)
 		// TX fifo is not full, add/write more bytes
 		while(isBitSet(SPI_CS, 17) && (i < rbuf_len))
 		{
-	   		rbuf[i] = *fifo;
-	   		i++;
+	   	rbuf[i] = *fifo;
+	   	i++;
 	 	}
 	}
 
 	/* Set TA = 0, transfer is done */
 	clearBit(SPI_CS, 7);
 }
+
 
