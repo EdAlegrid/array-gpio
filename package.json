@@ -1,7 +1,7 @@
 {
   "name": "array-gpio",
-  "version": "1.5.8",
-  "description": "array-gpio is low-level javascript library for Raspberry Pi using direct register control.",
+  "version": "1.7.3",
+  "description": "array-gpio is low-level javascript library for Raspberry Pi using direct register access.",
   "main": "index.js",
   "cpu" : ["arm","arm64"],
   "os": ["linux"],
@@ -29,10 +29,7 @@
     "bcm2835",
     "gpio",
     "pi",
-    "raspberry",
-    "raspberrypi",
     "raspberry pi",
-    "raspberry pi 3",
     "rpi",
     "rpio",
     "onoff",
@@ -41,7 +38,8 @@
     "spi",
     "m2m",
     "iot",
-    "IoT"
+    "IoT",
+    "industry 4.0"
   ],
   "homepage": "https://github.com/EdAlegrid/array-gpio",
   "bugs": "https://github.com/EdAlegrid/array-gpio/issues",
