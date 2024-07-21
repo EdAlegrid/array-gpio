@@ -6,9 +6,9 @@
 **array-gpio** is a low-level javascript library for Raspberry Pi using a direct register control.
 
 It maps the ARM peripheral registers in memory using */dev/mem* for PWM, I2C, SPI
-and */dev/gpiomem* for GPIO control.
+and */dev/gpiomem* for GPIO.
 
-One of its features is the use of *array objects* for GPIO input/output control.
+One of its features is the use of *array objects* for GPIO input monitoring and output control.
 
 ### ARM Peripheral Support
 - GPIO
@@ -89,7 +89,7 @@ let input = r.in(11);
 let output = r.out(33);
 ```
 
-Alternatively using the object destructuring assignment pattern, you can use the **setInput** and **setOutput** methods to create your input/output objects
+Alternatively using the object destructuring pattern, you can use the **setInput** and **setOutput** methods to create your input/output objects
 ```js
 const {setInput, setOutput} = require('array-gpio');
 
@@ -110,7 +110,7 @@ let sw = r.in(11);
 let led = r.out(33);
 
 // Pressing the switch sw button, the led will turn on
-// Releasing the switch sw button, the led will turn off
+// Releasing the switch sw button, the led will immediately turn off
 sw.watch((state) => {
   if(state){
     led.on();
@@ -133,10 +133,10 @@ let sw = r.in(11);
 let led = r.out(33);
 
 // Check the current state of sw and led object
-console.log(sw1.isOn); // false
+console.log(sw.isOn); // false
 console.log(led.isOn); // false
 
-console.log(sw1.isOff); // true
+console.log(sw.isOff); // true
 console.log(led.isOff); // true
 
 ```
@@ -144,6 +144,8 @@ console.log(led.isOff); // true
 ## Example 4
 ### Monitor multiple input objects
 To monitor multiple input objects, you can use the **watchInput()** method.
+
+Unlike the **watch** method, using the **watchInput()** method the led will stay on even if you release the sw button. We need to use another sw button to turn it off. 
 
 Connect a momentary *switch button* on pin **11, 13, 15** and **19** and an *led* on pin **33** and **35**.
 ```js
@@ -153,11 +155,10 @@ let sw1 = r.in(11), sw2 = r.in(13), sw3 = r.in(15), sw4 = r.in(19);
 
 let led1 = r.out(33), led2 = r.out(35);
 
-// Press sw1 to turn on led1, press sw2 to turn off led1
-// Press sw3 to turn on led2, press sw4 to turn off led2
+// To turn on led1 - press sw1, to turn it off - press sw2
+// To turn on led2 - press sw3, to turn it off - press sw4
 
-// The callback argument will be invoked 
-// if you press any of the input switches
+// The callback argument will be invoked if you press any of the input switches
 r.watchInput(() => {
   if(sw1.isOn){
     led1.on();
@@ -187,12 +188,12 @@ let sw2 = setInput(13);
 let led = setOutput(33);
 
 watchInput(() => {
+  // pressing sw1, the led will turn on after 1000 ms or 1 sec delay
   if(sw1.isOn){
-    // pressing sw1, the led will turn on after 1000 ms or 1 sec delay
     led.on(1000);
   }
+  // pressing sw2, the led will turn off after 500 ms or 0.5 sec delay   
   else if(sw2.isOn){
-    // pressing sw2, the led will turn off after 500 ms or 0.5 sec delay   
     led.off(500);
   }
 });
@@ -272,7 +273,7 @@ watchInput(() => {
 ```
 
 ## Example 7
-### Create a simple GPIO single one-shot pulse
+### Create a basic GPIO single one-shot pulse
 
 Connect a momentary *switch button* on pin **11, 13, 15** and an *led* on pin **33**.
 
@@ -283,6 +284,8 @@ let sw1 = setInput(11);
 let sw2 = setInput(13);
 let sw3 = setInput(15);
 let led = setOutput(33);
+
+The effect of led pulsing is similar to one-time led blinking. 
 
 watchInput(() => {
   // press sw1 to create a pulse with a duration of 50 ms  
