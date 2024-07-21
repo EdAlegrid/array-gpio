@@ -145,7 +145,7 @@ console.log(led.isOff); // true
 ### Monitor multiple input objects
 To monitor multiple input objects, you can use the **watchInput()** method.
 
-Unlike the **watch** method, using the **watchInput()** method the led will stay on even if you release the sw button. We need to use another sw button to turn it off. 
+Unlike the **watch()** method, using the **watchInput()** method the led will stay on even if you release the sw button. You need to use another sw button to turn it off. 
 
 Connect a momentary *switch button* on pin **11, 13, 15** and **19** and an *led* on pin **33** and **35**.
 ```js
