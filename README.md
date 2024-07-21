@@ -82,10 +82,10 @@ Using **in** and **out** method from *array-gpio* object module
 // create a raspberry pi (r) object
 const r = require('array-gpio');
 
-// set pin 11 as input
+// Set pin 11 as input
 let input = r.in(11);
 
-// set pin 33 as output
+// Set pin 33 as output
 let output = r.out(33);
 ```
 
@@ -93,10 +93,10 @@ Alternatively using the object destructuring pattern, you can use the **setInput
 ```js
 const {setInput, setOutput} = require('array-gpio');
 
-// set pin 11 as input
+// Set pin 11 as input
 let sw = setInput(11);
 
-// set pin 33 as output
+// Set pin 33 as output
 let led = setOutput(33);
 ```
 
@@ -138,27 +138,59 @@ console.log(led.isOn); // false
 
 console.log(sw.isOff); // true
 console.log(led.isOff); // true
-
 ```
 
 ## Example 4
 ### Monitor multiple input objects
 To monitor multiple input objects, you can use the **watchInput()** method.
 
-Unlike the **watch()** method, using the **watchInput()** method the led will stay on even if you release the sw button. You need to use another sw button to turn it off. 
+Connect a momentary *switch button* on pin **11 and 13** and an *led* on pin **33** and **35**.
+```js
+const r = require('array-gpio');
+
+let sw1 = r.in(11), sw2 = r.in(13);
+let led1 = r.out(33), led2 = r.out(35);
+
+The behavior of the input switches is smilar with example #2.    
+
+// The callback argument will be invoked if you press any of the two input switches
+r.watchInput(() => {
+  // Pressing sw1, the led1 will turn on
+  if(sw1.isOn){
+    led1.on();
+  }
+  // Releasing sw1, the led1 will immediately turn off
+  else if(sw1.isOff){
+    led1.off();
+  }
+
+  // Pressing sw2, the led2 will turn on
+  if(sw2.isOn){
+    led2.on();
+  }
+  // Releasing sw2, the led2 will immediately turn off
+  else if(sw2.isOff){
+    led2.off();
+  }
+});
+```
+<br>
+
+In the example below, we will use separate switches to turn on and off an output led. 
+
+The led will stay on even if you release the sw button. You need to use another sw button to turn it off. 
 
 Connect a momentary *switch button* on pin **11, 13, 15** and **19** and an *led* on pin **33** and **35**.
 ```js
 const r = require('array-gpio');
 
 let sw1 = r.in(11), sw2 = r.in(13), sw3 = r.in(15), sw4 = r.in(19);
-
 let led1 = r.out(33), led2 = r.out(35);
 
-// To turn on led1 - press sw1, to turn it off - press sw2
-// To turn on led2 - press sw3, to turn it off - press sw4
+// To turn on led1 - press sw1. To turn it off - press sw2.
+// To turn on led2 - press sw3. To turn it off - press sw4.
 
-// The callback argument will be invoked if you press any of the input switches
+// The callback argument will be invoked if you press any of the four input switches
 r.watchInput(() => {
   if(sw1.isOn){
     led1.on();
@@ -188,11 +220,11 @@ let sw2 = setInput(13);
 let led = setOutput(33);
 
 watchInput(() => {
-  // pressing sw1, the led will turn on after 1000 ms or 1 sec delay
+  // Pressing sw1, the led will turn on after 1000 ms or 1 sec delay
   if(sw1.isOn){
     led.on(1000);
   }
-  // pressing sw2, the led will turn off after 500 ms or 0.5 sec delay   
+  // Pressing sw2, the led will turn off after 500 ms or 0.5 sec delay   
   else if(sw2.isOn){
     led.off(500);
   }
@@ -210,7 +242,7 @@ const r = require('array-gpio');
 const sw = r.in({pin:[11, 13], index:'pin'});
 const led = r.out({pin:[33, 35, 37, 36, 38, 40], index:'pin'});
 
-// turn on all led outputs sequentially
+// Turn on all led outputs sequentially
 let LedOn = () => {
   let t = 0;   // initial on time delay in ms
   for(let x in led){
@@ -219,7 +251,7 @@ let LedOn = () => {
   }
 }
 
-// turn off all led outputs sequentially
+// Turn off all led outputs sequentially
 let LedOff = () => {
   let t = 0; // initial off time delay in ms
   for(let x in led){
@@ -285,18 +317,18 @@ let sw2 = setInput(13);
 let sw3 = setInput(15);
 let led = setOutput(33);
 
-The effect of led pulsing is similar to one-time led blinking. 
+The effect of pulsing an led is similar to a one-time led blinking. 
 
 watchInput(() => {
-  // press sw1 to create a pulse with a duration of 50 ms  
+  // Press sw1 to create a pulse with a duration of 50 ms  
   if(sw1.isOn){
     led.pulse(50);
   }
-  // press sw2 to create a pulse with a duration of 200 ms
+  // Press sw2 to create a pulse with a duration of 200 ms
   else if(sw2.isOn){
     led.pulse(200);
   }
-  // press sw3 to create a pulse with a duration of 1000 ms or 1 sec
+  // Press sw3 to create a pulse with a duration of 1000 ms or 1 sec
   else if(sw3.isOn){
     led.pulse(1000);
   }
