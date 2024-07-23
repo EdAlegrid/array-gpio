@@ -151,7 +151,7 @@ const r = require('array-gpio');
 let sw1 = r.in(11), sw2 = r.in(13);
 let led1 = r.out(33), led2 = r.out(35);
 
-The behavior of the input switches is smilar with example #2.    
+// The behavior of the input switches is smilar with example #2.    
 
 // The callback argument will be invoked if you press any of the two input switches
 r.watchInput(() => {
