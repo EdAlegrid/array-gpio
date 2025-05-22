@@ -113,6 +113,9 @@
 #define GPIO_GPPUDCLK0	(GPIO_PERI_BASE + 0x98/4)	
 #define GPIO_GPPUDCLK1	(GPIO_PERI_BASE + 0x9C/4)		
 
+/* BCM2711 GPIO resistors have different mechanics */
+#define GPIO_GPPUPPDN0	(GPIO_PERI_BASE + 0xE4/4)
+
 /* SPI registers */
 #define SPI_PERI_BASE	base_pointer[3]	// SPI0_BASE
 #define SPI_CS		(SPI_PERI_BASE + 0x00/4) 
@@ -445,6 +448,23 @@ uint32_t clearBit(volatile uint32_t* reg, uint8_t position)
 	return result;
 }
 
+void bcm2711_set_pud(uint8_t position, uint8_t pull) {
+	volatile uint32_t *reg = GPIO_GPPUPPDN0 + (position / 16);
+	int lsb = (position % 16) * 2;
+	uint32_t mask = 3 << lsb;
+	uint32_t value = ((3 - pull) % 3) << lsb;
+	*reg = (*reg & ~mask) | value;
+}
+
+void bcm2835_set_pud(uint8_t position, uint8_t pull) {
+	*GPIO_GPPUD = pull;
+	uswait(150);  	/* required wait times based on bcm2835 manual */
+	setBit(GPIO_GPPUDCLK0, position);
+	uswait(150);	/* required wait times based on bcm2835 manual */
+	*GPIO_GPPUD = 0x0;
+	clearBit(GPIO_GPPUDCLK0, position);
+}
+
 /* Check register bit position value - 0 (OFF state) or 1 (ON state) */  
 uint8_t isBitSet(volatile uint32_t* reg, uint8_t position)
 {
@@ -773,25 +793,21 @@ void gpio_reset_event(uint8_t pin) {
  * value = 2, 0x2 or 10b, Enable Pull-Up resistor
  */
 void gpio_enable_pud(uint8_t pin, uint8_t value) {
-	if(value == 0){       
-  	*GPIO_GPPUD = 0x0;	// Disable PUD/Pull-UP/Down
-  }
-	else if(value == 1){  
-   	*GPIO_GPPUD = 0x1;	// Enable PD/Pull-Down
-	}
-	else if(value == 2){ 
-  	*GPIO_GPPUD = 0x2;	// Enable PU/Pull-Up
-	}
-  else{
+	bool val_correct = value == 0 || value == 1 || value == 2;
+
+	if(!val_correct) {
 		printf("%s() error: ", __func__);
 		puts("Invalid pud value.");
-  }
+		return;
+	}
 
-	uswait(150);  	/* required wait times based on bcm2835 manual */
-	setBit(GPIO_GPPUDCLK0, pin);
-	uswait(150);	/* required wait times based on bcm2835 manual */
-	*GPIO_GPPUD = 0x0;
-	clearBit(GPIO_GPPUDCLK0, pin);
+	if (peri_base == PERI_BASE_RPI1 || peri_base == PERI_BASE_RPI23) {
+		bcm2835_set_pud(pin, value);
+	} else {
+		bcm2711_set_pud(pin, value);
+	}
+
+	return;
 }
 
 /*********************************
