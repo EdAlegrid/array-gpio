@@ -1014,9 +1014,7 @@ r.watchInput(() => {
 
 ***
 
-## PWM
-
-### Note: Currently, this is not working and available.
+## PWM (Currently, this is not working and available)
 
 ### startPWM(pin)
 
