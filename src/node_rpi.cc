@@ -5,13 +5,9 @@
  */
 
 #include <nan.h>
-#include <unistd.h>
-#include <errno.h>
 #include "rpi.h"
 
 #define LIBNAME node_bcm
-#define BCM_EVENT_LOW	0x1
-#define BCM_EVENT_HIGH 0x2
 
 using namespace Nan;
 
@@ -30,7 +26,7 @@ NAN_METHOD(rpi_init)
 }
 
 /*
- *  rpi closing 
+ *  rpi close 
  */
 NAN_METHOD(rpi_close)
 {
@@ -42,7 +38,7 @@ NAN_METHOD(rpi_close)
 }
 
 /*
- *  time delays 
+ *  Timers 
  */
 NAN_METHOD(nswait)
 {
@@ -80,6 +76,12 @@ NAN_METHOD(mswait)
 /*
  *  GPIO
  */
+NAN_METHOD(gpio_init)
+{
+	gpio_init();
+}
+
+
 NAN_METHOD(gpio_config) 
 {
 	if((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
@@ -194,7 +196,7 @@ NAN_METHOD(gpio_write)
 	info.GetReturnValue().Set(rval);
 }
 
-NAN_METHOD(gpio_enable_pud)
+NAN_METHOD(gpio_set_pud)
 {
 	if((info.Length() != 2) || (!info[0]->IsNumber()) || (!info[1]->IsNumber())){
 		return ThrowTypeError("Incorrect arguments");
@@ -203,12 +205,31 @@ NAN_METHOD(gpio_enable_pud)
 	uint8_t arg1 = info[0]->IntegerValue(Nan::GetCurrentContext()).ToChecked();
 	uint8_t arg2 = info[1]->IntegerValue(Nan::GetCurrentContext()).ToChecked();
 
-	gpio_enable_pud(arg1, arg2);
+	gpio_set_pud(arg1, arg2);
+}
+
+NAN_METHOD(gpio_get_pud)
+{
+	uint8_t ret;
+
+	if((info.Length() != 1) || (!info[0]->IsNumber())){
+		return ThrowTypeError("Incorrect arguments");
+	}
+
+	uint8_t arg1 = info[0]->IntegerValue(Nan::GetCurrentContext()).ToChecked();
+	
+	ret = gpio_get_pud(arg1);
+
+	info.GetReturnValue().Set(ret);
 }
 
 /*
  *  PWM
  */
+NAN_METHOD(pwm_init)
+{
+	pwm_init();
+}
 NAN_METHOD(pwm_set_pin)
 {
 	if((info.Length() != 1) || (!info[0]->IsNumber())){
@@ -325,26 +346,13 @@ NAN_METHOD(pwm_set_range)
  */
 NAN_METHOD(i2c_start)
 {
-	uint8_t rval;
-	
-	rval = i2c_start();
-	
-	info.GetReturnValue().Set(rval);
-}
-
-NAN_METHOD(i2c_init)
-{
-	uint8_t rval;
-	
 	if((info.Length() != 1) || (!info[0]->IsNumber() )){
 		return ThrowTypeError("Incorrect argument");
 	}
 
 	uint8_t arg = info[0]->IntegerValue(Nan::GetCurrentContext()).ToChecked();
         
-	rval = i2c_init(arg);
-
-	info.GetReturnValue().Set(rval);
+	i2c_start(arg);
 }
 
 NAN_METHOD(i2c_stop)
@@ -386,7 +394,7 @@ NAN_METHOD(i2c_data_transfer_speed)
 
 NAN_METHOD(i2c_write)
 {
-  uint8_t rval;
+  	uint8_t rval;
 
 	if((info.Length() != 2) || (!info[0]->IsObject()) || (!info[1]->IsNumber())){
 		return ThrowTypeError("Incorrect arguments");
@@ -430,11 +438,7 @@ NAN_METHOD(i2c_byte_read)
  */
 NAN_METHOD(spi_start)
 {
-	uint8_t rval;
-	
-	rval = spi_start();
-	
-	info.GetReturnValue().Set(rval);
+	spi_start();
 }
 
 NAN_METHOD(spi_stop)
@@ -534,6 +538,7 @@ NAN_MODULE_INIT(setup)
 	NAN_EXPORT(target, mswait);
 
 	/* gpio */
+	NAN_EXPORT(target, gpio_init);
 	NAN_EXPORT(target, gpio_config);
 	NAN_EXPORT(target, gpio_input);
 	NAN_EXPORT(target, gpio_output);
@@ -543,9 +548,11 @@ NAN_MODULE_INIT(setup)
 	NAN_EXPORT(target, gpio_reset_all_events);
 	NAN_EXPORT(target, gpio_reset_event);
 	NAN_EXPORT(target, gpio_write);
-	NAN_EXPORT(target, gpio_enable_pud);
+	NAN_EXPORT(target, gpio_set_pud);
+    NAN_EXPORT(target, gpio_get_pud);
 
 	/* pwm */
+    NAN_EXPORT(target, pwm_init);
 	NAN_EXPORT(target, pwm_set_pin);
 	NAN_EXPORT(target, pwm_reset_pin);
 	NAN_EXPORT(target, pwm_reset_all_pins);
@@ -559,7 +566,6 @@ NAN_MODULE_INIT(setup)
 
 	/* i2c */
 	NAN_EXPORT(target, i2c_start);
-	NAN_EXPORT(target, i2c_init);
 	NAN_EXPORT(target, i2c_stop);
 	NAN_EXPORT(target, i2c_select_slave);
 	NAN_EXPORT(target, i2c_set_clock_freq);

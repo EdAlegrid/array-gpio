@@ -12,29 +12,32 @@
 
 #define RPI_VERSION 100 
 
+#define debug 0
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-
 /* Initialize RPI library */ 
-extern void rpi_init(int access); 
+void rpi_init(uint8_t access); 
 
 /* Close RPI library */ 
-extern uint8_t rpi_close();
+uint8_t rpi_close();
 
 /**
- *  Time Delays
+ *  Timers
  */
-void nswait(uint64_t ns);  //nanosecond time delay
+void nswait(uint64_t ns);  //nanosecond
 
-void uswait(uint32_t us);  //microsecond time delay
+void uswait(uint32_t us);  //microsecond
 
-void mswait(uint32_t ms);  //millisecond time delay
+void mswait(uint32_t ms);  //millisecond
 
 /**
  *  GPIO
  */
+void gpio_init();
+
 void gpio_config(uint8_t pin, uint8_t mode);
 
 void gpio_input(uint8_t pin);
@@ -49,7 +52,7 @@ void gpio_on(uint8_t pin);
 
 void gpio_off(uint8_t pin);
 
-void gpio_pulse(uint8_t pin, int td);
+void gpio_pulse(uint8_t pin, uint32_t td);
 
 void gpio_reset_all_events(uint8_t pin);
 
@@ -69,11 +72,15 @@ uint8_t gpio_detect_input_event(uint8_t pin);
 
 void gpio_reset_event(uint8_t pin);
 
-void gpio_enable_pud(uint8_t pin, uint8_t value);
+void gpio_set_pud(uint8_t pin, uint8_t value);
+
+uint8_t gpio_get_pud(uint8_t pin);
 
 /**
  *  PWM
  */
+void pwm_init();
+
 void pwm_set_pin(uint8_t pin);
 
 void pwm_reset_pin(uint8_t pin);
@@ -97,9 +104,7 @@ void pwm_set_range(uint8_t pin, uint32_t range);
 /**
  *  I2C
  */
-int i2c_start();
-
-int i2c_init(uint8_t value);
+void i2c_start(uint8_t sel);
 
 void i2c_stop();
 
@@ -118,7 +123,7 @@ uint8_t i2c_byte_read();
 /**
  *  SPI
  */
-int spi_start();
+void spi_start();
 
 void spi_stop();
 
@@ -135,7 +140,6 @@ void spi_data_transfer(char* wbuf, char* rbuf, uint8_t len);
 void spi_write(char* wbuf, uint8_t len);
 
 void spi_read(char* rbuf, uint8_t len);
-
 
 #ifdef __cplusplus
 }
