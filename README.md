@@ -66,7 +66,7 @@ For IoT or machine-to-machine applications, please check [m2m](https://www.npmjs
 
 ## Installation
 ```console
-$ npm install array-gpio
+npm install array-gpio
 ```
 
 # Quick Tour
@@ -341,7 +341,7 @@ All pin numbering used on this module are based on the RPI board's pinout diagra
 
 If you are using a *Raspberry Pi OS*, you can check your board's pinout by entering *pinout* from a terminal.
 ```console
-$ pinout  
+pinout  
 ```
 
 All numbers in parenthesis are the pin numbers used on this module.
