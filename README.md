@@ -532,54 +532,50 @@ let input = r.setInput(11);
 let input = r.in(11);
 ```
 
-#### Array Object
+### Array Object
+By default, array object is indexed using zero-based indexing
+(0, 1, 2 ... x).
+
 ```js
 const r = require('array-gpio');
 
-let inputOption = {pin: [11, 13, 15]};
-
-const input = r.setInput(inputOption);
+// Method 1
+const input = r.setInput({pin: [11, 13, 15]});
 
 // or
 
-const input = r.in(inputOption);
-
-// By default, the array object created is indexed using zero-based indexing
-// (indexed from 0 to n-1, where n is the array.length).
+// Method 2
+const input = r.in(11, 13, 15);
 
 /* Get the current logical state of each input element */
 console.log(input[0].state);
 console.log(input[1].state);
 console.log(input[2].state);
 ```
-
-To use the pin as index, add an *index* property to the object argument and set the value to `'pin'`.
-
+#### To use the pin as index
 ```js
+// Method 1: Add an index property with a value of 'pin'
+let option = {pin:[11, 13, 15], index: 'pin'};
 
-let  inputOption = {pin:[11, 13, 15], index: 'pin'};
+const sw = r.setInput(option);
 
-const input = r.setInput(inputOption);
+// Method 2: Add 'pin' as the last element
+const sw = r.in(11, 13, 15, 'pin');
 
-/* Get the current logical state of each input element using pin as index */
-console.log(input[11].state);
-console.log(input[13].state);
-console.log(input[15].state);
+console.log(sw[11].state);
+console.log(sw[13].state);
+console.log(sw[15].state);
 
-
-/* Iterate over the array object in both cases to access each input element */
-for(let x in input){
-   console.log(input[x].isOn);
-}
+sw.forEach((o, pin) => {
+   console.log('sw.isOn', pin, o.isOn);
+});
 
 // or
 
-input.forEach(function(inputObject){
-   console.log(inputObject.isOn);
-});
-
+for(let x in sw){
+   console.log(sw[x].isOn);
+}
 ```
-
 ### watch (edge, callback, [s])
 
 `input method`
@@ -659,6 +655,8 @@ Stops monitoring an input object from the .watch() method.
 
 ### setR(value)
 
+#### Note: Please use the setPud method instead
+
 `input method`
 
 Sets the internal resistor of an input pin using either *pull up* or *pull down* resistor.
@@ -683,6 +681,38 @@ sw[0].setR('pu');
 sw[1].setR(0);
 // no internal resistor is used
 sw[2].setR();
+```
+
+### setPud(pud)
+
+`input method`
+
+Sets the internal resistor of an input pin using either *pull up* or *pull down* resistor.
+
+**pud**  
+
+`undefined` or `null` - No internal resistor is used 
+
+`1` - Enable internal *pull up* resistor
+
+`0` - Enable internal *pull down* resistor
+
+If argument is not provided, no internal resistor will be used.
+
+##### Example
+```js
+const r = require('array-gpio');
+
+let sw = r.in(33);
+
+// using pull up resistor
+sw.setPud(1);
+
+// using pull down resistor
+sw.setPud(0);
+
+// no internal resistor is used
+sw.setPud();
 ```
 
 ### watchInput(callback, [s])
@@ -809,21 +839,19 @@ led.on();
 ```
 
 #### Array Object
-
+By default, array object is indexed using zero-based indexing
 ```js
 const r = require('array-gpio');
 
-/* creates an array output object */
-let outputOption = {pin:[33, 35, 36]};
+// Method 1
+let option = {pin:[33, 35, 36]};
 
-const output = r.setOutput(outputOption);
+const output = r.setOutput(option);
 
 // or
 
-const output = r.out(outputOption);
-
-// Similar with input, the array object created is indexed using zero-based indexing
-// (indexed from 0 to n-1, where n is the array.length).
+// Method 2
+const output = r.out(33, 35, 36);
 
 /* Get the current logical state of each output element */
 console.log(output[0].state);
@@ -831,27 +859,29 @@ console.log(output[1].state);
 console.log(output[2].state);
 ```
 
-To use the pin as index, add an *index* property to the object argument and set the value to `'pin'`.
+#### To use the pin as index
 ```js
-let outputOption = {pin:[33, 35, 36], index:'pin'};
+// Method 1: Add an index property with a value of 'pin'
+let option = {pin:[33, 35, 36], index: 'pin'};
 
-const output = r.setOutput(outputOption);
+const led = r.setOutput(option);
 
-/* Get the current logical state of each output element using pin as index */
-console.log(output[33].state);
-console.log(output[35].state);
-console.log(output[36].state);
+// Method 2: Add 'pin' as the last element
+const led = r.in(33, 35, 36, 'pin');
 
-// iterate over the array object in both cases to access each output element
-for(let x in output){
-   output[x].on();
-}
+console.log(led[33].state);
+console.log(led[35].state);
+console.log(led[36].state);
+
+led.forEach((o, pin) => {
+   console.log('led.isOn', pin, o.isOn);
+});
 
 // or
 
-output.forEach(function(outputObject){
-   outputObject.on();
-});
+for(let x in led){
+   console.log(led[x].isOn);
+}
 ```
 
 ### on([t],[callback]) and off([t],[callback])
@@ -985,6 +1015,8 @@ r.watchInput(() => {
 ***
 
 ## PWM
+
+### Note: Currently, this is not working and available.
 
 ### startPWM(pin)
 
@@ -1190,7 +1222,7 @@ This operation requires root access.
 ### begin()
 
 Starts i2c operation in your application.
-This operation is integrated in setI2C() method, so there is no need to call it explicitly to start the i2c operation.
+This operation is integrated in startI2C() method, so there is no need to call it explicitly to start the i2c operation.
 
 ### end()
 
