@@ -945,7 +945,7 @@ r.watchInput(() => {
 
 `output method`
 
-This is the conventional way of setting the ouput state to *high* or *low* state condition.
+The conventional way of setting an output state to *high* or *low* level condition.
 
 **bit** - control bit value.
 
