@@ -687,6 +687,8 @@ sw[2].setR();
 
 `input method`
 
+**Note:** Rpi 4 pins 3 and 5 are not controllable. 
+
 Sets the internal resistor of an input pin using either *pull up* or *pull down* resistor.
 
 **pud**  
