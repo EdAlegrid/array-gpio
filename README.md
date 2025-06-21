@@ -111,7 +111,7 @@ let led = r.out(33);
 
 // Pressing the switch sw button, the led will turn on
 // Releasing the switch sw button, the led will immediately turn off
-sw.watch((state) => {
+sw.watchPin((state) => {
   if(state){
     led.on();
   }
