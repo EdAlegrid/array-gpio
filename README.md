@@ -238,6 +238,7 @@ Connect a momentary *switch button* for each input pin and an *led* for each out
 ![](https://raw.githubusercontent.com/EdoLabs/src3/master/quick-example4.svg?sanitize=true)
 ```js
 const r = require('array-gpio');
+
 // Method 1
 const sw = r.in({pin:[11, 13], index:'pin'});
 const led = r.out({pin:[33, 35, 37, 36, 38, 40], index:'pin'});
