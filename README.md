@@ -324,7 +324,7 @@ let sw2 = setInput(13);
 let sw3 = setInput(15);
 let led = setOutput(33);
 
-The effect of pulsing an led is similar to a one-time led blinking. 
+// led pulsing is similar to a one-time led blinking 
 
 watchInput(() => {
   // Press sw1 to create a pulse with a duration of 50 ms  
