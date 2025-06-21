@@ -89,7 +89,7 @@ let input = r.in(11);
 let output = r.out(33);
 ```
 
-Alternatively using the object destructuring pattern, you can use the **setInput** and **setOutput** methods to create your input/output objects
+You can use the **setInput** and **setOutput** methods to create your gpio objects
 ```js
 const {setInput, setOutput} = require('array-gpio');
 
