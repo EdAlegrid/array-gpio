@@ -154,7 +154,9 @@ let led1 = r.out(33), led2 = r.out(35);
 // The behavior of the input switches is smilar with example #2.    
 
 // The callback argument will be invoked if you press any of the two input switches
-r.watchInput(() => {
+r.watchInput((state, pin) => {
+  console.log('pin', pin, 'state', state);
+
   // Pressing sw1, the led1 will turn on
   if(sw1.isOn){
     led1.on();
