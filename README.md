@@ -277,8 +277,11 @@ r.watchInput(() => {
 ```js
 const {setInput, setOutput, watchInput} = require('array-gpio');
 
-const sw = setInput({pin:[11, 13], index:'pin'});
-const led = setOutput({pin:[33, 35, 37, 36, 38, 40], index:'pin'});
+//const sw = setInput({pin:[11, 13], index:'pin'});
+//const led = setOutput({pin:[33, 35, 37, 36, 38, 40], index:'pin'});
+
+const sw = r.in(11, 13, 'pin');
+const led = r.out(33, 35, 37, 36, 38, 40, 'pin');
 
 let LedOn = () => {
   let t = 0;
