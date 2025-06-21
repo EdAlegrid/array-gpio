@@ -88,8 +88,8 @@ let input = r.in(11);
 // Set pin 33 as output
 let output = r.out(33);
 ```
-
-You can use the **setInput** and **setOutput** methods to create your gpio objects
+ 
+Alternatively, you can use the **setInput** and **setOutput** methods to create your gpio objects.
 ```js
 const {setInput, setOutput} = require('array-gpio');
 
