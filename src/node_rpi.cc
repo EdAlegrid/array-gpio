@@ -549,10 +549,10 @@ NAN_MODULE_INIT(setup)
 	NAN_EXPORT(target, gpio_reset_event);
 	NAN_EXPORT(target, gpio_write);
 	NAN_EXPORT(target, gpio_set_pud);
-    NAN_EXPORT(target, gpio_get_pud);
+	NAN_EXPORT(target, gpio_get_pud);
 
 	/* pwm */
-    NAN_EXPORT(target, pwm_init);
+	NAN_EXPORT(target, pwm_init);
 	NAN_EXPORT(target, pwm_set_pin);
 	NAN_EXPORT(target, pwm_reset_pin);
 	NAN_EXPORT(target, pwm_reset_all_pins);
