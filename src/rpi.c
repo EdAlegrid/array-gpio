@@ -143,12 +143,12 @@
 #define INFO_SIZE 100
 
 /* Dynamic peripheral base address array */
-volatile uint32_t base_add[10] = {}; // ininialize each element to 0
+volatile uint32_t base_add[10] = {0}; // ininialize each element to 0
 
 /* Dynamic peripheral base address array pointer
  * This is the return mapped address of each peripheral base address
  */
-volatile uint32_t *base_pointer[10] = {}; // ininialize each element to 0
+volatile uint32_t *base_pointer[10] = {0}; // ininialize each element to 0
 
 /* page_size variable */
 uint32_t page_size = 0; 
