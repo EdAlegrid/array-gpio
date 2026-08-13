@@ -1519,7 +1519,7 @@ uint8_t i2c_write(const char* wbuf, uint8_t wbuf_len)
 	{
 		// TXW = 0 FIFO is at least ¼ full and a write is underway
 		// TXW = 1 FIFO is less than ¼ full and a write is underway
-		while(isBitSet(I2C_S, 2) && (i <= wbuf_len))
+		while(isBitSet(I2C_S, 2) && (i < wbuf_len))
 		{
 			*fifo = wbuf[i];
 			i++;
