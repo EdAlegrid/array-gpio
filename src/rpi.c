@@ -1551,7 +1551,7 @@ uint8_t i2c_read(char* rbuf, uint8_t rbuf_len)
 
 	while(!isBitSet(I2C_S, 1))  // if DONE field = 1, data transfer is complete
 	{
-    	while(isBitSet(I2C_S, 5) && (rbuf_len >= i )) // check RXD field (RXD = 0 FIFO is empty, RXD = 1 FIFO contains at least 1 byte of data)
+    	while(isBitSet(I2C_S, 5) && (rbuf_len > i )) // check RXD field (RXD = 0 FIFO is empty, RXD = 1 FIFO contains at least 1 byte of data)
 		{
     		rbuf[i] = *fifo;
     		i++;
