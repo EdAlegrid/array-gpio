@@ -1519,7 +1519,7 @@ uint8_t i2c_write(const char* wbuf, uint8_t wbuf_len)
 	{
 		// TXW = 0 FIFO is at least ¼ full and a write is underway
 		// TXW = 1 FIFO is less than ¼ full and a write is underway
-		while(isBitSet(I2C_S, 2) && (i <= wbuf_len))
+		while(isBitSet(I2C_S, 2) && (i < wbuf_len))
 		{
 			*fifo = wbuf[i];
 			i++;
@@ -1551,7 +1551,7 @@ uint8_t i2c_read(char* rbuf, uint8_t rbuf_len)
 
 	while(!isBitSet(I2C_S, 1))  // if DONE field = 1, data transfer is complete
 	{
-    	while(isBitSet(I2C_S, 5) && (rbuf_len >= i )) // check RXD field (RXD = 0 FIFO is empty, RXD = 1 FIFO contains at least 1 byte of data)
+    	while(isBitSet(I2C_S, 5) && (rbuf_len > i )) // check RXD field (RXD = 0 FIFO is empty, RXD = 1 FIFO contains at least 1 byte of data)
 		{
     		rbuf[i] = *fifo;
     		i++;
