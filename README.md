@@ -552,8 +552,6 @@ const r = require('array-gpio');
 // Method 1
 const input = r.setInput({pin: [11, 13, 15]});
 
-// or
-
 // Method 2
 const input = r.in(11, 13, 15);
 
@@ -566,7 +564,6 @@ console.log(input[2].state);
 ```js
 // Method 1: Add an index property with a value of 'pin'
 let option = {pin:[11, 13, 15], index: 'pin'};
-
 const sw = r.setInput(option);
 
 // Method 2: Add 'pin' as the last element
@@ -857,10 +854,7 @@ const r = require('array-gpio');
 
 // Method 1
 let option = {pin:[33, 35, 36]};
-
 const output = r.setOutput(option);
-
-// or
 
 // Method 2
 const output = r.out(33, 35, 36);
@@ -875,11 +869,10 @@ console.log(output[2].state);
 ```js
 // Method 1: Add an index property with a value of 'pin'
 let option = {pin:[33, 35, 36], index: 'pin'};
-
 const led = r.setOutput(option);
 
 // Method 2: Add 'pin' as the last element
-const led = r.in(33, 35, 36, 'pin');
+const led = r.out(33, 35, 36, 'pin');
 
 console.log(led[33].state);
 console.log(led[35].state);
